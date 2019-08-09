@@ -7,3 +7,16 @@
 
 ## 工具
 [Git](https://git-scm.com/download/win)
+
+##脚本
+create table user(
+        	id int auto_increment,
+        	account_id varchar(100),
+        	name varchar(50),
+        	token char(36),
+        	gmt_create BIGINT,
+        	gmt_modified BIGINT,
+        	bio varchar(256),
+        	constraint user_pk
+        		primary key (id)
+            );
