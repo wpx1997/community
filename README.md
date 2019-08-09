@@ -21,3 +21,4 @@ create table user(
         	constraint user_pk
         		primary key (id)
             );
+~~~
