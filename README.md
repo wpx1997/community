@@ -9,6 +9,7 @@
 [Git](https://git-scm.com/download/win)
 
 ##脚本
+~~~sql
 create table user(
         	id int auto_increment,
         	account_id varchar(100),
