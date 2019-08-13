@@ -71,6 +71,7 @@ public class PublishController {
         }
 
         Question question = new Question();
+        question.setAccountId(user.getAccountId());
         question.setTitle(title);
         question.setDescription(description);
         question.setGmtCreate(System.currentTimeMillis());

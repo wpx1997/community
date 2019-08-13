@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class QuestionDTO {
     private Integer id;
+    private String accountId;
     private String title;
     private String description;
     private String tag;
