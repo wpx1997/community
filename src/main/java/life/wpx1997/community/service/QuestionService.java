@@ -1,5 +1,6 @@
 package life.wpx1997.community.service;
 
+import life.wpx1997.community.dto.LabelDTO;
 import life.wpx1997.community.dto.PaginationDTO;
 import life.wpx1997.community.dto.QuestionDTO;
 import life.wpx1997.community.mapper.QuestionMapper;
@@ -95,5 +96,90 @@ public class QuestionService {
         paginationprofileDTO.setQuestions(questionDTOList);
 
         return paginationprofileDTO;
+    }
+
+    public PaginationDTO listByTag(String tag, Integer page, Integer size) {
+        PaginationDTO paginationmorelikeDTO = new PaginationDTO();
+        Integer totalCount = questionMapper.countByQuestionTag(tag);
+        Integer totalPage;
+
+        if (totalCount % size == 0){
+            totalPage = totalCount / size;
+        }else {
+            totalPage = totalCount / size + 1;
+        }
+
+        if (page<1){
+            page = 1;
+        }
+        if (page>totalPage){
+            page = totalPage;
+        }
+
+        paginationmorelikeDTO.setPaination(totalPage,page);
+        Integer offset = size*(page-1);
+
+        List<Question> questions = questionMapper.listByQuestionTag(tag,offset,size);
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
+
+        for (Question question : questions){
+            User user = userMapper.fingById(question.getCreator());
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(question,questionDTO);
+            questionDTO.setUser(user);
+            questionDTOList.add(questionDTO);
+        }
+
+        paginationmorelikeDTO.setQuestions(questionDTOList);
+
+        return paginationmorelikeDTO;
+    }
+
+    public QuestionDTO getById(Integer id) {
+        Question question = questionMapper.getById(id);
+        User user = userMapper.fingById(question.getCreator());
+        QuestionDTO questionDTO = new QuestionDTO();
+        BeanUtils.copyProperties(question,questionDTO);
+        questionDTO.setUser(user);
+        return questionDTO;
+    }
+
+    public LabelDTO getByTag(String tag) {
+
+        LabelDTO likeQuestions = new LabelDTO();
+
+        List<Question> questions = questionMapper.listByTag(tag);
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
+        if(questions.size() >= 10){
+            for (int i=0;i<10;i++){
+                QuestionDTO questionDTO = new QuestionDTO();
+                BeanUtils.copyProperties(questions.get(i),questionDTO);
+                questionDTOList.add(questionDTO);
+            }
+        }else {
+            for (Question question : questions){
+                QuestionDTO questionDTO = new QuestionDTO();
+                BeanUtils.copyProperties(question,questionDTO);
+                questionDTOList.add(questionDTO);
+            }
+        }
+
+        likeQuestions.setLikeQuestions(questionDTOList);
+
+        return likeQuestions;
+    }
+
+
+    public void createOrUpdate(Question question) {
+        if (question.getId() == null){
+//            创建新问题
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.create(question);
+        }else {
+//            更新已有问题
+            question.setGmtModified(System.currentTimeMillis());
+            questionMapper.update(question);
+        }
     }
 }

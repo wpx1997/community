@@ -5,6 +5,7 @@ import life.wpx1997.community.dto.GithubUser;
 import life.wpx1997.community.mapper.UserMapper;
 import life.wpx1997.community.model.User;
 import life.wpx1997.community.provider.GithubProvider;
+import life.wpx1997.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,7 @@ public class AuthorizeController {
     private String redirectUri;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code, @RequestParam(name = "state") String state, HttpServletRequest request, HttpServletResponse response){
@@ -50,12 +51,10 @@ public class AuthorizeController {
             user.setToken(token);
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtCreate());
             user.setAvatarUrl(githubUser.getAvatar_url());
 
-            //登录成功，写cookie和session
-            userMapper.insert(user);
+            userService.createOrUpdate(user);
+
             response.addCookie(new Cookie("token",token));
             return "redirect:/";
         }else {
@@ -63,4 +62,16 @@ public class AuthorizeController {
             return "redirect:/";
         }
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request,
+                         HttpServletResponse response){
+        request.getSession().removeAttribute("user");
+        Cookie cookie = new Cookie("token",null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "redirect:/";
+    }
+
+
 }

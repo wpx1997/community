@@ -40,7 +40,9 @@
                                 <span aria-hidden="true">&lt;</span>
                             </a>
                         </li>
-                        <li th:each="page : ${paginationprofile.pages}" th:class="${paginationprofile.page == page}?'active':''"><a th:text="${page}" th:href="@{/profile/questions/(page=${page})}"></a></li>
+                        <li th:each="page : ${paginationprofile.pages}" th:class="${paginationprofile.page == page}?'active':''">
+                            <a th:text="${page}" th:href="@{/profile/questions/(page=${page})}"></a>
+                        </li>
                         <li th:if="${paginationprofile.showNext}">
                             <a th:href="@{/profile/questions/(page=${paginationprofile.page}+1)}" aria-label="Next">
                                 <span aria-hidden="true">&gt;</span>

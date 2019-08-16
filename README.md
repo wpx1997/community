@@ -22,6 +22,7 @@ create table user(
         	gmt_create BIGINT,
         	gmt_modified BIGINT,
         	bio varchar(256),
+            avatar_url varchar(100),
         	constraint user_pk
         		primary key (id)
             );
@@ -31,6 +32,7 @@ create table user(
 create table question
 (
 	id int auto_increment,
+    account_id varchar(100),
 	title varchar(50),
 	description text,
 	gmt_create BIGINT,
