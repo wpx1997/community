@@ -1,6 +1,5 @@
 package life.wpx1997.community.service;
 
-import life.wpx1997.community.dto.LabelDTO;
 import life.wpx1997.community.dto.PaginationDTO;
 import life.wpx1997.community.dto.QuestionDTO;
 import life.wpx1997.community.mapper.QuestionMapper;
@@ -144,9 +143,9 @@ public class QuestionService {
         return questionDTO;
     }
 
-    public LabelDTO getByTag(String tag) {
+    public PaginationDTO getByTag(String tag) {
 
-        LabelDTO likeQuestions = new LabelDTO();
+        PaginationDTO likeQuestions = new PaginationDTO();
 
         List<Question> questions = questionMapper.listByTag(tag);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
@@ -164,7 +163,7 @@ public class QuestionService {
             }
         }
 
-        likeQuestions.setLikeQuestions(questionDTOList);
+        likeQuestions.setQuestions(questionDTOList);
 
         return likeQuestions;
     }

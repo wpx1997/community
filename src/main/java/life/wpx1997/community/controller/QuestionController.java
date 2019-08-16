@@ -1,6 +1,5 @@
 package life.wpx1997.community.controller;
 
-import life.wpx1997.community.dto.LabelDTO;
 import life.wpx1997.community.dto.PaginationDTO;
 import life.wpx1997.community.dto.QuestionDTO;
 import life.wpx1997.community.service.QuestionService;
@@ -38,7 +37,7 @@ public class QuestionController {
                                Model model){
 
         QuestionDTO thisQuestion = questionService.getById(id);
-        LabelDTO likeQuestions = questionService.getByTag(thisQuestion.getTag());
+        PaginationDTO likeQuestions = questionService.getByTag(thisQuestion.getTag());
 
         model.addAttribute("question",thisQuestion);
         model.addAttribute("label",likeQuestions);
