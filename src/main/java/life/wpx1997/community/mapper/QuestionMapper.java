@@ -16,11 +16,11 @@ public interface QuestionMapper {
     @Select("select count(1) from question")
     Integer count();
 
-    @Select("select * from question where account_id = #{userAccountId} limit #{offset},#{size}")
-    List<Question> listByUserAccountId(@Param("userAccountId") String userAccountId,@Param(value = "offset") Integer offset,@Param(value = "size") Integer size);
+    @Select("select * from question where creator = #{userId} limit #{offset},#{size}")
+    List<Question> listByUserId(@Param("userId") Integer userId,@Param(value = "offset") Integer offset,@Param(value = "size") Integer size);
 
-    @Select("select count(1) from question where account_id = #{userAccountId}")
-    Integer countByUserAccountId(@Param("userAccountId") String userAccountId);
+    @Select("select count(1) from question where creator = #{userId}")
+    Integer countByUserId(@Param("userId") Integer userId);
 
     @Select("select * from question where id = #{id}")
     Question getById(@Param("id") Integer id);
@@ -39,4 +39,7 @@ public interface QuestionMapper {
 
     @Select("select * from question where tag = #{tag}")
     Question getByTag(@Param("tag")String tag);
+
+    @Select("select * from question where creator = #{creator}")
+    List<Question> listByCreator(@Param("creator") Integer creator);
 }

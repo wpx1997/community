@@ -2,7 +2,6 @@ package life.wpx1997.community.controller;
 
 import life.wpx1997.community.dto.AccessokenDTO;
 import life.wpx1997.community.dto.GithubUser;
-import life.wpx1997.community.mapper.UserMapper;
 import life.wpx1997.community.model.User;
 import life.wpx1997.community.provider.GithubProvider;
 import life.wpx1997.community.service.UserService;
@@ -35,7 +34,9 @@ public class AuthorizeController {
     private UserService userService;
 
     @GetMapping("/callback")
-    public String callback(@RequestParam(name = "code") String code, @RequestParam(name = "state") String state, HttpServletRequest request, HttpServletResponse response){
+    public String callback(@RequestParam(name = "code") String code,
+                           @RequestParam(name = "state") String state,
+                           HttpServletResponse response){
         AccessokenDTO accessokenDTO = new AccessokenDTO();
         accessokenDTO.setClient_id(clientId);
         accessokenDTO.setClient_secret(clientSecret);

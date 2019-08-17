@@ -13,7 +13,7 @@
 <div th:insert="~{navigation :: nav}"></div>
 <div class="container-fluid main profile">
     <!--  当点击问题时传递id时显示  -->
-    <div class="row" th:if="${judge} == 'no'">
+    <div class="row" th:if="${judge} == 'id'">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4><span th:text="${question.title}"></span></h4>
@@ -34,7 +34,8 @@
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h4>发起人</h4>
+                <h4 th:if="${state} == 'disLogin'">发起人</h4>
+                <h4 th:if="${state} == 'login'">我的信息</h4>
                 <div class="media-left">
                     <a href="#">
                         <img class=" media-object img-rounded" th:src="${question.user.avatarUrl}">
@@ -54,12 +55,21 @@
                 </div>
                 .........
                 <h5><a th:href="@{'/question/tag/'+${question.tag}}">更多相关问题</a></h5>
+                <hr>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${state} == 'login'">
+                <h4>我的其他问题</h4>
+                <div class="media" th:each="titlequestion : ${label.questions} ">
+                    <a th:href="@{'/question/'+${titlequestion.id}}" th:text="${titlequestion.title}"></a>
+                </div>
+                .........
+                <h5><a th:href="@{/profile/questions}">我所有的问题</a></h5>
             </div>
             <hr>
         </div>
     </div>
     <!--  当点击更多问题或问题标签传递tag时显示  -->
-    <div class="row" th:if="${judge} == 'yes'">
+    <div class="row" th:if="${judge} == 'tag'">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h3><span class="morelike-tags" th:text="${tag}"></span>相关问题</h3>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

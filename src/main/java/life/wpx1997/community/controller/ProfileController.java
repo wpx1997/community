@@ -38,7 +38,7 @@ public class ProfileController {
             model.addAttribute("name","最新回复");
         }
 
-        PaginationDTO paginationprofile = questionService.list(user.getAccountId(), page, size);
+        PaginationDTO paginationprofile = questionService.list(user.getId(), page, size);
         model.addAttribute("paginationprofile",paginationprofile);
         return "profile";
     }

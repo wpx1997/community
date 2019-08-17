@@ -60,9 +60,9 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public PaginationDTO list(String userAccountId, Integer page, Integer size) {
+    public PaginationDTO list(Integer userId, Integer page, Integer size) {
         PaginationDTO paginationprofileDTO = new PaginationDTO();
-        Integer totalCount = questionMapper.countByUserAccountId(userAccountId);
+        Integer totalCount = questionMapper.countByUserId(userId);
         Integer totalPage;
 
         if (totalCount % size == 0){
@@ -81,7 +81,7 @@ public class QuestionService {
         paginationprofileDTO.setPaination(totalPage,page);
         Integer offset = size*(page-1);
 
-        List<Question> questions = questionMapper.listByUserAccountId(userAccountId,offset,size);
+        List<Question> questions = questionMapper.listByUserId(userId,offset,size);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
         for (Question question : questions){
@@ -180,5 +180,31 @@ public class QuestionService {
             question.setGmtModified(System.currentTimeMillis());
             questionMapper.update(question);
         }
+    }
+
+    public PaginationDTO getByCreator(Integer creator) {
+
+        PaginationDTO likeQuestions = new PaginationDTO();
+
+        List<Question> questions = questionMapper.listByCreator(creator);
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
+        if(questions.size() >= 10){
+            for (int i=0;i<10;i++){
+                QuestionDTO questionDTO = new QuestionDTO();
+                BeanUtils.copyProperties(questions.get(i),questionDTO);
+                questionDTOList.add(questionDTO);
+            }
+        }else {
+            for (Question question : questions){
+                QuestionDTO questionDTO = new QuestionDTO();
+                BeanUtils.copyProperties(question,questionDTO);
+                questionDTOList.add(questionDTO);
+            }
+        }
+
+        likeQuestions.setQuestions(questionDTOList);
+
+        return likeQuestions;
+
     }
 }
