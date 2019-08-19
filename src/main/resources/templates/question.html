@@ -12,6 +12,7 @@
 <body>
 <div th:insert="~{navigation :: nav}"></div>
 <div class="container-fluid main profile">
+
     <!--  当点击问题时传递id时显示  -->
     <div class="row" th:if="${judge} == 'id'">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
@@ -59,7 +60,7 @@
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${state} == 'login'">
                 <h4>我的其他问题</h4>
-                <div class="media" th:each="titlequestion : ${label.questions} ">
+                <div class="media" th:each="titlequestion : ${profile.questions} ">
                     <a th:href="@{'/question/'+${titlequestion.id}}" th:text="${titlequestion.title}"></a>
                 </div>
                 .........
@@ -68,6 +69,7 @@
             <hr>
         </div>
     </div>
+
     <!--  当点击更多问题或问题标签传递tag时显示  -->
     <div class="row" th:if="${judge} == 'tag'">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">

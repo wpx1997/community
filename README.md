@@ -46,5 +46,7 @@ create table question
 		primary key (id)
 );
 ~~~
-
+~~~
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
+~~~
 
