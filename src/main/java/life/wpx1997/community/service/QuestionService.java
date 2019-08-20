@@ -2,6 +2,9 @@ package life.wpx1997.community.service;
 
 import life.wpx1997.community.dto.PaginationDTO;
 import life.wpx1997.community.dto.QuestionDTO;
+import life.wpx1997.community.exception.CustomizeErrorCode;
+import life.wpx1997.community.exception.CustomzeException;
+import life.wpx1997.community.mapper.QuestionExpandMapper;
 import life.wpx1997.community.mapper.QuestionMapper;
 import life.wpx1997.community.mapper.UserMapper;
 import life.wpx1997.community.model.Question;
@@ -24,6 +27,10 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private QuestionExpandMapper questionExpandMapper;
+
+//    查询数据库中所有问题并进行分页和返回
     public PaginationDTO list(Integer page, Integer size) {
 
         PaginationDTO paginationDTO = new PaginationDTO();
@@ -62,7 +69,8 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public PaginationDTO list(Integer userId, Integer page, Integer size) {
+//    根据用户id查询其所有问题并进行分页和返回
+    public PaginationDTO list(Long userId, Integer page, Integer size) {
         PaginationDTO paginationprofileDTO = new PaginationDTO();
         QuestionExample example = new QuestionExample();
         example.createCriteria().andCreatorEqualTo(userId);
@@ -103,6 +111,7 @@ public class QuestionService {
         return paginationprofileDTO;
     }
 
+//    根据页面传递tag查询相关问题并进行分页和返回
     public PaginationDTO listByTag(String tag, Integer page, Integer size) {
         PaginationDTO paginationmorelikeDTO = new PaginationDTO();
         QuestionExample example = new QuestionExample();
@@ -145,15 +154,7 @@ public class QuestionService {
         return paginationmorelikeDTO;
     }
 
-    public QuestionDTO getById(Integer id) {
-        Question question = questionMapper.selectByPrimaryKey(id);
-        User user = userMapper.selectByPrimaryKey(question.getCreator());
-        QuestionDTO questionDTO = new QuestionDTO();
-        BeanUtils.copyProperties(question,questionDTO);
-        questionDTO.setUser(user);
-        return questionDTO;
-    }
-
+//    根据页面展示问题的tag查询相关问题并返回前十条问题
     public PaginationDTO getByTag(String tag) {
 
         PaginationDTO likeQuestions = new PaginationDTO();
@@ -181,9 +182,27 @@ public class QuestionService {
     }
 
 
+    //    根据页面传递id查询问题的内容
+    public QuestionDTO getById(Long id) {
+        Question question = questionMapper.selectByPrimaryKey(id);
+        if (question == null){
+            throw new CustomzeException("你找的问题不存在，要不换个试试？");
+        }
+        QuestionDTO questionDTO = new QuestionDTO();
+        BeanUtils.copyProperties(question,questionDTO);
+        User user = userMapper.selectByPrimaryKey(question.getCreator());
+        questionDTO.setUser(user);
+        return questionDTO;
+    }
+
+
+//    编辑问题点击发布后判断是更新已有问题还是直接发布新问题
     public void createOrUpdate(Question question) {
         if (question.getId() == null){
 //            创建新问题
+            question.setCommentCount((long) 0);
+            question.setViewCount((long) 0);
+            question.setLikeCount((long) 0);
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
             questionMapper.insert(question);
@@ -198,11 +217,15 @@ public class QuestionService {
 
             QuestionExample example = new QuestionExample();
             example.createCriteria().andIdEqualTo(question.getId());
-            questionMapper.updateByExampleSelective(updateQuestion,example);
+            int update = questionMapper.updateByExampleSelective(updateQuestion,example);
+            if (update != 1){
+                throw new CustomzeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
         }
     }
 
-    public PaginationDTO getByCreator(Integer creator) {
+//    若当前用户为展示问题的作者，则根据问题creator查询并返回其前十条问题
+    public PaginationDTO getByCreator(Long creator) {
 
         PaginationDTO likeQuestions = new PaginationDTO();
 
@@ -229,5 +252,13 @@ public class QuestionService {
 
         return likeQuestions;
 
+    }
+
+//    点击问题时累计问题的阅读数
+    public void cumulativeView(Long id) {
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount((long) 1);
+        questionExpandMapper.cumulativeView(question);
     }
 }

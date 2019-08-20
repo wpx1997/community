@@ -86,8 +86,8 @@
                 <version>5.2.4</version>
                 <configuration>
                     <url>jdbc:mysql://localhost:3306/community</url>
-                    <user>communityuser</user>
-                    <password>community1997</password>
+                    <user>root</user>
+                    <password>wpx1997</password>
                 </configuration>
                 <dependencies>
                     <dependency>

@@ -36,21 +36,25 @@ public class QuestionController {
     }
 
     @GetMapping("/question/{id}")
-    public String questionById(@PathVariable(name = "id") Integer id,
+    public String questionById(@PathVariable(name = "id") Long id,
                                HttpServletRequest request,
                                Model model){
 
-
+//        获取当前登录用户
         User user = (User)request.getSession().getAttribute("user");
+//        根据页面传递的id查询问题的内容
         QuestionDTO thisQuestion = questionService.getById(id);
+//        累计问题阅读数
+        questionService.cumulativeView(id);
+//        根据问题的标签查询相似的问题
         PaginationDTO likeQuestions = questionService.getByTag(thisQuestion.getTag());
 
-//        如果用户未登录或不是此问题的作者，则add状态state为disLogin
+//        如果用户未登录或不是此问题的作者，则状态state为disLogin
         if (user == null || user.getId() != thisQuestion.getCreator()){
             model.addAttribute("state","disLogin");
         }
 
-//        如果用户已登录且是此问题的作者，则add状态state为login且根据此问题作者id搜索并返回其所有问题
+//        如果用户已登录且是此问题的作者，则状态state为login且根据此问题作者id搜索并返回其所有问题
         if (user != null && user.getId() == thisQuestion.getCreator()){
             PaginationDTO myQuestions = questionService.getByCreator(thisQuestion.getCreator());
             model.addAttribute("state","login");

@@ -1,5 +1,6 @@
 package life.wpx1997.community.advice;
 
+import life.wpx1997.community.exception.CustomzeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,10 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class CustomizeExceptionHandler {
     @ExceptionHandler(Exception.class)
-    ModelAndView handle(HttpServletRequest request, Throwable ex, Model model) {
+    ModelAndView handle(Throwable e, Model model) {
 
-        HttpStatus status = getStatus(request);
-        model.addAttribute("message","叫你不要乱输入咯!!!");
+        if (e instanceof CustomzeException){
+            model.addAttribute("message",e.getMessage());
+        }else {
+            model.addAttribute("message","服务器炸了，稍等一下!!!");
+        }
 
         return new ModelAndView("error");
     }
