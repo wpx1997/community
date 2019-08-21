@@ -3,7 +3,7 @@ package life.wpx1997.community.service;
 import life.wpx1997.community.dto.PaginationDTO;
 import life.wpx1997.community.dto.QuestionDTO;
 import life.wpx1997.community.exception.CustomizeErrorCode;
-import life.wpx1997.community.exception.CustomzeException;
+import life.wpx1997.community.exception.CustomizeException;
 import life.wpx1997.community.mapper.QuestionExpandMapper;
 import life.wpx1997.community.mapper.QuestionMapper;
 import life.wpx1997.community.mapper.UserMapper;
@@ -186,7 +186,7 @@ public class QuestionService {
     public QuestionDTO getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         if (question == null){
-            throw new CustomzeException("你找的问题不存在，要不换个试试？");
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
         }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
@@ -200,9 +200,9 @@ public class QuestionService {
     public void createOrUpdate(Question question) {
         if (question.getId() == null){
 //            创建新问题
-            question.setCommentCount((long) 0);
-            question.setViewCount((long) 0);
-            question.setLikeCount((long) 0);
+            question.setCommentCount(0L);
+            question.setViewCount(0L);
+            question.setLikeCount(0L);
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
             questionMapper.insert(question);
@@ -219,7 +219,7 @@ public class QuestionService {
             example.createCriteria().andIdEqualTo(question.getId());
             int update = questionMapper.updateByExampleSelective(updateQuestion,example);
             if (update != 1){
-                throw new CustomzeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
         }
     }
@@ -258,7 +258,7 @@ public class QuestionService {
     public void cumulativeView(Long id) {
         Question question = new Question();
         question.setId(id);
-        question.setViewCount((long) 1);
+        question.setViewCount(1L);
         questionExpandMapper.cumulativeView(question);
     }
 }

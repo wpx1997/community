@@ -21,7 +21,13 @@
   <update id="cumulativeView" parameterType="life.wpx1997.community.model.Question">
     update question
     set
-    view_count = view_count + #{viewCount,jdbcType=INTEGER}
+    view_count = view_count + #{viewCount,jdbcType=Long}
+    where id = #{id}
+  </update>
+  <update id="cumulativeCommentCount" parameterType="life.wpx1997.community.model.Question">
+    update question
+    set
+    comment_count = comment_count + #{commentCount,jdbcType=Long}
     where id = #{id}
   </update>
 </mapper>
