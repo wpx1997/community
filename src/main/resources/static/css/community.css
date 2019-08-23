@@ -17,6 +17,10 @@ body{
     height: 40px;
 }
 
+.media-body{
+    padding-top: 0;
+}
+
 .text-desc{
     font-size: 12px;
     font-weight: normal;
@@ -25,6 +29,10 @@ body{
 
 .profile .section{
     margin-top: 15px;
+}
+
+.question-title{
+    margin-top: 25px;
 }
 
 .question-tags{
@@ -57,3 +65,68 @@ body{
     margin: 15px;
 }
 
+.comment{
+    margin: 10px 0;
+}
+
+.btn-comment{
+    float: right;
+    margin-bottom: 10px;
+}
+
+.meta{
+    min-height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+}
+
+.comment-right{
+    margin-right: 15px;
+}
+
+.comment-title{
+    position: relative;
+    z-index: 1;
+    min-height: 40px;
+    margin: 0;
+    padding: 30px 20px 0;
+    border-color: #e6e6e6;
+}
+
+.comment-body{
+    padding-top: 6px;
+}
+
+.title-style{
+    position: absolute;
+    top: 31px;
+    left: 0;
+    margin: 0;
+    font-size: 20px;
+}
+
+.comment-count-style{
+    position: absolute;
+    top: 22px;
+    left: 15px;
+    margin: 1px;
+    font-size: 13px;
+}
+
+.hr-height{
+    line-height: 6px;
+}
+
+.comment-menu{
+    font-size: 15px;
+    color: #999;
+}
+
+.comment-menu .like-count{
+    margin-right: 6px;
+    cursor: pointer;
+}
+
+.comment-menu .like-count:hover{
+    color: #499ef3;
+}

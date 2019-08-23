@@ -1,15 +1,24 @@
 package life.wpx1997.community.service;
 
+import life.wpx1997.community.dto.CommentDTO;
 import life.wpx1997.community.enums.CommentTypeEnum;
 import life.wpx1997.community.exception.CustomizeErrorCode;
 import life.wpx1997.community.exception.CustomizeException;
 import life.wpx1997.community.mapper.CommentMapper;
 import life.wpx1997.community.mapper.QuestionExpandMapper;
 import life.wpx1997.community.mapper.QuestionMapper;
-import life.wpx1997.community.model.Comment;
-import life.wpx1997.community.model.Question;
+import life.wpx1997.community.mapper.UserMapper;
+import life.wpx1997.community.model.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentService {
@@ -20,6 +29,13 @@ public class CommentService {
     @Autowired
     private QuestionExpandMapper questionExpandMapper;
 
+    @Autowired
+    private QuestionMapper questionMapper;
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Transactional
     public void insert(Comment comment) {
 
 //        如果回复的问题或评论的id为null或0
@@ -40,10 +56,11 @@ public class CommentService {
             }
             commentMapper.insert(comment);
         }
+//        如果需要传入的comment的type与QUESTION匹配
         else {
-            Question question = new Question();
+            Question dbQuestion = questionMapper.selectByPrimaryKey(comment.getQuestionId());
 //            如果需要传入的comment的type与QUESTION匹配但问题不存在
-            if (question == null){
+            if (dbQuestion == null){
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
 
@@ -51,9 +68,40 @@ public class CommentService {
             commentMapper.insert(comment);
 
 //            累计评论数
-            question.setCommentCount(1L);
-            questionExpandMapper.cumulativeCommentCount(question);
+            dbQuestion.setCommentCount(1L);
+            questionExpandMapper.cumulativeCommentCount(dbQuestion);
 
         }
+    }
+
+    public List<CommentDTO> listByQuestionId(Long id) {
+        CommentExample commentExample = new CommentExample();
+        commentExample.createCriteria().andQuestionIdEqualTo(id).andTypeEqualTo(CommentTypeEnum.QUESTION.getType());
+        commentExample.setOrderByClause("gmt_create desc");
+        List<Comment> comments = commentMapper.selectByExample(commentExample);
+        if (comments.size() == 0){
+            return new ArrayList<>();
+        }
+
+//        获取去重的评论人
+        Set<Long> commentators = comments.stream().map(comment -> comment.getCommentator()).collect(Collectors.toSet());
+        List<Long> userIds = new ArrayList<>();
+        userIds.addAll(commentators);
+
+//        获取评论人并转换为 Map
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andIdIn(userIds);
+        List<User> users = userMapper.selectByExample(userExample);
+        Map<Long, User> userMap = users.stream().collect(Collectors.toMap(user -> user.getId(), user -> user));
+
+//        转换 comment 为 commentDTO
+        List<CommentDTO> commentDTOS = comments.stream().map(comment -> {
+            CommentDTO commentDTO = new CommentDTO();
+            BeanUtils.copyProperties(comment,commentDTO);
+            commentDTO.setUser(userMap.get(comment.getCommentator()));
+            return commentDTO;
+        }).collect(Collectors.toList());
+
+        return commentDTOS;
     }
 }
