@@ -6,6 +6,7 @@
 [Github OAuth](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)
 [Bootstrap](https://v3.bootcss.com/)
 [thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)
+[moment](http://momentjs.cn/downloads/moment.min.js)
 
 ## 工具
 [Git](https://git-scm.com/download/win)
@@ -33,34 +34,35 @@ create table user
 ~~~sql
 create table question
 (
-	id bigint auto_increment,
-	creator bigint not null,
-	title varchar(50),
-	description text,
-	tag varchar(256),
-	gmt_create bigint,
-	gmt_modified bigint,
-	comment_count bigint default 0,
-	view_count bigint default 0,
-	like_count bigint default 0,
-	constraint question_pk
-		primary key (id)
+    id bigint auto_increment,
+    creator bigint not null,
+    title varchar(50),
+    description text,
+    tag varchar(256),
+    gmt_create bigint,
+    gmt_modified bigint,
+    comment_count bigint default 0,
+    view_count bigint default 0,
+    like_count bigint default 0,
+    constraint question_pk
+        primary key (id)
 );
 ~~~
 创建comment表
 ~~~sql
 create table comment
 (
-	id bigint auto_increment,
-	question_id bigint not null,
-	commentator bigint not null,
-	type int not null,
-	content varchar(1024),
-	gmt_create bigint,
-	gmt_modified bigint,
-	like_count bigint default 0,
-	constraint comment_pk
-		primary key (id)
+    id bigint auto_increment,
+    parent_id bigint not null,
+    commentator bigint not null,
+    type int not null,
+    content varchar(1024),
+    gmt_create bigint,
+    gmt_modified bigint,
+    like_count bigint default 0,
+    comment_count bigint default 0,
+    constraint comment_pk
+        primary key (id)
 );
 ~~~
 

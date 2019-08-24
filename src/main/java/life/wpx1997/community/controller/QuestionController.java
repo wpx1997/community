@@ -1,9 +1,9 @@
 package life.wpx1997.community.controller;
 
-import life.wpx1997.community.dto.CommentCreateDTO;
 import life.wpx1997.community.dto.CommentDTO;
 import life.wpx1997.community.dto.PaginationDTO;
 import life.wpx1997.community.dto.QuestionDTO;
+import life.wpx1997.community.enums.CommentTypeEnum;
 import life.wpx1997.community.model.User;
 import life.wpx1997.community.service.CommentService;
 import life.wpx1997.community.service.QuestionService;
@@ -52,7 +52,7 @@ public class QuestionController {
 //        根据页面传递的id查询问题的内容
         QuestionDTO thisQuestion = questionService.getById(id);
 //        根据此问题id查询评论内容
-        List<CommentDTO> comments = commentService.listByQuestionId(id);
+        List<CommentDTO> comments = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
 //        累计问题阅读数
         questionService.cumulativeView(id);
 //        根据问题的标签查询相似的问题

@@ -4,10 +4,7 @@ import life.wpx1997.community.dto.CommentDTO;
 import life.wpx1997.community.enums.CommentTypeEnum;
 import life.wpx1997.community.exception.CustomizeErrorCode;
 import life.wpx1997.community.exception.CustomizeException;
-import life.wpx1997.community.mapper.CommentMapper;
-import life.wpx1997.community.mapper.QuestionExpandMapper;
-import life.wpx1997.community.mapper.QuestionMapper;
-import life.wpx1997.community.mapper.UserMapper;
+import life.wpx1997.community.mapper.*;
 import life.wpx1997.community.model.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +32,14 @@ public class CommentService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private CommentExpandMapper commentExpandMapper;
+
     @Transactional
     public void insert(Comment comment) {
 
 //        如果回复的问题或评论的id为null或0
-        if (comment.getQuestionId() == null || comment.getQuestionId() == 0){
+        if (comment.getParentId() == null || comment.getParentId() == 0){
             throw new CustomizeException(CustomizeErrorCode.TAGET_PARAM_NOT_FOUND);
         }
 
@@ -50,15 +50,20 @@ public class CommentService {
 
 //        如果需要传入的comment的type与COMMENT匹配
         if (comment.getType() == CommentTypeEnum.COMMENT.getType()){
-            Comment dbComment = commentMapper.selectByPrimaryKey(comment.getQuestionId());
+            Comment dbComment = commentMapper.selectByPrimaryKey(comment.getParentId());
+//            如果回复的comment不存在
             if (dbComment == null){
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
+//            将comment的comment插入数据库
             commentMapper.insert(comment);
+//            累计comment的commentCount
+            dbComment.setCommentCount(1L);
+            commentExpandMapper.cumulativeCommentCount(dbComment);
         }
 //        如果需要传入的comment的type与QUESTION匹配
         else {
-            Question dbQuestion = questionMapper.selectByPrimaryKey(comment.getQuestionId());
+            Question dbQuestion = questionMapper.selectByPrimaryKey(comment.getParentId());
 //            如果需要传入的comment的type与QUESTION匹配但问题不存在
             if (dbQuestion == null){
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
@@ -74,9 +79,9 @@ public class CommentService {
         }
     }
 
-    public List<CommentDTO> listByQuestionId(Long id) {
+    public List<CommentDTO> listByTargetId(Long id, CommentTypeEnum type) {
         CommentExample commentExample = new CommentExample();
-        commentExample.createCriteria().andQuestionIdEqualTo(id).andTypeEqualTo(CommentTypeEnum.QUESTION.getType());
+        commentExample.createCriteria().andParentIdEqualTo(id).andTypeEqualTo(type.getType());
         commentExample.setOrderByClause("gmt_create desc");
         List<Comment> comments = commentMapper.selectByExample(commentExample);
         if (comments.size() == 0){
