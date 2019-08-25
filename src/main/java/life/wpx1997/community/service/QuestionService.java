@@ -10,13 +10,16 @@ import life.wpx1997.community.mapper.UserMapper;
 import life.wpx1997.community.model.Question;
 import life.wpx1997.community.model.QuestionExample;
 import life.wpx1997.community.model.User;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
@@ -117,9 +120,12 @@ public class QuestionService {
 //    根据页面传递tag查询相关问题并进行分页和返回
     public PaginationDTO listByTag(String tag, Integer page, Integer size) {
         PaginationDTO paginationmorelikeDTO = new PaginationDTO();
-        QuestionExample example = new QuestionExample();
-        example.createCriteria().andTagEqualTo(tag);
-        Integer totalCount = (int)questionMapper.countByExample(example);
+
+        String[] tags = StringUtils.split(tag,"，");
+        String regexpTag = Arrays.stream(tags).collect(Collectors.joining("|"));
+        Question countQuestion = new Question();
+        countQuestion.setTag(regexpTag);
+        Integer totalCount = (int)questionExpandMapper.countByTag(countQuestion);
         Integer totalPage;
 
         if (totalCount % size == 0){
@@ -138,10 +144,12 @@ public class QuestionService {
         paginationmorelikeDTO.setPaination(totalPage,page);
         Integer offset = size*(page-1);
 
-        QuestionExample questionExample = new QuestionExample();
-        questionExample.createCriteria().andTagEqualTo(tag);
-        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(questionExample,new RowBounds(offset,size));
+        PaginationDTO paginationDTO = new PaginationDTO();
+        paginationDTO.setTag(regexpTag);
+        paginationDTO.setOffset(offset);
+        paginationDTO.setSize(size);
 
+        List<Question> questions = questionExpandMapper.selectByTagWithPage(paginationDTO);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
         for (Question question : questions){
@@ -155,33 +163,6 @@ public class QuestionService {
         paginationmorelikeDTO.setQuestions(questionDTOList);
 
         return paginationmorelikeDTO;
-    }
-
-//    根据页面展示问题的tag查询相关问题并返回前十条问题
-    public PaginationDTO getByTag(String tag) {
-
-        PaginationDTO likeQuestions = new PaginationDTO();
-        QuestionExample example = new QuestionExample();
-        example.createCriteria().andTagEqualTo(tag);
-        List<Question> questions = questionMapper.selectByExample(example);
-        List<QuestionDTO> questionDTOList = new ArrayList<>();
-        if(questions.size() >= 10){
-            for (int i=0;i<10;i++){
-                QuestionDTO questionDTO = new QuestionDTO();
-                BeanUtils.copyProperties(questions.get(i),questionDTO);
-                questionDTOList.add(questionDTO);
-            }
-        }else {
-            for (Question question : questions){
-                QuestionDTO questionDTO = new QuestionDTO();
-                BeanUtils.copyProperties(question,questionDTO);
-                questionDTOList.add(questionDTO);
-            }
-        }
-
-        likeQuestions.setQuestions(questionDTOList);
-
-        return likeQuestions;
     }
 
 
@@ -263,5 +244,22 @@ public class QuestionService {
         question.setId(id);
         question.setViewCount(1L);
         questionExpandMapper.cumulativeView(question);
+    }
+//    根据页面展示问题的tag查询相关问题并返回前十条问题
+    public List<QuestionDTO> getByTag(QuestionDTO tagDTO) {
+        String[] tags = StringUtils.split(tagDTO.getTag(),"，");
+        String regexpTag = Arrays.stream(tags).collect(Collectors.joining("|"));
+        Question question = new Question();
+        question.setId(tagDTO.getId());
+        question.setTag(regexpTag);
+        List<Question> questions = questionExpandMapper.selectByTag(question);
+
+        List<QuestionDTO> questionDTOS = questions.stream().map(q -> {
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(q,questionDTO);
+            return questionDTO;
+        }).collect(Collectors.toList());
+
+        return questionDTOS;
     }
 }

@@ -56,7 +56,7 @@ public class QuestionController {
 //        累计问题阅读数
         questionService.cumulativeView(id);
 //        根据问题的标签查询相似的问题
-        PaginationDTO likeQuestions = questionService.getByTag(thisQuestion.getTag());
+        List<QuestionDTO> likeQuestions = questionService.getByTag(thisQuestion);
 
 //        如果用户未登录或不是此问题的作者，则状态state为disLogin
         if (user == null || user.getId() != thisQuestion.getCreator()){

@@ -1,10 +1,12 @@
 package life.wpx1997.community.controller;
 
+import life.wpx1997.community.cache.TagCache;
 import life.wpx1997.community.dto.QuestionDTO;
 import life.wpx1997.community.mapper.QuestionMapper;
 import life.wpx1997.community.model.Question;
 import life.wpx1997.community.model.User;
 import life.wpx1997.community.service.QuestionService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +37,8 @@ public class PublishController {
     }
 
     @GetMapping("/publish")
-    public String publish(){
+    public String publish(Model model){
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
     
@@ -67,6 +70,13 @@ public class PublishController {
             model.addAttribute("error","标签不能为空");
             return "publish";
         }
+
+        String invalid = TagCache.filterInvalid(tag);
+        if (StringUtils.isNotBlank(invalid)){
+            model.addAttribute("error","输入非法标签"+invalid);
+            return "publish";
+        }
+
 
         User user = (User) request.getSession().getAttribute("user");
 

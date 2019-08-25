@@ -15,6 +15,9 @@ public class PaginationDTO {
     private Integer page;
     private List<Integer> pages = new ArrayList<>();
     private Integer totalPage;
+    private String tag;
+    private Integer offset;
+    private Integer size;
 
     public void setPaination(Integer totalPage, Integer page) {
         this.totalPage = totalPage;

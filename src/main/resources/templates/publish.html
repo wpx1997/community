@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/community.css"/>
     <script src="/js/jquery-3.4.1.min.js" type="application/javascript"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/js/community.js" type="application/javascript"></script>
 </head>
 <body>
 
@@ -21,7 +22,7 @@
                 <input type="hidden" name="id" th:value="${id}">
                 <div class="form-group">
                     <label for="title">问题标题（简单扼要）：</label>
-                    <input type="text" class="form-control" th:value="${title}" id="title" name="title" placeholder="问题标题">
+                    <input type="text" class="form-control" th:value="${title}" id="title" name="title" autocomplete="off" placeholder="问题标题">
                 </div>
                 <div class="form-group">
                     <label for="description">问题补充（必填，请参照右侧提示）：</label>
@@ -29,7 +30,21 @@
                 </div>
                 <div class="form-group">
                     <label for="tag">添加标签：</label>
-                    <input type="text" class="form-control" th:value="${tag}" id="tag" name="tag" placeholder="输入标签，以“，”隔开">
+                    <input type="text" class="form-control" th:value="${tag}" id="tag" name="tag" autocomplete="off" placeholder="输入标签，以“，”隔开" onclick="showAddTag()">
+                    <div id="add-tag" class="publish-tag-tab">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" th:each="addCategory : ${tags}">
+                                <a th:href="${'#'+addCategory.categoryName}" aria-controls="home" role="tab" data-toggle="tab" th:text="${addCategory.categoryName}"></a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane tag-top" th:id="${addCategory.categoryName}" th:each="addCategory : ${tags}">
+                                <span class="label label-info tag-size tag-right" th:each="addTag : ${addCategory.tags}">
+                                    <span class="glyphicon glyphicon-tags" onclick="addTag(this)" th:data-tag="${addTag}" th:text="' '+${addTag}"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="container-fluid main">
                     <div class="row">

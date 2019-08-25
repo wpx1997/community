@@ -12,6 +12,11 @@ body{
     margin-bottom: 15px;
 }
 
+.publish-tag-tab{
+    display: none;
+    margin-top: 10px;
+}
+
 .media-object{
     width: 40px;
     height: 40px;
@@ -119,7 +124,7 @@ body{
 
 .comment-count-style{
     position: absolute;
-    top: 22px;
+    bottom: 35px;
     left: 15px;
     margin: 1px;
     font-size: 13px;
@@ -128,6 +133,34 @@ body{
 .hr-height{
     line-height: 6px;
 }
+
+.wechat{
+    width: 70%;
+}
+
+.tag-size{
+    font-size: 13px;
+}
+
+.tag-color{
+    color: white;
+}
+
+/*
+* publish
+*/
+
+.tag-top{
+    margin-top: 10px;
+}
+
+.tag-right{
+    margin-right: 11px;
+}
+
+/*
+* question
+*/
 
 .comment-menu{
     font-size: 15px;
@@ -139,10 +172,10 @@ body{
     cursor: pointer;
 }
 
-.comment-menu .active{
+.comment-menu .like-count:hover{
     color: #499ef3;
 }
 
-.comment-menu .like-count:hover{
+.comment-menu .active{
     color: #499ef3;
 }
