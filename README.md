@@ -65,7 +65,22 @@ create table comment
         primary key (id)
 );
 ~~~
+创建notification表
+~~~sql
+create table notification
+(
+    id bigint auto_increment,
+    notifier bigint,
+    receiver bigint,
+    outer_id bigint,
+    type int,
+    gmt_create bigint,
+    status int default 0,
+    constraint notification_pk
+        primary key (id)
+);
 
+~~~
 ~~~
 mvn flyway:migrate
 mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate

@@ -7,16 +7,6 @@ body{
     margin: 30px;
 }
 
-.btn-publish{
-    float: right;
-    margin-bottom: 15px;
-}
-
-.publish-tag-tab{
-    display: none;
-    margin-top: 10px;
-}
-
 .media-object{
     width: 40px;
     height: 40px;
@@ -138,10 +128,6 @@ body{
     width: 70%;
 }
 
-.tag-size{
-    font-size: 13px;
-}
-
 .tag-color{
     color: white;
 }
@@ -150,13 +136,32 @@ body{
 * publish
 */
 
+.btn-publish{
+    float: right;
+    margin-bottom: 15px;
+}
+
+.publish-tag-tab{
+    display: none;
+    margin-top: 10px;
+}
+
 .tag-top{
     margin-top: 10px;
 }
 
-.tag-right{
-    margin-right: 11px;
+.tag-style{
+    font-size: 13px;
+    margin: 5px 5px;
+    white-space: normal;
+    display: inline-block;
 }
+
+
+
+
+
+
 
 /*
 * question
@@ -178,4 +183,18 @@ body{
 
 .comment-menu .active{
     color: #499ef3;
+}
+
+.question-tag-size{
+    font-size: 13px;
+}
+
+
+/*
+* profile
+*/
+
+.profile-media-body-style{
+    margin-right: 12px;
+    font-size: 10px;
 }

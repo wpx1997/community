@@ -137,8 +137,8 @@
             <!--    如果用户为此问题作者  -->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${state} == 'login'">
                 <h4>我的其他问题</h4>
-                <div class="media" th:each="titlequestion : ${profile.questions} ">
-                    <a th:href="@{'/question/'+${titlequestion.id}}" th:text="${titlequestion.title}"></a>
+                <div class="media" th:each="myQuestion : ${myQuestions} ">
+                    <a th:href="@{'/question/'+${myQuestion.id}}" th:text="${myQuestion.title}"></a>
                 </div>
                 .........
                 <h5><a th:href="@{/profile/questions}">我所有的问题</a></h5>
@@ -153,7 +153,7 @@
             <h3><span class="morelike-tags" th:text="${tag}"></span>相关问题</h3>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <hr>
-                <div class="media" th:each="question : ${paginationMoreQuestion.questions}">
+                <div class="media" th:each="question : ${paginationMoreQuestion.data}">
                     <div class="media-left">
                         <a href="#">
                             <img class=" media-object img-rounded" th:src="${question.user.avatarUrl}">
@@ -169,7 +169,7 @@
                         <hr>
                     </div>
                 </div>
-                <nav aria-label="Page navigation">
+                <nav aria-label="Page navigation" th:if="${paginationMoreQuestion.totalPage}>1">
                     <ul class="pagination">
                         <li th:if="${paginationMoreQuestion.showFirstPage}">
                             <a th:href="@{'/question/tag/'+${tag}(page=1)}" aria-label="First">

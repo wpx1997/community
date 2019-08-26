@@ -4,6 +4,7 @@ import life.wpx1997.community.dto.CommentDTO;
 import life.wpx1997.community.dto.PaginationDTO;
 import life.wpx1997.community.dto.QuestionDTO;
 import life.wpx1997.community.enums.CommentTypeEnum;
+import life.wpx1997.community.model.Question;
 import life.wpx1997.community.model.User;
 import life.wpx1997.community.service.CommentService;
 import life.wpx1997.community.service.QuestionService;
@@ -33,7 +34,7 @@ public class QuestionController {
                                 Model model){
 
 //        根据标签返回此页面问题的相似问题
-        PaginationDTO paginationMoreQuestion = questionService.listByTag(tag,page,size);
+        PaginationDTO<QuestionDTO> paginationMoreQuestion = questionService.listByTag(tag,page,size);
 
         model.addAttribute("paginationMoreQuestion",paginationMoreQuestion);
 //        问题显示形式judge为tag
@@ -65,9 +66,9 @@ public class QuestionController {
 
 //        如果用户已登录且是此问题的作者，则状态state为login且根据此问题作者id搜索并返回其最多十条问题的标题
         if (user != null && user.getId() == thisQuestion.getCreator()){
-            PaginationDTO myQuestions = questionService.getByCreator(thisQuestion.getCreator());
+            List<QuestionDTO> myQuestions = questionService.getByCreator(thisQuestion.getCreator());
             model.addAttribute("state","login");
-            model.addAttribute("profile",myQuestions);
+            model.addAttribute("myQuestions",myQuestions);
         }
 
 //        增加此问题内容

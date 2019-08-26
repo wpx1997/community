@@ -2,6 +2,8 @@ package life.wpx1997.community.service;
 
 import life.wpx1997.community.dto.CommentDTO;
 import life.wpx1997.community.enums.CommentTypeEnum;
+import life.wpx1997.community.enums.NotificationTypeEnum;
+import life.wpx1997.community.enums.NotificationStatusEnum;
 import life.wpx1997.community.exception.CustomizeErrorCode;
 import life.wpx1997.community.exception.CustomizeException;
 import life.wpx1997.community.mapper.*;
@@ -10,7 +12,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,8 +36,11 @@ public class CommentService {
     @Autowired
     private CommentExpandMapper commentExpandMapper;
 
+    @Autowired
+    private NotificationMapper notificationMapper;
+
     @Transactional
-    public void insert(Comment comment) {
+    public void insert(Comment comment, User commentator) {
 
 //        如果回复的问题或评论的id为null或0
         if (comment.getParentId() == null || comment.getParentId() == 0){
@@ -55,11 +59,21 @@ public class CommentService {
             if (dbComment == null){
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
+            Question dbQuestion = questionMapper.selectByPrimaryKey(dbComment.getParentId());
+//            如果需要传入的comment的type与COMMENT匹配但comment所在的question不存在
+            if (dbQuestion == null){
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
+
+
 //            将comment的comment插入数据库
             commentMapper.insert(comment);
 //            累计comment的commentCount
             dbComment.setCommentCount(1L);
             commentExpandMapper.cumulativeCommentCount(dbComment);
+
+//            创建通知
+            createNotify(comment, dbComment.getCommentator(),dbQuestion.getTitle(), commentator.getName(),dbQuestion.getId(), NotificationTypeEnum.REPLY_COMMENT);
         }
 //        如果需要传入的comment的type与QUESTION匹配
         else {
@@ -76,7 +90,23 @@ public class CommentService {
             dbQuestion.setCommentCount(1L);
             questionExpandMapper.cumulativeCommentCount(dbQuestion);
 
+//            创建通知.
+            createNotify(comment, dbQuestion.getCreator(),dbQuestion.getTitle(), commentator.getName(), dbQuestion.getId(),NotificationTypeEnum.REPLY_QUESTION);
+
         }
+    }
+
+    private void createNotify(Comment comment, Long receiver, String outerTitle, String notifierName, Long outerId, NotificationTypeEnum notificationTypeEnumType) {
+        Notification notification = new Notification();
+        notification.setGmtCreate(System.currentTimeMillis());
+        notification.setType(notificationTypeEnumType.getType());
+        notification.setOuterId(outerId);
+        notification.setNotifier(comment.getCommentator());
+        notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());
+        notification.setReceiver(receiver);
+        notification.setNotifierName(notifierName);
+        notification.setOuterTitle(outerTitle);
+        notificationMapper.insert(notification);
     }
 
     public List<CommentDTO> listByTargetId(Long id, CommentTypeEnum type) {

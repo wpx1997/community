@@ -1,6 +1,7 @@
 package life.wpx1997.community.controller;
 
 import life.wpx1997.community.dto.PaginationDTO;
+import life.wpx1997.community.dto.QuestionDTO;
 import life.wpx1997.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,7 @@ public class IndexController {
                         @RequestParam(name = "page",defaultValue = "1") Integer page,
                         @RequestParam(name = "size", defaultValue = "5") Integer size){
 
-        PaginationDTO pagination = questionService.list(page,size);
+        PaginationDTO<QuestionDTO> pagination = questionService.list(page,size);
         model.addAttribute("pagination",pagination);
 
         return "index";

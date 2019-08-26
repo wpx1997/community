@@ -33,13 +33,13 @@
                     <input type="text" class="form-control" th:value="${tag}" id="tag" name="tag" autocomplete="off" placeholder="输入标签，以“，”隔开" onclick="showAddTag()">
                     <div id="add-tag" class="publish-tag-tab">
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" th:each="addCategory : ${tags}">
+                            <li role="presentation" th:each="addCategory,addCategoryStat : ${tags}" th:class="${addCategoryStat.first ? 'active' : ''}">
                                 <a th:href="${'#'+addCategory.categoryName}" aria-controls="home" role="tab" data-toggle="tab" th:text="${addCategory.categoryName}"></a>
                             </li>
                         </ul>
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane tag-top" th:id="${addCategory.categoryName}" th:each="addCategory : ${tags}">
-                                <span class="label label-info tag-size tag-right" th:each="addTag : ${addCategory.tags}">
+                            <div role="tabpanel" th:id="${addCategory.categoryName}" th:each="addCategory : ${tags}" th:class="${addCategoryStat.first ? 'active tab-pane tag-top' : 'tab-pane tag-top'}">
+                                <span class="label label-info tag-style" th:each="addTag : ${addCategory.tags}">
                                     <span class="glyphicon glyphicon-tags" onclick="addTag(this)" th:data-tag="${addTag}" th:text="' '+${addTag}"></span>
                                 </span>
                             </div>

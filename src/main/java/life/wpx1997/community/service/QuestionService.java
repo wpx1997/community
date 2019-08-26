@@ -15,7 +15,6 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,115 +33,49 @@ public class QuestionService {
     private QuestionExpandMapper questionExpandMapper;
 
 //    查询数据库中所有问题并进行分页和返回
-    public PaginationDTO list(Integer page, Integer size) {
+    public PaginationDTO<QuestionDTO> list(Integer page, Integer size) {
 
-        PaginationDTO paginationDTO = new PaginationDTO();
+        PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO();
         Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
-        Integer totalPage;
-
-        if (totalCount % size == 0){
-            totalPage = totalCount / size;
-        }else {
-            totalPage = totalCount / size + 1;
-        }
-
-        if (page<1){
-            page = 1;
-        }
-        if (page>totalPage){
-            page = totalPage;
-        }
-
-        paginationDTO.setPaination(totalPage,page);
-        Integer offset = size*(page-1);
+        Integer offset = getPage(page, size, paginationDTO, totalCount);
 
         QuestionExample questionExample = new QuestionExample();
         questionExample.setOrderByClause("gmt_create desc");
         List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(questionExample,new RowBounds(offset,size));
-        List<QuestionDTO> questionDTOList = new ArrayList<>();
-
-        for (Question question : questions){
-            User user = userMapper.selectByPrimaryKey(question.getCreator());
-            QuestionDTO questionDTO = new QuestionDTO();
-            BeanUtils.copyProperties(question,questionDTO);
-            questionDTO.setUser(user);
-            questionDTOList.add(questionDTO);
-        }
-
-        paginationDTO.setQuestions(questionDTOList);
+        questionSetData(paginationDTO, questions);
 
         return paginationDTO;
     }
 
-//    根据用户id查询其所有问题并进行分页和返回
-    public PaginationDTO list(Long userId, Integer page, Integer size) {
-        PaginationDTO paginationprofileDTO = new PaginationDTO();
+
+
+    //    根据用户id查询其所有问题并进行分页和返回
+    public PaginationDTO<QuestionDTO> list(Long userId, Integer page, Integer size) {
+        PaginationDTO<QuestionDTO> paginationprofileDTO = new PaginationDTO();
         QuestionExample example = new QuestionExample();
         example.createCriteria().andCreatorEqualTo(userId);
         Integer totalCount = (int)questionMapper.countByExample(example);
-        Integer totalPage;
-
-        if (totalCount % size == 0){
-            totalPage = totalCount / size;
-        }else {
-            totalPage = totalCount / size + 1;
-        }
-
-        if (page<1){
-            page = 1;
-        }
-        if (page>totalPage){
-            page = totalPage;
-        }
-
-        paginationprofileDTO.setPaination(totalPage,page);
-        Integer offset = size*(page-1);
+        Integer offset = getPage(page, size, paginationprofileDTO, totalCount);
 
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria().andCreatorEqualTo(userId);
         questionExample.setOrderByClause("gmt_create desc");
         List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(questionExample,new RowBounds(offset,size));
-        List<QuestionDTO> questionDTOList = new ArrayList<>();
-
-        for (Question question : questions){
-            User user = userMapper.selectByPrimaryKey(question.getCreator());
-            QuestionDTO questionDTO = new QuestionDTO();
-            BeanUtils.copyProperties(question,questionDTO);
-            questionDTO.setUser(user);
-            questionDTOList.add(questionDTO);
-        }
-
-        paginationprofileDTO.setQuestions(questionDTOList);
+        questionSetData(paginationprofileDTO, questions);
 
         return paginationprofileDTO;
     }
 
-//    根据页面传递tag查询相关问题并进行分页和返回
-    public PaginationDTO listByTag(String tag, Integer page, Integer size) {
-        PaginationDTO paginationmorelikeDTO = new PaginationDTO();
+    //    根据页面传递tag查询相关问题并进行分页和返回
+    public PaginationDTO<QuestionDTO> listByTag(String tag, Integer page, Integer size) {
+        PaginationDTO<QuestionDTO> paginationmorelikeDTO = new PaginationDTO();
 
         String[] tags = StringUtils.split(tag,"，");
         String regexpTag = Arrays.stream(tags).collect(Collectors.joining("|"));
         Question countQuestion = new Question();
         countQuestion.setTag(regexpTag);
         Integer totalCount = (int)questionExpandMapper.countByTag(countQuestion);
-        Integer totalPage;
-
-        if (totalCount % size == 0){
-            totalPage = totalCount / size;
-        }else {
-            totalPage = totalCount / size + 1;
-        }
-
-        if (page<1){
-            page = 1;
-        }
-        if (page>totalPage){
-            page = totalPage;
-        }
-
-        paginationmorelikeDTO.setPaination(totalPage,page);
-        Integer offset = size*(page-1);
+        Integer offset = getPage(page, size, paginationmorelikeDTO, totalCount);
 
         PaginationDTO paginationDTO = new PaginationDTO();
         paginationDTO.setTag(regexpTag);
@@ -150,23 +83,68 @@ public class QuestionService {
         paginationDTO.setSize(size);
 
         List<Question> questions = questionExpandMapper.selectByTagWithPage(paginationDTO);
-        List<QuestionDTO> questionDTOList = new ArrayList<>();
-
-        for (Question question : questions){
-            User user = userMapper.selectByPrimaryKey(question.getCreator());
-            QuestionDTO questionDTO = new QuestionDTO();
-            BeanUtils.copyProperties(question,questionDTO);
-            questionDTO.setUser(user);
-            questionDTOList.add(questionDTO);
-        }
-
-        paginationmorelikeDTO.setQuestions(questionDTOList);
+        questionSetData(paginationmorelikeDTO, questions);
 
         return paginationmorelikeDTO;
     }
 
 
-    //    根据页面传递id查询问题的内容
+/**
+*
+*  关于Pagination的封装方法
+*
+* */
+
+
+//    根据page和size返回offset
+    private Integer getPage(Integer page, Integer size, PaginationDTO paginationDTO, Integer totalCount) {
+        Integer totalPage;
+
+        if (totalCount % size == 0) {
+            totalPage = totalCount / size;
+        } else {
+            totalPage = totalCount / size + 1;
+        }
+
+        if (page < 1) {
+            page = 1;
+        }
+        if (page > totalPage) {
+            page = totalPage;
+        }
+
+        paginationDTO.setPaination(totalPage, page);
+        Integer offset = size * (page - 1);
+
+        return offset;
+    }
+
+
+
+//    封装返回问题结果集的方法
+    private void questionSetData(PaginationDTO paginationDTO, List<Question> questions) {
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
+
+        for (Question question : questions) {
+            User user = userMapper.selectByPrimaryKey(question.getCreator());
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(question, questionDTO);
+            questionDTO.setUser(user);
+            questionDTOList.add(questionDTO);
+        }
+
+        paginationDTO.setData(questionDTOList);
+    }
+
+
+/**
+*
+* 查询、增加、更新问题
+*
+* */
+
+
+//    根据页面传递id查询问题的内容
     public QuestionDTO getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         if (question == null){
@@ -208,15 +186,44 @@ public class QuestionService {
         }
     }
 
-//    若当前用户为展示问题的作者，则根据问题creator查询并返回其前十条问题
-    public PaginationDTO getByCreator(Long creator) {
 
-        PaginationDTO likeQuestions = new PaginationDTO();
+/**
+ *
+ * 根据id或tag返回十条question
+ *
+* */
+
+
+//    若当前用户为展示问题的作者，则根据问题creator查询并返回其前十条问题
+    public List<QuestionDTO> getByCreator(Long creator) {
 
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria().andCreatorEqualTo(creator);
         List<Question> questions = questionMapper.selectByExample(questionExample);
 
+        List<QuestionDTO> questionDTOList = getTenQuestionDTOS(questions);
+
+
+        return questionDTOList;
+
+    }
+
+//    根据页面展示问题的tag查询相关问题并返回前十条问题
+    public List<QuestionDTO> getByTag(QuestionDTO tagDTO) {
+        String[] tags = StringUtils.split(tagDTO.getTag(),"，");
+        String regexpTag = Arrays.stream(tags).collect(Collectors.joining("|"));
+        Question question = new Question();
+        question.setId(tagDTO.getId());
+        question.setTag(regexpTag);
+        List<Question> questions = questionExpandMapper.selectByTag(question);
+
+        List<QuestionDTO> questionDTOList = getTenQuestionDTOS(questions);
+
+        return questionDTOList;
+    }
+
+//    封装返回十条question的方法
+    private List<QuestionDTO> getTenQuestionDTOS(List<Question> questions) {
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         if(questions.size() >= 10){
             for (int i=0;i<10;i++){
@@ -231,12 +238,16 @@ public class QuestionService {
                 questionDTOList.add(questionDTO);
             }
         }
-
-        likeQuestions.setQuestions(questionDTOList);
-
-        return likeQuestions;
-
+        return questionDTOList;
     }
+
+
+/**
+ *
+ * 累计阅读数
+ *
+* */
+
 
 //    点击问题时累计问题的阅读数
     public void cumulativeView(Long id) {
@@ -245,21 +256,14 @@ public class QuestionService {
         question.setViewCount(1L);
         questionExpandMapper.cumulativeView(question);
     }
-//    根据页面展示问题的tag查询相关问题并返回前十条问题
-    public List<QuestionDTO> getByTag(QuestionDTO tagDTO) {
-        String[] tags = StringUtils.split(tagDTO.getTag(),"，");
-        String regexpTag = Arrays.stream(tags).collect(Collectors.joining("|"));
-        Question question = new Question();
-        question.setId(tagDTO.getId());
-        question.setTag(regexpTag);
-        List<Question> questions = questionExpandMapper.selectByTag(question);
 
-        List<QuestionDTO> questionDTOS = questions.stream().map(q -> {
-            QuestionDTO questionDTO = new QuestionDTO();
-            BeanUtils.copyProperties(q,questionDTO);
-            return questionDTO;
-        }).collect(Collectors.toList());
 
-        return questionDTOS;
-    }
 }
+
+/*
+    List<QuestionDTO> questionDTOS = questions.stream().map(q -> {
+        QuestionDTO questionDTO = new QuestionDTO();
+        BeanUtils.copyProperties(q,questionDTO);
+        return questionDTO;
+   }).collect(Collectors.toList());
+*/

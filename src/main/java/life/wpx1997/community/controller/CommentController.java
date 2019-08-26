@@ -47,7 +47,7 @@ public class CommentController {
         comment.setLikeCount(0L);
         comment.setCommentCount(0L);
 //        进行问题回复或评论回复
-        commentService.insert(comment);
+        commentService.insert(comment,user);
         return ResultDTO.okOf();
     }
 
