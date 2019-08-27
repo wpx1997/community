@@ -1,7 +1,7 @@
 
 function question_comment() {
-    var questionId = $("#question_id").val();
-    var content = $("#question_comment").val();
+    var questionId = $("#question-id").val();
+    var content = $("#question-comment").val();
     commenttarget(questionId,1,content);
 }
 

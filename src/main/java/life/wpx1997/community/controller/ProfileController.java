@@ -43,10 +43,9 @@ public class ProfileController {
             PaginationDTO<QuestionDTO> paginationProfile = questionService.list(user.getId(), page, size);
             model.addAttribute("paginationProfile",paginationProfile);
         }else if ("replies".equals(action)){
+            size = 20;
             PaginationDTO<NotificationDTO> paginationNotification = notificationService.list(user.getId(),page,size);
-            Long unreadCount = notificationService.unreadCount(user.getId());
             model.addAttribute("paginationNotification",paginationNotification);
-            model.addAttribute("unreadCount",unreadCount);
             model.addAttribute("section","replies");
             model.addAttribute("name","最新回复");
         }

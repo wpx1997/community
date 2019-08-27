@@ -6,10 +6,15 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="/css/community.css"/>
+    <link rel="stylesheet" href="/css/editormd.min.css"/>
+    <link rel="stylesheet" href="/css/editormd.preview.min.css"/>
     <script src="/js/jquery-3.4.1.min.js" type="application/javascript"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
     <script src="/js/community.js" type="application/javascript"></script>
     <script src="/js/moment.js" type="application/javascript"></script>
+    <script src="/js/editormd.min.js" type="application/javascript"></script>
+    <script src="/js/lib/marked.min.js" type="application/javascript"></script>
+    <script src="/js/lib/prettify.min.jss" type="application/javascript"></script>
 </head>
 <body>
 <div th:insert="~{navigation :: nav}"></div>
@@ -18,7 +23,7 @@
     <!--  当点击问题时传递id时显示  -->
     <div class="row" th:if="${judge} == 'id'">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-            <!--       问题内容     -->
+            <!--       问题作者及相关信息     -->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4 class="question-title"><span th:text="${question.title}"></span></h4>
                 <a class="question-tags" th:href="@{'/question/tag/'+${question.tag}}" th:text="${question.tag}"></a>
@@ -28,7 +33,15 @@
                   |  发布时间：<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
                 </span>
                 <hr>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
+                <!--    问题内容    -->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="question-view">
+                    <textarea style="display:none;" th:text="${question.description}"></textarea>
+                </div>
+                <script type="text/javascript">
+                    $(function() {
+                        editormd.markdownToHTML("question-view", {});
+                    });
+                </script>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <hr>
@@ -61,7 +74,7 @@
                     </div>
                     <div class="media-body" th:id="${'comment-body-'+comment.id}">
                         <a href="/question/" th:text="${comment.user.name}"></a>
-                        <div class="media-heading comment-body" th:text="${comment.content}"></div>
+                        <div class="comment-margin" th:text="${comment.content}"></div>
                         <div class="comment-menu">
                             <span class="glyphicon glyphicon-thumbs-up like-count"></span>
                             <span class="like-count">
@@ -97,8 +110,10 @@
                         <a href="/" th:text="${question.user.name}"></a>
                     </h6>
                 </div>
-                <input type="hidden" id="question_id" th:value="${question.id}">
-                <textarea class="form-control comment" rows="6" id="question_comment"></textarea>
+                <div class="form-group" id="comment-editor">
+                    <input type="hidden" id="question-id" th:value="${question.id}">
+                    <textarea class="form-control comment" rows="9" id="question-comment"></textarea>
+                </div>
                 <button type="button" class="btn btn-success btn-comment" onclick="question_comment()">回复</button>
             </div>
         </div>
@@ -121,7 +136,7 @@
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>最帅那个人的微信</h4>
-                <img class="img-thumbnail wechat" src="/img/weChat.jpg">
+                <img class="img-thumbnail wechat" src="/static/images/weChat.jpg">
                 <hr>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

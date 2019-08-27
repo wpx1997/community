@@ -77,8 +77,7 @@ body{
 
 .btn-comment{
     float: right;
-    margin-bottom: 10px;
-    margin-bottom: 6px;
+    margin-bottom: 25px;
 }
 
 .meta{
@@ -89,15 +88,6 @@ body{
 
 .comment-right{
     margin-right: 15px;
-}
-
-.comment-title{
-    position: relative;
-    z-index: 1;
-    min-height: 40px;
-    margin: 0;
-    padding: 30px 20px 0;
-    border-color: #e6e6e6;
 }
 
 .comment-body{
@@ -181,13 +171,27 @@ body{
     color: #499ef3;
 }
 
+.comment-margin{
+    margin: 5px 0 5px;
+}
+
 .comment-menu .active{
     color: #499ef3;
+}
+
+.comment-title{
+    position: relative;
+    z-index: 1;
+    min-height: 40px;
+    margin: 0;
+    padding: 30px 20px 0;
+    border-color: #e6e6e6;
 }
 
 .question-tag-size{
     font-size: 13px;
 }
+
 
 
 /*
