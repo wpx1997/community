@@ -11,6 +11,7 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
     CONTENT_IS_EMPTY(2007,"输入内容不能为空，请先增加你的见解！"),
     READ_NOTIFICATION_FAIL(2008,"兄弟，你这是读别人的信息呢！"),
     NOTIFICATION_NOT_FOUND(2009,"消息不见了，我也找不到！"),
+    FILE_UPLOAD_FAIL(2010,"图片上传失败！")
     ;
 
     @Override
