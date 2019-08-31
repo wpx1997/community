@@ -17,17 +17,17 @@
             <h2><span th:text="${name}"></span></h2>
             <hr>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  th:if="${action} == 'questions'">
-                <div class="media" th:each="question : ${paginationProfile.data}">
+                <div class="media" th:each="question : ${paginationQuestions.data}">
                     <div class="media-left">
                         <a href="#">
-                            <img class="media-object img-rounded" th:src="${question.user.avatarUrl}">
+                            <img class="user-avatar img-rounded" th:src="${question.user.avatarUrl}">
                         </a>
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading">
                             <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
                         </h4>
-                        <span class="text-desc">
+                        <span class="myquestion-information">
                             <span th:text="${question.user.name}"></span>
                               • <span th:text="${question.commentCount}"></span>
                               个回复 •  <span th:text="${question.viewCount}"></span>
@@ -43,28 +43,28 @@
                         <hr>
                     </div>
                 </div>
-                <nav aria-label="Page navigation" th:if="${paginationProfile.totalPage}>1">
+                <nav aria-label="Page navigation" th:if="${paginationQuestions.totalPage}>1">
                     <ul class="pagination">
-                        <li th:if="${paginationProfile.showFirstPage}">
+                        <li th:if="${paginationQuestions.showFirstPage}">
                             <a th:href="@{/profile/questions/(page=1)}" aria-label="First">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li th:if="${paginationProfile.showPrevious}">
-                            <a th:href="@{/profile/questions/(page=${paginationProfile.page}-1)}" aria-label="Previous">
+                        <li th:if="${paginationQuestions.showPrevious}">
+                            <a th:href="@{/profile/questions/(page=${paginationQuestions.page}-1)}" aria-label="Previous">
                                 <span aria-hidden="true">&lt;</span>
                             </a>
                         </li>
-                        <li th:each="page : ${paginationProfile.pages}" th:class="${paginationProfile.page == page}?'active':''">
+                        <li th:each="page : ${paginationQuestions.pages}" th:class="${paginationQuestions.page == page}?'active':''">
                             <a th:text="${page}" th:href="@{/profile/questions/(page=${page})}"></a>
                         </li>
-                        <li th:if="${paginationProfile.showNext}">
-                            <a th:href="@{/profile/questions/(page=${paginationProfile.page}+1)}" aria-label="Next">
+                        <li th:if="${paginationQuestions.showNext}">
+                            <a th:href="@{/profile/questions/(page=${paginationQuestions.page}+1)}" aria-label="Next">
                                 <span aria-hidden="true">&gt;</span>
                             </a>
                         </li>
-                        <li th:if="${paginationProfile.showEndPage}">
-                            <a th:href="@{/profile/questions/(page=${paginationProfile.totalPage})}" aria-label="End">
+                        <li th:if="${paginationQuestions.showEndPage}">
+                            <a th:href="@{/profile/questions/(page=${paginationQuestions.totalPage})}" aria-label="End">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
@@ -75,35 +75,35 @@
                 <div class="media" th:each="notification : ${paginationNotification.data}">
                     <div class="media-body">
                         <h5 class="media-heading">
-                            <a href="/" th:text="${notification.notifierName + '  '}"></a>
-                            <span th:text="${notification.typeName + '  '}"></span>
-                            <a th:href="@{'/notification/'+${notification.id}}" th:text="${notification.outerTitle}"></a>
-                            <span class="label label-danger" th:if="${notification.status == 0}">未读</span>
+                            <a href="/" class="notification-right" th:text="${notification.notifierName}"></a>
+                            <span class="notification-right" th:text="${notification.typeName}"></span>
+                            <a class="notification-right" th:href="@{'/notification/'+${notification.id}}" th:text="${notification.outerTitle}"></a>
+                            <span class="label label-danger notification-status" th:if="${notification.status == 0}">未读</span>
                         </h5>
                     </div>
                 </div>
                 <nav aria-label="Page navigation" th:if="${paginationNotification.totalPage}>1">
                     <ul class="pagination">
                         <li th:if="${paginationNotification.showFirstPage}">
-                            <a th:href="@{/profile/questions/(page=1)}" aria-label="First">
+                            <a th:href="@{/profile/replies/(page=1)}" aria-label="First">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
                         <li th:if="${paginationNotification.showPrevious}">
-                            <a th:href="@{/profile/questions/(page=${paginationNotification.page}-1)}" aria-label="Previous">
+                            <a th:href="@{/profile/replies/(page=${paginationNotification.page}-1)}" aria-label="Previous">
                                 <span aria-hidden="true">&lt;</span>
                             </a>
                         </li>
                         <li th:each="page : ${paginationNotification.pages}" th:class="${paginationNotification.page == page}?'active':''">
-                            <a th:text="${page}" th:href="@{/profile/questions/(page=${page})}"></a>
+                            <a th:text="${page}" th:href="@{/profile/replies/(page=${page})}"></a>
                         </li>
                         <li th:if="${paginationNotification.showNext}">
-                            <a th:href="@{/profile/questions/(page=${paginationNotification.page}+1)}" aria-label="Next">
+                            <a th:href="@{/profile/replies/(page=${paginationNotification.page}+1)}" aria-label="Next">
                                 <span aria-hidden="true">&gt;</span>
                             </a>
                         </li>
                         <li th:if="${paginationNotification.showEndPage}">
-                            <a th:href="@{/profile/questions/(page=${paginationNotification.totalPage})}" aria-label="End">
+                            <a th:href="@{/profile/replies/(page=${paginationNotification.totalPage})}" aria-label="End">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
@@ -119,5 +119,6 @@
         </div>
     </div>
 </div>
+<div th:insert="~{footer :: foot}"></div>
 </body>
 </html>

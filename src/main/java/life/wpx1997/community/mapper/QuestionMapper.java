@@ -1,6 +1,8 @@
 package life.wpx1997.community.mapper;
 
 import java.util.List;
+
+import life.wpx1997.community.dto.QuestionQueryDTO;
 import life.wpx1997.community.model.Question;
 import life.wpx1997.community.model.QuestionExample;
 import org.apache.ibatis.annotations.Param;
@@ -134,4 +136,5 @@ public interface QuestionMapper {
      * @mbg.generated Mon Aug 26 22:11:13 CST 2019
      */
     int updateByPrimaryKey(Question record);
+
 }

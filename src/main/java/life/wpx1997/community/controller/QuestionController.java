@@ -27,21 +27,6 @@ public class QuestionController {
     @Autowired
     private CommentService commentService;
 
-    @GetMapping("/question/tag/{tag}")
-    public String questionByTag(@PathVariable(name = "tag") String tag,
-                                @RequestParam(name = "page",defaultValue = "1") Integer page,
-                                @RequestParam(name = "size", defaultValue = "5") Integer size,
-                                Model model){
-
-//        根据标签返回此页面问题的相似问题
-        PaginationDTO<QuestionDTO> paginationMoreQuestion = questionService.listByTag(tag,page,size);
-
-        model.addAttribute("paginationMoreQuestion",paginationMoreQuestion);
-//        问题显示形式judge为tag
-        model.addAttribute("judge","tag");
-
-        return "question";
-    }
 
     @GetMapping("/question/{id}")
     public String questionById(@PathVariable(name = "id") Long id,
@@ -82,4 +67,23 @@ public class QuestionController {
         model.addAttribute("judge","id");
         return "question";
     }
+
+
+    @GetMapping("/question/tag/{tag}")
+    public String questionByTag(@PathVariable(name = "tag") String tag,
+                                @RequestParam(name = "page",defaultValue = "1") Integer page,
+                                @RequestParam(name = "size", defaultValue = "5") Integer size,
+                                Model model){
+
+//        根据标签返回此页面问题的相似问题
+        PaginationDTO<QuestionDTO> paginationMoreQuestion = questionService.listByTag(tag,page,size);
+
+        model.addAttribute("paginationMoreQuestion",paginationMoreQuestion);
+//        问题显示形式judge为tag
+        model.addAttribute("judge","tag");
+
+        return "question";
+    }
+
+
 }

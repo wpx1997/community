@@ -2,6 +2,7 @@ package life.wpx1997.community.service;
 
 import life.wpx1997.community.dto.PaginationDTO;
 import life.wpx1997.community.dto.QuestionDTO;
+import life.wpx1997.community.dto.QuestionQueryDTO;
 import life.wpx1997.community.exception.CustomizeErrorCode;
 import life.wpx1997.community.exception.CustomizeException;
 import life.wpx1997.community.mapper.QuestionExpandMapper;
@@ -33,15 +34,21 @@ public class QuestionService {
     private QuestionExpandMapper questionExpandMapper;
 
 //    查询数据库中所有问题并进行分页和返回
-    public PaginationDTO<QuestionDTO> list(Integer page, Integer size) {
+    public PaginationDTO<QuestionDTO> list(String search, Integer page, Integer size) {
 
+        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
         PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO();
-        Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
+        if (StringUtils.isNotBlank(search)){
+            String[] tags = StringUtils.split(search," ");
+            search = Arrays.stream(tags).collect(Collectors.joining("|"));
+        }
+        questionQueryDTO.setSearch(search);
+        Integer totalCount = questionExpandMapper.countBySearch(questionQueryDTO);
         Integer offset = getPage(page, size, paginationDTO, totalCount);
+        questionQueryDTO.setOffset(offset);
+        questionQueryDTO.setSize(size);
+        List<Question> questions = questionExpandMapper.selectBySearchWithPage(questionQueryDTO);
 
-        QuestionExample questionExample = new QuestionExample();
-        questionExample.setOrderByClause("gmt_create desc");
-        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(questionExample,new RowBounds(offset,size));
         questionSetData(paginationDTO, questions);
 
         return paginationDTO;
@@ -72,17 +79,15 @@ public class QuestionService {
 
         String[] tags = StringUtils.split(tag,"，");
         String regexpTag = Arrays.stream(tags).collect(Collectors.joining("|"));
-        Question countQuestion = new Question();
-        countQuestion.setTag(regexpTag);
-        Integer totalCount = (int)questionExpandMapper.countByTag(countQuestion);
+        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+        questionQueryDTO.setSearch(regexpTag);
+        Integer totalCount = questionExpandMapper.countByTag(questionQueryDTO);
         Integer offset = getPage(page, size, paginationmorelikeDTO, totalCount);
 
-        PaginationDTO paginationDTO = new PaginationDTO();
-        paginationDTO.setTag(regexpTag);
-        paginationDTO.setOffset(offset);
-        paginationDTO.setSize(size);
+        questionQueryDTO.setOffset(offset);
+        questionQueryDTO.setSize(size);
 
-        List<Question> questions = questionExpandMapper.selectByTagWithPage(paginationDTO);
+        List<Question> questions = questionExpandMapper.selectByTagWithPage(questionQueryDTO);
         questionSetData(paginationmorelikeDTO, questions);
 
         return paginationmorelikeDTO;

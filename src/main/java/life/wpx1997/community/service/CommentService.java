@@ -65,7 +65,6 @@ public class CommentService {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
 
-
 //            将comment的comment插入数据库
             commentMapper.insert(comment);
 //            累计comment的commentCount
@@ -97,6 +96,9 @@ public class CommentService {
     }
 
     private void createNotify(Comment comment, Long receiver, String outerTitle, String notifierName, Long outerId, NotificationTypeEnum notificationTypeEnumType) {
+        if (receiver == comment.getCommentator()){
+            return;
+        }
         Notification notification = new Notification();
         notification.setGmtCreate(System.currentTimeMillis());
         notification.setType(notificationTypeEnumType.getType());

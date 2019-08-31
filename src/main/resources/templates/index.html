@@ -28,36 +28,36 @@
             <div class="media" th:each="question : ${pagination.data}">
                 <div class="media-left">
                     <a href="#">
-                        <img class=" media-object img-rounded" th:src="${question.user.avatarUrl}">
+                        <img class="user-avatar img-rounded" th:src="${question.user.avatarUrl}">
                     </a>
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading">
                         <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
                     </h4>
-                    <span class="text-desc"><span th:text="${question.user.name}"></span> • <span th:text="${question.commentCount}"></span>个回复 • <span th:text="${question.viewCount}"></span>次浏览 • <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span></span><hr>
+                    <span class="question-information"><span th:text="${question.user.name}"></span> • <span th:text="${question.commentCount}"></span>个回复 • <span th:text="${question.viewCount}"></span>次浏览 • <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span></span><hr>
                 </div>
             </div>
             <nav aria-label="Page navigation" th:if="${pagination.totalPage}>1">
                 <ul class="pagination">
                     <li th:if="${pagination.showFirstPage}">
-                        <a th:href="@{/(page=1)}" aria-label="First">
+                        <a th:href="@{/(page=1,search=${search})}" aria-label="First">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li th:if="${pagination.showPrevious}">
-                        <a th:href="@{/(page=${pagination.page}-1)}" aria-label="Previous">
+                        <a th:href="@{/(page=${pagination.page -1},search=${search})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
-                    <li th:each="page : ${pagination.pages}" th:class="${pagination.page == page}?'active':''"><a th:text="${page}" th:href="@{/(page=${page})}"></a></li>
+                    <li th:each="page : ${pagination.pages}" th:class="${pagination.page == page}?'active':''"><a th:text="${page}" th:href="@{/(page=${page},search=${search})}"></a></li>
                     <li th:if="${pagination.showNext}">
-                        <a th:href="@{/(page=${pagination.page}+1)}" aria-label="Next">
+                        <a th:href="@{/(page=${pagination.page +1},search=${search})}" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                     <li th:if="${pagination.showEndPage}">
-                        <a th:href="@{/(page=${pagination.totalPage})}" aria-label="End">
+                        <a th:href="@{/(page=${pagination.totalPage},search=${search})}" aria-label="End">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
@@ -69,5 +69,6 @@
         </div>
     </div>
 </div>
+<div th:insert="~{footer :: foot}"></div>
 </body>
 </html>

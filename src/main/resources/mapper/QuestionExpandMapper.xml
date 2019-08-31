@@ -32,22 +32,43 @@
     comment_count = comment_count + #{commentCount,jdbcType=BIGINT}
     where id = #{id}
   </update>
-  <!--  根据标签查询相关问题总数  -->
-  <select id="countByTag" parameterType="life.wpx1997.community.model.Question" resultType="int">
-    select count(1)
-    from question
-    where tag regexp #{tag}
-  </select>
-  <!--  根据标签查询相关问题  -->
+  <!--  根据标签查询相关问题数量  -->
   <select id="selectByTag" parameterType="life.wpx1997.community.model.Question" resultMap="BaseResultMap">
     select *
     from question
     where id != #{id} and tag regexp #{tag}
   </select>
+  <!--  根据标签查询相关问题总数  -->
+  <select id="countByTag" parameterType="life.wpx1997.community.dto.QuestionQueryDTO" resultType="int">
+    select count(1)
+    from question
+    where tag regexp #{tag}
+  </select>
   <!--  根据标签查询相关问题并分页  -->
-  <select id="selectByTagWithPage" parameterType="life.wpx1997.community.dto.PaginationDTO" resultMap="BaseResultMap">
+  <select id="selectByTagWithPage" parameterType="life.wpx1997.community.dto.QuestionQueryDTO" resultMap="BaseResultMap">
     select *
     from question
-    where tag regexp #{tag} limit #{offset},#{size}
+    where tag regexp #{search} order by gmt_create desc limit #{offset},#{size}
+  </select>
+  <!--  根据Search查询相关问题数量  -->
+  <select id="countBySearch" parameterType="life.wpx1997.community.dto.QuestionQueryDTO" resultType="int">
+    select count(*)
+    from question
+    <where>
+      <if test="search != null">
+        and title regexp #{search}
+      </if>
+    </where>
+  </select>
+  <!--  根据Search查询相关问题并分页  -->
+  <select id="selectBySearchWithPage" parameterType="life.wpx1997.community.dto.QuestionQueryDTO" resultMap="BaseResultMap">
+    select *
+    from question
+    <where>
+      <if test="search != null">
+        and title regexp #{search}
+      </if>
+    </where>
+    order by gmt_create desc limit #{offset},#{size}
   </select>
 </mapper>

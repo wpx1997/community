@@ -1,13 +1,17 @@
 package life.wpx1997.community.mapper;
 
 import life.wpx1997.community.dto.PaginationDTO;
+import life.wpx1997.community.dto.QuestionQueryDTO;
 import life.wpx1997.community.model.Question;
 import java.util.List;
 
 public interface QuestionExpandMapper {
-    int cumulativeView(Question record);
-    int cumulativeCommentCount(Question record);
-    int countByTag(Question question);
+    Integer cumulativeView(Question record);
+    Integer cumulativeCommentCount(Question record);
     List<Question> selectByTag(Question question);
-    List<Question> selectByTagWithPage(PaginationDTO paginationDTO);
+
+    Integer countByTag(QuestionQueryDTO questionQueryDTO);
+    List<Question> selectByTagWithPage(QuestionQueryDTO questionQueryDTO);
+    Integer countBySearch(QuestionQueryDTO questionQueryDTO);
+    List<Question> selectBySearchWithPage(QuestionQueryDTO questionQueryDTO);
 }

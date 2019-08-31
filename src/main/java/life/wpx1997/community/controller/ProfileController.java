@@ -40,8 +40,8 @@ public class ProfileController {
 
             model.addAttribute("section","questions");
             model.addAttribute("name","我的提问");
-            PaginationDTO<QuestionDTO> paginationProfile = questionService.list(user.getId(), page, size);
-            model.addAttribute("paginationProfile",paginationProfile);
+            PaginationDTO<QuestionDTO> paginationQuestions = questionService.list(user.getId(), page, size);
+            model.addAttribute("paginationQuestions",paginationQuestions);
         }else if ("replies".equals(action)){
             size = 20;
             PaginationDTO<NotificationDTO> paginationNotification = notificationService.list(user.getId(),page,size);
