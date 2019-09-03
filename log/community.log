@@ -1029,3 +1029,47 @@ The last packet successfully received from the server was 67 milliseconds ago.  
 2019-09-03 15:22:17.050  INFO 8296 --- [http-nio-8887-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-09-03 15:22:17.050  INFO 8296 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-09-03 15:22:17.058  INFO 8296 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2019-09-03 15:24:30.637  INFO 12020 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 12020 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 15:24:30.640  INFO 12020 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 15:24:30.692  INFO 12020 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-09-03 15:24:30.692  INFO 12020 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-09-03 15:24:32.317  INFO 12020 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 15:24:32.337  INFO 12020 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 15:24:32.337  INFO 12020 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 15:24:32.442  INFO 12020 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 15:24:32.442  INFO 12020 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1750 ms
+2019-09-03 15:24:33.042  INFO 12020 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 15:24:33.177  INFO 12020 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 15:24:33.277  INFO 12020 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 15:24:33.486  INFO 12020 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 15:24:33.557  INFO 12020 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 15:24:33.564  INFO 12020 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 3.27 seconds (JVM running for 3.94)
+2019-09-03 15:24:33.584  INFO 12020 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 15:24:33 CST 2019
+2019-09-03 15:24:33.637  INFO 12020 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-09-03 15:24:34.391  INFO 12020 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-09-03 15:24:34.438  INFO 12020 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 15:24:34 CST 2019
+2019-09-03 15:24:46.946  INFO 12020 --- [http-nio-8887-exec-10] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-09-03 15:24:46.947  INFO 12020 --- [http-nio-8887-exec-10] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-09-03 15:24:46.953  INFO 12020 --- [http-nio-8887-exec-10] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2019-09-03 15:38:40.110  INFO 12020 --- [Thread-10] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2019-09-03 15:38:40.111  INFO 12020 --- [Thread-10] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-09-03 15:38:40.114  INFO 12020 --- [Thread-10] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-09-03 15:38:40.128  INFO 12020 --- [Thread-10] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-09-03 15:38:40.777  INFO 12020 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 12020 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 15:38:40.778  INFO 12020 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 15:38:41.239  INFO 12020 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 15:38:41.240  INFO 12020 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 15:38:41.240  INFO 12020 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 15:38:41.271  INFO 12020 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 15:38:41.272  INFO 12020 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 488 ms
+2019-09-03 15:38:41.468  INFO 12020 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 15:38:41.510  INFO 12020 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 15:38:41.536  INFO 12020 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 15:38:41.624  INFO 12020 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 15:38:41.638  INFO 12020 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 15:38:41 CST 2019
+2019-09-03 15:38:41.640  INFO 12020 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2019-09-03 15:38:41.644  INFO 12020 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 15:38:41.644  INFO 12020 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 0.92 seconds (JVM running for 852.021)
+2019-09-03 15:38:41.646  INFO 12020 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2019-09-03 15:38:41.652  INFO 12020 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2019-09-03 15:38:41.658  INFO 12020 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 15:38:41 CST 2019
