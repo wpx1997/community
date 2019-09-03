@@ -1,6 +1,7 @@
 package life.wpx1997.community.controller;
 
 import life.wpx1997.community.cache.HotTagCache;
+import life.wpx1997.community.dto.HotTagDTO;
 import life.wpx1997.community.dto.PaginationDTO;
 import life.wpx1997.community.dto.QuestionDTO;
 import life.wpx1997.community.service.QuestionService;
@@ -28,7 +29,7 @@ public class IndexController {
                         @RequestParam(name = "search", required = false) String search){
 
         PaginationDTO<QuestionDTO> pagination = questionService.list(search,page,size);
-        List<String> hotTags = hotTagCache.getHots();
+        List<HotTagDTO> hotTags = hotTagCache.getHots();
         model.addAttribute("pagination",pagination);
         model.addAttribute("search",search);
         model.addAttribute("hotTags",hotTags);

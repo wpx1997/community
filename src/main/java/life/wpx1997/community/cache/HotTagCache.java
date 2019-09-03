@@ -11,11 +11,10 @@ import java.util.*;
 @Component
 @Data
 public class HotTagCache {
-    Map<String,Integer> tags  = new HashMap<>();
-    private List<String> hots = new ArrayList<>();
+    private List<HotTagDTO> hots = new ArrayList<>();
 
     public void updateTags(Map<String,Integer> tags){
-        int max = 5;
+        int max = 7;
         PriorityQueue<HotTagDTO> priorityQueue =new PriorityQueue<>(max);
         tags.forEach((name,priority) -> {
             HotTagDTO hotTagDTO = new HotTagDTO();
@@ -25,18 +24,18 @@ public class HotTagCache {
                 priorityQueue.add(hotTagDTO);
             }else {
                 HotTagDTO minHot = priorityQueue.peek();
-                if (minHot.compareTo(minHot) > 0){
+                if (hotTagDTO.compareTo(minHot) > 0){
                     priorityQueue.poll();
                     priorityQueue.add(hotTagDTO);
                 }
             }
         });
 
-        List<String> sortedTags = new ArrayList<>();
+        List<HotTagDTO> sortedTags = new ArrayList<>();
 
         HotTagDTO poll = priorityQueue.poll();
         while (poll != null){
-            sortedTags.add(0,poll.getName());
+            sortedTags.add(0,poll);
             poll = priorityQueue.poll();
         }
         hots = sortedTags;
