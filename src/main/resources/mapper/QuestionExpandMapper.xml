@@ -42,7 +42,7 @@
   <select id="countByTag" parameterType="life.wpx1997.community.dto.QuestionQueryDTO" resultType="int">
     select count(1)
     from question
-    where tag regexp #{tag}
+    where tag regexp #{search}
   </select>
   <!--  根据标签查询相关问题并分页  -->
   <select id="selectByTagWithPage" parameterType="life.wpx1997.community.dto.QuestionQueryDTO" resultMap="BaseResultMap">

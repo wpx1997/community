@@ -34,7 +34,8 @@ function commenttarget(targetId,type,content) {
                 if (response.code == 2003){
                     var isAccepted = confirm(response.message);
                     if (isAccepted){
-                        window.open("https://github.com/login/oauth/authorize?client_id=a3d69bb3ea4d7ac6eae4&redirect_uri=http://localhost:8887/callback&scope=user&state=1");
+                        // window.open("https://github.com/login/oauth/authorize?client_id=a3d69bb3ea4d7ac6eae4&redirect_uri=http://localhost:8887/callback&scope=user&state=1");
+                        window.open("https://github.com/login/oauth/authorize?client_id=a3d69bb3ea4d7ac6eae4&redirect_uri=http://106.75.29.98//callback&scope=user&state=1");
                         window.localStorage.setItem("closable",true);
                     }
                 }else {
@@ -129,3 +130,4 @@ function addTag(e) {
 function showAddTag() {
     $("#add-tag").show();
 }
+

@@ -1,0 +1,1031 @@
+2019-09-03 13:48:42.950  INFO 16020 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 16020 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 13:48:42.950  INFO 16020 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 13:48:43.013  INFO 16020 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-09-03 13:48:43.013  INFO 16020 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-09-03 13:48:45.669  INFO 16020 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 13:48:45.691  INFO 16020 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 13:48:45.691  INFO 16020 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 13:48:45.782  INFO 16020 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 13:48:45.782  INFO 16020 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2738 ms
+2019-09-03 13:48:46.614  INFO 16020 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 13:48:46.753  INFO 16020 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 13:48:46.852  INFO 16020 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 13:48:47.732  INFO 16020 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 13:48:47.778  INFO 16020 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 13:48:47.778  INFO 16020 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 5.557 seconds (JVM running for 6.659)
+2019-09-03 13:48:55.440  INFO 16020 --- [http-nio-8887-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-09-03 13:48:55.441  INFO 16020 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-09-03 13:48:55.452  INFO 16020 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 11 ms
+2019-09-03 13:48:55.519  INFO 16020 --- [http-nio-8887-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-09-03 13:48:56.330  INFO 16020 --- [http-nio-8887-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-09-03 13:49:19.669  INFO 3496 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 3496 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 13:49:19.672  INFO 3496 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 13:49:19.732  INFO 3496 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-09-03 13:49:19.732  INFO 3496 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-09-03 13:49:21.298  INFO 3496 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 13:49:21.325  INFO 3496 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 13:49:21.325  INFO 3496 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 13:49:21.450  INFO 3496 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 13:49:21.451  INFO 3496 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1718 ms
+2019-09-03 13:49:22.274  INFO 3496 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 13:49:22.399  INFO 3496 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 13:49:22.501  INFO 3496 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 13:49:22.637  INFO 3496 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 13:49:22.669  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:49:22 CST 2019
+2019-09-03 13:49:22.694  INFO 3496 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 13:49:22.697  INFO 3496 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 3.34 seconds (JVM running for 4.05)
+2019-09-03 13:49:22.702  INFO 3496 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-09-03 13:49:23.317  INFO 3496 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-09-03 13:49:23.526  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:49:23 CST 2019
+2019-09-03 13:49:24.821  INFO 3496 --- [http-nio-8887-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-09-03 13:49:24.822  INFO 3496 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-09-03 13:49:24.828  INFO 3496 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2019-09-03 13:49:42.670  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:49:42 CST 2019
+2019-09-03 13:49:42.673  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:49:42 CST 2019
+2019-09-03 13:50:02.670  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:50:02 CST 2019
+2019-09-03 13:50:02.672  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:50:02 CST 2019
+2019-09-03 13:50:22.670  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:50:22 CST 2019
+2019-09-03 13:50:22.673  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:50:22 CST 2019
+2019-09-03 13:50:42.669  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:50:42 CST 2019
+2019-09-03 13:50:42.672  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:50:42 CST 2019
+2019-09-03 13:51:02.670  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:51:02 CST 2019
+2019-09-03 13:51:02.672  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:51:02 CST 2019
+2019-09-03 13:51:55.138  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:51:55 CST 2019
+2019-09-03 13:51:55.142  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:51:55 CST 2019
+2019-09-03 13:51:55.142  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:51:55 CST 2019
+2019-09-03 13:51:55.248  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:51:55 CST 2019
+2019-09-03 13:51:55.961  WARN 3496 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m5s784ms549µs600ns).
+2019-09-03 13:51:59.355  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:51:59 CST 2019
+2019-09-03 13:51:59.357  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:51:59 CST 2019
+2019-09-03 13:52:19.354  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:52:19 CST 2019
+2019-09-03 13:52:19.356  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:52:19 CST 2019
+2019-09-03 13:52:39.354  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:52:39 CST 2019
+2019-09-03 13:52:39.357  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:52:39 CST 2019
+2019-09-03 13:52:59.355  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:52:59 CST 2019
+2019-09-03 13:52:59.357  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:52:59 CST 2019
+2019-09-03 13:53:19.354  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:53:19 CST 2019
+2019-09-03 13:53:19.356  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:53:19 CST 2019
+2019-09-03 13:53:39.354  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:53:39 CST 2019
+2019-09-03 13:53:39.357  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:53:39 CST 2019
+2019-09-03 13:53:59.355  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:53:59 CST 2019
+2019-09-03 13:53:59.357  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:53:59 CST 2019
+2019-09-03 13:54:19.354  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:54:19 CST 2019
+2019-09-03 13:54:19.358  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:54:19 CST 2019
+2019-09-03 13:54:39.354  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:54:39 CST 2019
+2019-09-03 13:54:39.357  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:54:39 CST 2019
+2019-09-03 13:54:59.354  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:54:59 CST 2019
+2019-09-03 13:54:59.356  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:54:59 CST 2019
+2019-09-03 13:55:19.354  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:55:19 CST 2019
+2019-09-03 13:55:19.356  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:55:19 CST 2019
+2019-09-03 13:55:39.354  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:55:39 CST 2019
+2019-09-03 13:55:39.357  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:55:39 CST 2019
+2019-09-03 13:55:59.354  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:55:59 CST 2019
+2019-09-03 13:55:59.356  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:55:59 CST 2019
+2019-09-03 13:56:19.355  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:56:19 CST 2019
+2019-09-03 13:56:19.357  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:56:19 CST 2019
+2019-09-03 13:56:24.185  INFO 3496 --- [Thread-11] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2019-09-03 13:56:24.186  INFO 3496 --- [Thread-11] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-09-03 13:56:24.187  INFO 3496 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-09-03 13:56:24.203  INFO 3496 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-09-03 13:56:24.873  INFO 3496 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 3496 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 13:56:24.873  INFO 3496 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 13:56:26.201  INFO 3496 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 13:56:26.202  INFO 3496 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 13:56:26.203  INFO 3496 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 13:56:26.237  INFO 3496 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 13:56:26.238  INFO 3496 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1362 ms
+2019-09-03 13:56:26.536  INFO 3496 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 13:56:26.628  INFO 3496 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 13:56:26.667  INFO 3496 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 13:56:26.795  INFO 3496 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 13:56:26.826  INFO 3496 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 13:56:26.827  INFO 3496 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 1.998 seconds (JVM running for 431.495)
+2019-09-03 13:56:26.829  INFO 3496 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2019-09-03 13:56:28.412  INFO 3496 --- [Thread-19] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2019-09-03 13:56:28.413  INFO 3496 --- [Thread-19] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-09-03 13:56:28.916  INFO 3496 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 3496 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 13:56:28.916  INFO 3496 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 13:56:29.349  INFO 3496 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 13:56:29.350  INFO 3496 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 13:56:29.350  INFO 3496 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 13:56:29.365  INFO 3496 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 13:56:29.365  INFO 3496 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 445 ms
+2019-09-03 13:56:29.675  INFO 3496 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 13:56:29.721  INFO 3496 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 13:56:29.765  INFO 3496 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 13:56:29.892  INFO 3496 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 13:56:29.909  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 13:56:29 CST 2019
+2019-09-03 13:56:29.915  INFO 3496 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2019-09-03 13:56:29.918  INFO 3496 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 13:56:29.918  INFO 3496 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 1.024 seconds (JVM running for 434.585)
+2019-09-03 13:56:29.920  INFO 3496 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2019-09-03 13:56:29.991  INFO 3496 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2019-09-03 13:56:29.996  INFO 3496 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 13:56:29 CST 2019
+2019-09-03 14:00:25.977  INFO 4784 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 4784 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 14:00:25.980  INFO 4784 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 14:00:26.035  INFO 4784 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-09-03 14:00:26.036  INFO 4784 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-09-03 14:00:28.158  INFO 4784 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 14:00:28.183  INFO 4784 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 14:00:28.183  INFO 4784 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 14:00:28.301  INFO 4784 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 14:00:28.302  INFO 4784 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2265 ms
+2019-09-03 14:00:29.035  INFO 4784 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 14:00:29.226  INFO 4784 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 14:00:29.437  INFO 4784 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 14:00:29.657  INFO 4784 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 14:00:29.697  INFO 4784 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 14:00:29 CST 2019
+2019-09-03 14:00:29.759  INFO 4784 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 14:00:29.762  INFO 4784 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-09-03 14:00:29.762  INFO 4784 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 4.143 seconds (JVM running for 4.952)
+2019-09-03 14:00:30.564  INFO 4784 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-09-03 14:00:30.612  INFO 4784 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 14:00:30 CST 2019
+2019-09-03 14:00:35.638  INFO 4784 --- [http-nio-8887-exec-10] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-09-03 14:00:35.639  INFO 4784 --- [http-nio-8887-exec-10] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-09-03 14:00:35.647  INFO 4784 --- [http-nio-8887-exec-10] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2019-09-03 14:02:30.213  INFO 10768 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 10768 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 14:02:30.215  INFO 10768 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 14:02:30.264  INFO 10768 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-09-03 14:02:30.264  INFO 10768 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-09-03 14:02:31.752  INFO 10768 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 14:02:31.794  INFO 10768 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 14:02:31.794  INFO 10768 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 14:02:32.009  INFO 10768 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 14:02:32.010  INFO 10768 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1746 ms
+2019-09-03 14:02:32.777  INFO 10768 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 14:02:32.900  INFO 10768 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 14:02:32.992  INFO 10768 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 14:02:33.112  INFO 10768 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 14:02:33.139  INFO 10768 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 14:02:33 CST 2019
+2019-09-03 14:02:33.166  INFO 10768 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 14:02:33.169  INFO 10768 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 3.273 seconds (JVM running for 3.982)
+2019-09-03 14:02:33.173  INFO 10768 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-09-03 14:02:33.803  INFO 10768 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-09-03 14:02:33.848  INFO 10768 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 14:02:33 CST 2019
+2019-09-03 14:02:37.582  INFO 10768 --- [http-nio-8887-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-09-03 14:02:37.583  INFO 10768 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-09-03 14:02:37.590  INFO 10768 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2019-09-03 14:06:04.512  INFO 6624 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 6624 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 14:06:04.514  INFO 6624 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 14:06:04.558  INFO 6624 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-09-03 14:06:04.559  INFO 6624 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-09-03 14:06:06.181  INFO 6624 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 14:06:06.208  INFO 6624 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 14:06:06.208  INFO 6624 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 14:06:06.327  INFO 6624 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 14:06:06.336  INFO 6624 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1777 ms
+2019-09-03 14:06:07.289  INFO 6624 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 14:06:07.577  INFO 6624 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 14:06:07.672  INFO 6624 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 14:06:07.799  INFO 6624 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 14:06:07.825  INFO 6624 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 14:06:07 CST 2019
+2019-09-03 14:06:07.850  INFO 6624 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 14:06:07.854  INFO 6624 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 3.71 seconds (JVM running for 4.481)
+2019-09-03 14:06:07.857  INFO 6624 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-09-03 14:06:08.466  INFO 6624 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-09-03 14:06:08.512  INFO 6624 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 14:06:08 CST 2019
+2019-09-03 14:06:16.948  INFO 6624 --- [http-nio-8887-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-09-03 14:06:16.948  INFO 6624 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-09-03 14:06:16.957  INFO 6624 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2019-09-03 14:15:10.299  INFO 15908 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 15908 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 14:15:10.301  INFO 15908 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 14:15:10.354  INFO 15908 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-09-03 14:15:10.354  INFO 15908 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-09-03 14:15:11.905  INFO 15908 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 14:15:11.926  INFO 15908 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 14:15:11.926  INFO 15908 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 14:15:12.157  INFO 15908 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 14:15:12.158  INFO 15908 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1803 ms
+2019-09-03 14:15:13.221  INFO 15908 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 14:15:13.349  INFO 15908 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 14:15:13.469  INFO 15908 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 14:15:13.601  INFO 15908 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 14:15:13.630  INFO 15908 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 14:15:13 CST 2019
+2019-09-03 14:15:13.659  INFO 15908 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 14:15:13.662  INFO 15908 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 3.686 seconds (JVM running for 4.377)
+2019-09-03 14:15:13.670  INFO 15908 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-09-03 14:15:14.374  INFO 15908 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-09-03 14:15:14.432  INFO 15908 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 14:15:14 CST 2019
+2019-09-03 14:15:16.225  INFO 15908 --- [http-nio-8887-exec-9] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-09-03 14:15:16.225  INFO 15908 --- [http-nio-8887-exec-9] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-09-03 14:15:16.232  INFO 15908 --- [http-nio-8887-exec-9] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2019-09-03 14:22:23.395  INFO 13704 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 13704 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 14:22:23.398  INFO 13704 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 14:22:23.456  INFO 13704 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-09-03 14:22:23.457  INFO 13704 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-09-03 14:22:25.092  INFO 13704 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 14:22:25.126  INFO 13704 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 14:22:25.127  INFO 13704 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 14:22:25.317  INFO 13704 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 14:22:25.319  INFO 13704 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1862 ms
+2019-09-03 14:22:26.075  INFO 13704 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 14:22:26.215  INFO 13704 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 14:22:26.317  INFO 13704 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 14:22:26.446  INFO 13704 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 14:22:26.474  INFO 13704 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 14:22:26 CST 2019
+2019-09-03 14:22:26.500  INFO 13704 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 14:22:26.504  INFO 13704 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 3.45 seconds (JVM running for 4.117)
+2019-09-03 14:22:26.509  INFO 13704 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-09-03 14:22:27.151  INFO 13704 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-09-03 14:22:27.197  INFO 13704 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 14:22:27 CST 2019
+2019-09-03 14:22:35.017  INFO 13704 --- [http-nio-8887-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-09-03 14:22:35.019  INFO 13704 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-09-03 14:22:35.025  INFO 13704 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2019-09-03 14:33:13.739  INFO 13704 --- [Thread-11] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2019-09-03 14:33:13.740  INFO 13704 --- [Thread-11] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-09-03 14:33:13.740  INFO 13704 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-09-03 14:33:13.748  INFO 13704 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-09-03 14:33:14.339  INFO 13704 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 13704 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 14:33:14.339  INFO 13704 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 14:33:14.915  INFO 13704 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 14:33:14.917  INFO 13704 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 14:33:14.917  INFO 13704 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 14:33:14.996  INFO 13704 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 14:33:14.996  INFO 13704 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 655 ms
+2019-09-03 14:33:15.199  WARN 13704 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizeController': Unsatisfied dependency expressed through field 'userService'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userService': Lookup method resolution failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [life.wpx1997.community.service.UserService] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@45233696]
+2019-09-03 14:33:15.200  INFO 13704 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2019-09-03 14:33:15.208  INFO 13704 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-09-03 14:33:15.224 ERROR 13704 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizeController': Unsatisfied dependency expressed through field 'userService'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userService': Lookup method resolution failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [life.wpx1997.community.service.UserService] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@45233696]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:596) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:90) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:374) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1411) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:592) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:515) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$$Lambda$118/30847718.getObject(Unknown Source) ~[na:na]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:845) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:877) ~[spring-context-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:549) ~[spring-context-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140) ~[spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:742) [spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:389) [spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:311) [spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1213) [spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1202) [spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at life.wpx1997.community.CommunityApplication.main(CommunityApplication.java:14) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0]
+	at java.lang.reflect.Method.invoke(Method.java:483) ~[na:1.8.0]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.7.RELEASE.jar:2.1.7.RELEASE]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userService': Lookup method resolution failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [life.wpx1997.community.service.UserService] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@45233696]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:265) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1269) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1184) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:515) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$$Lambda$118/30847718.getObject(Unknown Source) ~[na:na]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:277) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1251) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1171) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:593) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	... 25 common frames omitted
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [life.wpx1997.community.service.UserService] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@45233696]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:507) ~[spring-core-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.util.ReflectionUtils.doWithMethods(ReflectionUtils.java:404) ~[spring-core-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.util.ReflectionUtils.doWithMethods(ReflectionUtils.java:389) ~[spring-core-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:248) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	... 38 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: life/wpx1997/community/model/User
+	at java.lang.Class.getDeclaredMethods0(Native Method) ~[na:1.8.0]
+	at java.lang.Class.privateGetDeclaredMethods(Class.java:2688) ~[na:1.8.0]
+	at java.lang.Class.getDeclaredMethods(Class.java:1962) ~[na:1.8.0]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:489) ~[spring-core-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	... 41 common frames omitted
+Caused by: java.lang.ClassNotFoundException: life.wpx1997.community.model.User
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372) ~[na:1.8.0]
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361) ~[na:1.8.0]
+	at java.security.AccessController.doPrivileged(Native Method) ~[na:1.8.0]
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360) ~[na:1.8.0]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[na:1.8.0]
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308) ~[na:1.8.0]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[na:1.8.0]
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:144) ~[spring-boot-devtools-2.1.7.RELEASE.jar:2.1.7.RELEASE]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[na:1.8.0]
+	... 45 common frames omitted
+
+2019-09-03 14:33:16.960  INFO 13704 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 13704 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 14:33:16.960  INFO 13704 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 14:33:17.337  INFO 13704 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 14:33:17.338  INFO 13704 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 14:33:17.338  INFO 13704 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 14:33:17.353  INFO 13704 --- [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2019-09-03 14:33:17.353  INFO 13704 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 390 ms
+2019-09-03 14:33:17.580  INFO 13704 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 14:33:17.623  INFO 13704 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 14:33:17.653  INFO 13704 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 14:33:17.755  INFO 13704 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 14:33:17.795  INFO 13704 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 14:33:17 CST 2019
+2019-09-03 14:33:17.797  INFO 13704 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2019-09-03 14:33:17.800  INFO 13704 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 14:33:17.801  INFO 13704 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 0.865 seconds (JVM running for 655.414)
+2019-09-03 14:33:17.803  INFO 13704 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2019-09-03 14:33:17.809  INFO 13704 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2019-09-03 14:33:17.814  INFO 13704 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 14:33:17 CST 2019
+2019-09-03 14:33:41.086  INFO 13704 --- [http-nio-8887-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-09-03 14:33:41.086  INFO 13704 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-09-03 14:33:41.090  INFO 13704 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2019-09-03 14:40:19.703  INFO 3720 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 3720 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 14:40:19.707  INFO 3720 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 14:40:19.778  INFO 3720 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-09-03 14:40:19.778  INFO 3720 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-09-03 14:40:21.589  INFO 3720 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 14:40:21.617  INFO 3720 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 14:40:21.618  INFO 3720 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 14:40:21.735  INFO 3720 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 14:40:21.735  INFO 3720 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1957 ms
+2019-09-03 14:40:22.886  INFO 3720 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 14:40:23.052  INFO 3720 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 14:40:23.180  INFO 3720 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 14:40:23.307  INFO 3720 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 14:40:23.342  INFO 3720 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 14:40:23 CST 2019
+2019-09-03 14:40:23.378  INFO 3720 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 14:40:23.383  INFO 3720 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 4.241 seconds (JVM running for 6.469)
+2019-09-03 14:40:23.394  INFO 3720 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-09-03 14:40:24.089  INFO 3720 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-09-03 14:40:24.146  INFO 3720 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 14:40:24 CST 2019
+2019-09-03 14:40:27.391  INFO 3720 --- [http-nio-8887-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-09-03 14:40:27.391  INFO 3720 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-09-03 14:40:27.400  INFO 3720 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms
+2019-09-03 14:42:24.332  WARN 3720 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m142ms133µs400ns).
+2019-09-03 14:43:09.348  WARN 3720 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=45s15ms787µs800ns).
+2019-09-03 14:43:09.441  INFO 3720 --- [Thread-17] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2019-09-03 14:43:09.443  INFO 3720 --- [Thread-17] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-09-03 14:43:09.444  INFO 3720 --- [Thread-17] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-09-03 14:43:09.460  INFO 3720 --- [Thread-17] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-09-03 14:43:09.469  WARN 3720 --- [http-nio-8887-exec-1] com.zaxxer.hikari.pool.ProxyConnection   : HikariPool-1 - Connection com.mysql.cj.jdbc.ConnectionImpl@5727dc1c marked as broken because of SQLSTATE(08S01), ErrorCode(0)
+
+com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 86 milliseconds ago.  The last packet sent successfully to the server was 86 milliseconds ago.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:370) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44) ~[HikariCP-3.2.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java) [HikariCP-3.2.0.jar:na]
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47) [mybatis-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74) [mybatis-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50) [mybatis-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117) [mybatis-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76) [mybatis-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197) [mybatis-3.5.2.jar:3.5.2]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0]
+	at java.lang.reflect.Method.invoke(Method.java:483) ~[na:1.8.0]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:426) [mybatis-spring-2.0.2.jar:2.0.2]
+	at com.sun.proxy.$Proxy62.update(Unknown Source) [na:na]
+	at org.mybatis.spring.SqlSessionTemplate.update(SqlSessionTemplate.java:287) [mybatis-spring-2.0.2.jar:2.0.2]
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:67) [mybatis-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:57) [mybatis-3.5.2.jar:3.5.2]
+	at com.sun.proxy.$Proxy70.cumulativeView(Unknown Source) [na:na]
+	at life.wpx1997.community.service.QuestionService.cumulativeView(QuestionService.java:262) [classes/:na]
+	at life.wpx1997.community.controller.QuestionController.questionById(QuestionController.java:43) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0]
+	at java.lang.reflect.Method.invoke(Method.java:483) ~[na:1.8.0]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:892) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1039) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) [tomcat-embed-websocket-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:109) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:109) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:109) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:109) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:853) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1587) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at java.lang.Thread.run(Thread.java:744) [na:1.8.0]
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 86 milliseconds ago.  The last packet sent successfully to the server was 86 milliseconds ago.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:1.8.0]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[na:1.8.0]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:1.8.0]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408) ~[na:1.8.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:541) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:711) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.NativeProtocol.sendCommand(NativeProtocol.java:650) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.NativeProtocol.sendQueryPacket(NativeProtocol.java:949) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.NativeSession.execSQL(NativeSession.java:1113) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:930) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	... 75 common frames omitted
+Caused by: java.net.SocketException: Socket closed
+	at java.net.SocketInputStream.socketRead0(Native Method) ~[na:1.8.0]
+	at java.net.SocketInputStream.read(SocketInputStream.java:150) ~[na:1.8.0]
+	at java.net.SocketInputStream.read(SocketInputStream.java:121) ~[na:1.8.0]
+	at sun.security.ssl.InputRecord.readFully(InputRecord.java:465) ~[na:1.8.0]
+	at sun.security.ssl.InputRecord.read(InputRecord.java:503) ~[na:1.8.0]
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:954) ~[na:1.8.0]
+	at sun.security.ssl.SSLSocketImpl.readDataRecord(SSLSocketImpl.java:911) ~[na:1.8.0]
+	at sun.security.ssl.AppInputStream.read(AppInputStream.java:105) ~[na:1.8.0]
+	at java.io.FilterInputStream.read(FilterInputStream.java:133) ~[na:1.8.0]
+	at com.mysql.cj.protocol.FullReadInputStream.readFully(FullReadInputStream.java:64) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:63) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:45) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.TimeTrackingPacketReader.readHeader(TimeTrackingPacketReader.java:52) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.TimeTrackingPacketReader.readHeader(TimeTrackingPacketReader.java:41) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.MultiPacketReader.readHeader(MultiPacketReader.java:54) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.MultiPacketReader.readHeader(MultiPacketReader.java:44) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:535) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	... 80 common frames omitted
+
+2019-09-03 14:43:09.515  WARN 3720 --- [http-nio-8887-exec-1] o.s.jdbc.support.SQLErrorCodesFactory    : Error while extracting database name - falling back to empty error codes
+
+org.springframework.jdbc.support.MetaDataAccessException: Could not get Connection for extracting meta-data; nested exception is org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: HikariDataSource HikariDataSource (HikariPool-1) has been closed.
+	at org.springframework.jdbc.support.JdbcUtils.extractDatabaseMetaData(JdbcUtils.java:328) ~[spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.jdbc.support.JdbcUtils.extractDatabaseMetaData(JdbcUtils.java:356) ~[spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.jdbc.support.SQLErrorCodesFactory.getErrorCodes(SQLErrorCodesFactory.java:214) ~[spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.setDataSource(SQLErrorCodeSQLExceptionTranslator.java:136) [spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.<init>(SQLErrorCodeSQLExceptionTranslator.java:99) [spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.mybatis.spring.MyBatisExceptionTranslator.initExceptionTranslator(MyBatisExceptionTranslator.java:88) [mybatis-spring-2.0.2.jar:2.0.2]
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:73) [mybatis-spring-2.0.2.jar:2.0.2]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:440) [mybatis-spring-2.0.2.jar:2.0.2]
+	at com.sun.proxy.$Proxy62.update(Unknown Source) [na:na]
+	at org.mybatis.spring.SqlSessionTemplate.update(SqlSessionTemplate.java:287) [mybatis-spring-2.0.2.jar:2.0.2]
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:67) [mybatis-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:57) [mybatis-3.5.2.jar:3.5.2]
+	at com.sun.proxy.$Proxy70.cumulativeView(Unknown Source) [na:na]
+	at life.wpx1997.community.service.QuestionService.cumulativeView(QuestionService.java:262) [classes/:na]
+	at life.wpx1997.community.controller.QuestionController.questionById(QuestionController.java:43) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0]
+	at java.lang.reflect.Method.invoke(Method.java:483) ~[na:1.8.0]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:892) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1039) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) [tomcat-embed-websocket-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:109) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:109) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:109) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:109) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:853) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1587) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at java.lang.Thread.run(Thread.java:744) [na:1.8.0]
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: HikariDataSource HikariDataSource (HikariPool-1) has been closed.
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:81) ~[spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.jdbc.support.JdbcUtils.extractDatabaseMetaData(JdbcUtils.java:319) ~[spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	... 68 common frames omitted
+Caused by: java.sql.SQLException: HikariDataSource HikariDataSource (HikariPool-1) has been closed.
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:96) ~[HikariCP-3.2.0.jar:na]
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:157) ~[spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:115) ~[spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:78) ~[spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	... 69 common frames omitted
+
+2019-09-03 14:43:09.523  WARN 3720 --- [http-nio-8887-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.dao.RecoverableDataAccessException: 
+### Error updating database.  Cause: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 86 milliseconds ago.  The last packet sent successfully to the server was 86 milliseconds ago.
+### The error may exist in file [E:\Users\666\IdeaProjects\community\target\classes\mapper\QuestionExpandMapper.xml]
+### The error may involve life.wpx1997.community.mapper.QuestionExpandMapper.cumulativeView-Inline
+### The error occurred while setting parameters
+### SQL: update question     set     view_count = view_count + ?     where id = ?
+### Cause: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 86 milliseconds ago.  The last packet sent successfully to the server was 86 milliseconds ago.
+; Communications link failure
+
+The last packet successfully received from the server was 86 milliseconds ago.  The last packet sent successfully to the server was 86 milliseconds ago.; nested exception is com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 86 milliseconds ago.  The last packet sent successfully to the server was 86 milliseconds ago.]
+2019-09-03 14:43:35.852  INFO 13764 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 13764 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 14:43:35.855  INFO 13764 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 14:43:35.934  INFO 13764 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-09-03 14:43:35.935  INFO 13764 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-09-03 14:43:38.753  INFO 13764 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 14:43:38.779  INFO 13764 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 14:43:38.780  INFO 13764 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 14:43:38.915  INFO 13764 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 14:43:38.915  INFO 13764 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2980 ms
+2019-09-03 14:43:39.846  INFO 13764 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 14:43:40.039  INFO 13764 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 14:43:40.176  INFO 13764 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 14:43:40.321  INFO 13764 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 14:43:40.358  INFO 13764 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 14:43:40 CST 2019
+2019-09-03 14:43:40.397  INFO 13764 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 14:43:40.402  INFO 13764 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 5.043 seconds (JVM running for 6.188)
+2019-09-03 14:43:40.426  INFO 13764 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-09-03 14:43:41.300  INFO 13764 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-09-03 14:43:41.395  INFO 13764 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 14:43:41 CST 2019
+2019-09-03 14:43:56.474  INFO 13764 --- [Thread-12] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2019-09-03 14:43:56.475  INFO 13764 --- [Thread-12] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-09-03 14:43:56.477  INFO 13764 --- [Thread-12] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-09-03 14:43:56.502  INFO 13764 --- [Thread-12] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-09-03 14:43:57.183  INFO 13764 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 13764 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 14:43:57.184  INFO 13764 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 14:43:57.877  INFO 13764 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 14:43:57.879  INFO 13764 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 14:43:57.879  INFO 13764 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 14:43:57.914  INFO 13764 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 14:43:57.915  INFO 13764 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 726 ms
+2019-09-03 14:43:58.054  WARN 13764 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'commentController' defined in file [E:\Users\666\IdeaProjects\community\target\classes\life\wpx1997\community\controller\CommentController.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [life.wpx1997.community.controller.CommentController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@77c7a445]
+2019-09-03 14:43:58.055  INFO 13764 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2019-09-03 14:43:58.068  INFO 13764 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-09-03 14:43:58.089 ERROR 13764 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'commentController' defined in file [E:\Users\666\IdeaProjects\community\target\classes\life\wpx1997\community\controller\CommentController.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [life.wpx1997.community.controller.CommentController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@77c7a445]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:570) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:515) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$$Lambda$118/496345170.getObject(Unknown Source) ~[na:na]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:845) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:877) ~[spring-context-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:549) ~[spring-context-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140) ~[spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:742) [spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:389) [spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:311) [spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1213) [spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1202) [spring-boot-2.1.6.RELEASE.jar:2.1.6.RELEASE]
+	at life.wpx1997.community.CommunityApplication.main(CommunityApplication.java:14) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0]
+	at java.lang.reflect.Method.invoke(Method.java:483) ~[na:1.8.0]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.7.RELEASE.jar:2.1.7.RELEASE]
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [life.wpx1997.community.controller.CommentController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@77c7a445]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:760) ~[spring-core-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:692) ~[spring-core-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.buildResourceMetadata(CommonAnnotationBeanPostProcessor.java:365) ~[spring-context-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.findResourceMetadata(CommonAnnotationBeanPostProcessor.java:350) ~[spring-context-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessMergedBeanDefinition(CommonAnnotationBeanPostProcessor.java:298) ~[spring-context-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors(AbstractAutowireCapableBeanFactory.java:1077) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:567) ~[spring-beans-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	... 21 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: Llife/wpx1997/community/service/CommentService;
+	at java.lang.Class.getDeclaredFields0(Native Method) ~[na:1.8.0]
+	at java.lang.Class.privateGetDeclaredFields(Class.java:2570) ~[na:1.8.0]
+	at java.lang.Class.getDeclaredFields(Class.java:1903) ~[na:1.8.0]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:755) ~[spring-core-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	... 27 common frames omitted
+Caused by: java.lang.ClassNotFoundException: life.wpx1997.community.service.CommentService
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:372) ~[na:1.8.0]
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:361) ~[na:1.8.0]
+	at java.security.AccessController.doPrivileged(Native Method) ~[na:1.8.0]
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:360) ~[na:1.8.0]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[na:1.8.0]
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308) ~[na:1.8.0]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[na:1.8.0]
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:144) ~[spring-boot-devtools-2.1.7.RELEASE.jar:2.1.7.RELEASE]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[na:1.8.0]
+	... 31 common frames omitted
+
+2019-09-03 14:44:28.399  INFO 13944 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 13944 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 14:44:28.403  INFO 13944 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 14:44:28.478  INFO 13944 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-09-03 14:44:28.482  INFO 13944 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-09-03 14:44:30.664  INFO 13944 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 14:44:30.694  INFO 13944 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 14:44:30.695  INFO 13944 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 14:44:30.831  INFO 13944 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 14:44:30.831  INFO 13944 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2349 ms
+2019-09-03 14:44:31.628  INFO 13944 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 14:44:31.801  INFO 13944 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 14:44:31.932  INFO 13944 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 14:44:32.098  INFO 13944 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 14:44:32.138  INFO 13944 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 14:44:32 CST 2019
+2019-09-03 14:44:32.172  INFO 13944 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 14:44:32.177  INFO 13944 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 4.286 seconds (JVM running for 5.333)
+2019-09-03 14:44:32.187  INFO 13944 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-09-03 14:44:33.236  INFO 13944 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-09-03 14:44:33.307  INFO 13944 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 14:44:33 CST 2019
+2019-09-03 14:44:33.799  INFO 13944 --- [http-nio-8887-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-09-03 14:44:33.800  INFO 13944 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-09-03 14:44:33.810  INFO 13944 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 10 ms
+2019-09-03 14:45:43.308  WARN 13944 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m9s968ms819µs).
+2019-09-03 14:45:43.376  INFO 13944 --- [Thread-15] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2019-09-03 14:45:43.378  INFO 13944 --- [Thread-15] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-09-03 14:45:43.379  INFO 13944 --- [Thread-15] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-09-03 14:45:43.396  INFO 13944 --- [Thread-15] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-09-03 14:45:43.405  WARN 13944 --- [http-nio-8887-exec-1] com.zaxxer.hikari.pool.ProxyConnection   : HikariPool-1 - Connection com.mysql.cj.jdbc.ConnectionImpl@1e9c539a marked as broken because of SQLSTATE(08S01), ErrorCode(0)
+
+com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 67 milliseconds ago.  The last packet sent successfully to the server was 67 milliseconds ago.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:370) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44) ~[HikariCP-3.2.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java) [HikariCP-3.2.0.jar:na]
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47) [mybatis-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74) [mybatis-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50) [mybatis-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117) [mybatis-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76) [mybatis-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197) [mybatis-3.5.2.jar:3.5.2]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0]
+	at java.lang.reflect.Method.invoke(Method.java:483) ~[na:1.8.0]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:426) [mybatis-spring-2.0.2.jar:2.0.2]
+	at com.sun.proxy.$Proxy62.update(Unknown Source) [na:na]
+	at org.mybatis.spring.SqlSessionTemplate.update(SqlSessionTemplate.java:287) [mybatis-spring-2.0.2.jar:2.0.2]
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:67) [mybatis-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:57) [mybatis-3.5.2.jar:3.5.2]
+	at com.sun.proxy.$Proxy70.cumulativeView(Unknown Source) [na:na]
+	at life.wpx1997.community.service.QuestionService.cumulativeView(QuestionService.java:262) [classes/:na]
+	at life.wpx1997.community.controller.QuestionController.questionById(QuestionController.java:43) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0]
+	at java.lang.reflect.Method.invoke(Method.java:483) ~[na:1.8.0]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:892) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1039) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) [tomcat-embed-websocket-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:109) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:109) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:109) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:109) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:853) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1587) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at java.lang.Thread.run(Thread.java:744) [na:1.8.0]
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 67 milliseconds ago.  The last packet sent successfully to the server was 67 milliseconds ago.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:1.8.0]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[na:1.8.0]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:1.8.0]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408) ~[na:1.8.0]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:541) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:711) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.NativeProtocol.sendCommand(NativeProtocol.java:650) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.NativeProtocol.sendQueryPacket(NativeProtocol.java:949) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.NativeSession.execSQL(NativeSession.java:1113) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:930) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	... 75 common frames omitted
+Caused by: java.net.SocketException: Socket closed
+	at java.net.SocketInputStream.socketRead0(Native Method) ~[na:1.8.0]
+	at java.net.SocketInputStream.read(SocketInputStream.java:150) ~[na:1.8.0]
+	at java.net.SocketInputStream.read(SocketInputStream.java:121) ~[na:1.8.0]
+	at sun.security.ssl.InputRecord.readFully(InputRecord.java:465) ~[na:1.8.0]
+	at sun.security.ssl.InputRecord.read(InputRecord.java:503) ~[na:1.8.0]
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:954) ~[na:1.8.0]
+	at sun.security.ssl.SSLSocketImpl.readDataRecord(SSLSocketImpl.java:911) ~[na:1.8.0]
+	at sun.security.ssl.AppInputStream.read(AppInputStream.java:105) ~[na:1.8.0]
+	at java.io.FilterInputStream.read(FilterInputStream.java:133) ~[na:1.8.0]
+	at com.mysql.cj.protocol.FullReadInputStream.readFully(FullReadInputStream.java:64) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:63) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:45) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.TimeTrackingPacketReader.readHeader(TimeTrackingPacketReader.java:52) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.TimeTrackingPacketReader.readHeader(TimeTrackingPacketReader.java:41) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.MultiPacketReader.readHeader(MultiPacketReader.java:54) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.MultiPacketReader.readHeader(MultiPacketReader.java:44) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	at com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:535) ~[mysql-connector-java-8.0.17.jar:8.0.17]
+	... 80 common frames omitted
+
+2019-09-03 14:45:43.449  WARN 13944 --- [http-nio-8887-exec-1] o.s.jdbc.support.SQLErrorCodesFactory    : Error while extracting database name - falling back to empty error codes
+
+org.springframework.jdbc.support.MetaDataAccessException: Could not get Connection for extracting meta-data; nested exception is org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: HikariDataSource HikariDataSource (HikariPool-1) has been closed.
+	at org.springframework.jdbc.support.JdbcUtils.extractDatabaseMetaData(JdbcUtils.java:328) ~[spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.jdbc.support.JdbcUtils.extractDatabaseMetaData(JdbcUtils.java:356) ~[spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.jdbc.support.SQLErrorCodesFactory.getErrorCodes(SQLErrorCodesFactory.java:214) ~[spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.setDataSource(SQLErrorCodeSQLExceptionTranslator.java:136) [spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.<init>(SQLErrorCodeSQLExceptionTranslator.java:99) [spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.mybatis.spring.MyBatisExceptionTranslator.initExceptionTranslator(MyBatisExceptionTranslator.java:88) [mybatis-spring-2.0.2.jar:2.0.2]
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:73) [mybatis-spring-2.0.2.jar:2.0.2]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:440) [mybatis-spring-2.0.2.jar:2.0.2]
+	at com.sun.proxy.$Proxy62.update(Unknown Source) [na:na]
+	at org.mybatis.spring.SqlSessionTemplate.update(SqlSessionTemplate.java:287) [mybatis-spring-2.0.2.jar:2.0.2]
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:67) [mybatis-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:57) [mybatis-3.5.2.jar:3.5.2]
+	at com.sun.proxy.$Proxy70.cumulativeView(Unknown Source) [na:na]
+	at life.wpx1997.community.service.QuestionService.cumulativeView(QuestionService.java:262) [classes/:na]
+	at life.wpx1997.community.controller.QuestionController.questionById(QuestionController.java:43) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0]
+	at java.lang.reflect.Method.invoke(Method.java:483) ~[na:1.8.0]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:892) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1039) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882) [spring-webmvc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) [tomcat-embed-websocket-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:109) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:109) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:109) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:109) [spring-web-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:853) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1587) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.21.jar:9.0.21]
+	at java.lang.Thread.run(Thread.java:744) [na:1.8.0]
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: HikariDataSource HikariDataSource (HikariPool-1) has been closed.
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:81) ~[spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.jdbc.support.JdbcUtils.extractDatabaseMetaData(JdbcUtils.java:319) ~[spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	... 68 common frames omitted
+Caused by: java.sql.SQLException: HikariDataSource HikariDataSource (HikariPool-1) has been closed.
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:96) ~[HikariCP-3.2.0.jar:na]
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:157) ~[spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:115) ~[spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:78) ~[spring-jdbc-5.1.8.RELEASE.jar:5.1.8.RELEASE]
+	... 69 common frames omitted
+
+2019-09-03 14:45:43.457  WARN 13944 --- [http-nio-8887-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.dao.RecoverableDataAccessException: 
+### Error updating database.  Cause: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 67 milliseconds ago.  The last packet sent successfully to the server was 67 milliseconds ago.
+### The error may exist in file [E:\Users\666\IdeaProjects\community\target\classes\mapper\QuestionExpandMapper.xml]
+### The error may involve life.wpx1997.community.mapper.QuestionExpandMapper.cumulativeView-Inline
+### The error occurred while setting parameters
+### SQL: update question     set     view_count = view_count + ?     where id = ?
+### Cause: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 67 milliseconds ago.  The last packet sent successfully to the server was 67 milliseconds ago.
+; Communications link failure
+
+The last packet successfully received from the server was 67 milliseconds ago.  The last packet sent successfully to the server was 67 milliseconds ago.; nested exception is com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 67 milliseconds ago.  The last packet sent successfully to the server was 67 milliseconds ago.]
+2019-09-03 14:46:11.027  INFO 10252 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 10252 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 14:46:11.029  INFO 10252 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 14:46:11.074  INFO 10252 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-09-03 14:46:11.074  INFO 10252 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-09-03 14:46:12.610  INFO 10252 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 14:46:12.640  INFO 10252 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 14:46:12.640  INFO 10252 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 14:46:12.990  INFO 10252 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 14:46:12.990  INFO 10252 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1916 ms
+2019-09-03 14:46:13.603  INFO 10252 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 14:46:13.728  INFO 10252 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 14:46:13.821  INFO 10252 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 14:46:13.947  INFO 10252 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 14:46:13.981  INFO 10252 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 14:46:13 CST 2019
+2019-09-03 14:46:14.006  INFO 10252 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 14:46:14.009  INFO 10252 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 3.294 seconds (JVM running for 3.99)
+2019-09-03 14:46:14.014  INFO 10252 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-09-03 14:46:14.624  INFO 10252 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-09-03 14:46:14.670  INFO 10252 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 14:46:14 CST 2019
+2019-09-03 14:46:27.573  INFO 10252 --- [http-nio-8887-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-09-03 14:46:27.573  INFO 10252 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-09-03 14:46:27.579  INFO 10252 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2019-09-03 14:48:40.108  INFO 9060 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 9060 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 14:48:40.111  INFO 9060 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 14:48:40.191  INFO 9060 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-09-03 14:48:40.191  INFO 9060 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-09-03 14:48:41.641  INFO 9060 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 14:48:41.663  INFO 9060 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 14:48:41.664  INFO 9060 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 14:48:41.935  INFO 9060 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 14:48:41.936  INFO 9060 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1744 ms
+2019-09-03 14:48:42.762  INFO 9060 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 14:48:42.902  INFO 9060 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 14:48:43.002  INFO 9060 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 14:48:43.129  INFO 9060 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 14:48:43.157  INFO 9060 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 14:48:43 CST 2019
+2019-09-03 14:48:43.183  INFO 9060 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 14:48:43.186  INFO 9060 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 3.394 seconds (JVM running for 4.053)
+2019-09-03 14:48:43.191  INFO 9060 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-09-03 14:48:44.018  INFO 9060 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-09-03 14:48:44.147  INFO 9060 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 14:48:44 CST 2019
+2019-09-03 14:48:49.753  INFO 9060 --- [http-nio-8887-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-09-03 14:48:49.753  INFO 9060 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-09-03 14:48:49.759  INFO 9060 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2019-09-03 15:17:41.598  INFO 6548 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 6548 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 15:17:41.601  INFO 6548 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 15:17:41.655  INFO 6548 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-09-03 15:17:41.655  INFO 6548 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-09-03 15:17:43.354  INFO 6548 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 15:17:43.377  INFO 6548 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 15:17:43.377  INFO 6548 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 15:17:43.592  INFO 6548 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 15:17:43.592  INFO 6548 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1937 ms
+2019-09-03 15:17:44.263  INFO 6548 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 15:17:44.462  INFO 6548 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 15:17:44.602  INFO 6548 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 15:17:44.751  INFO 6548 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 15:17:44.779  INFO 6548 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 15:17:44 CST 2019
+2019-09-03 15:17:44.804  INFO 6548 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 15:17:44.808  INFO 6548 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 3.524 seconds (JVM running for 4.199)
+2019-09-03 15:17:44.813  INFO 6548 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-09-03 15:17:45.419  INFO 6548 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-09-03 15:17:45.467  INFO 6548 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 15:17:45 CST 2019
+2019-09-03 15:17:49.106  INFO 6548 --- [http-nio-8887-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-09-03 15:17:49.107  INFO 6548 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-09-03 15:17:49.112  INFO 6548 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2019-09-03 15:20:51.834  INFO 8376 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 8376 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 15:20:51.837  INFO 8376 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 15:20:51.881  INFO 8376 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-09-03 15:20:51.881  INFO 8376 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-09-03 15:20:53.426  INFO 8376 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 15:20:53.456  INFO 8376 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 15:20:53.457  INFO 8376 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 15:20:53.621  INFO 8376 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 15:20:53.621  INFO 8376 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1740 ms
+2019-09-03 15:20:54.302  INFO 8376 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 15:20:54.589  INFO 8376 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 15:20:54.686  INFO 8376 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 15:20:54.804  INFO 8376 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 15:20:54.831  INFO 8376 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 15:20:54 CST 2019
+2019-09-03 15:20:54.858  INFO 8376 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 15:20:54.861  INFO 8376 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 3.363 seconds (JVM running for 4.051)
+2019-09-03 15:20:54.867  INFO 8376 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-09-03 15:20:55.497  INFO 8376 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-09-03 15:20:55.542  INFO 8376 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 15:20:55 CST 2019
+2019-09-03 15:21:10.992  INFO 8376 --- [http-nio-8887-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-09-03 15:21:10.992  INFO 8376 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-09-03 15:21:10.999  INFO 8376 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2019-09-03 15:22:11.245  INFO 8296 --- [restartedMain] l.w.community.CommunityApplication       : Starting CommunityApplication on LAPTOP-SG87DFQ9 with PID 8296 (E:\Users\666\IdeaProjects\community\target\classes started by 666 in E:\Users\666\IdeaProjects\community)
+2019-09-03 15:22:11.247  INFO 8296 --- [restartedMain] l.w.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-09-03 15:22:11.308  INFO 8296 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-09-03 15:22:11.308  INFO 8296 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-09-03 15:22:12.886  INFO 8296 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-09-03 15:22:12.941  INFO 8296 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-09-03 15:22:12.943  INFO 8296 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-09-03 15:22:13.258  INFO 8296 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-09-03 15:22:13.259  INFO 8296 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1950 ms
+2019-09-03 15:22:13.882  INFO 8296 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-03 15:22:14.021  INFO 8296 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-09-03 15:22:14.115  INFO 8296 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-09-03 15:22:14.231  INFO 8296 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-09-03 15:22:14.265  INFO 8296 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule start Tue Sep 03 15:22:14 CST 2019
+2019-09-03 15:22:14.289  INFO 8296 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-09-03 15:22:14.292  INFO 8296 --- [restartedMain] l.w.community.CommunityApplication       : Started CommunityApplication in 3.377 seconds (JVM running for 4.063)
+2019-09-03 15:22:14.296  INFO 8296 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-09-03 15:22:15.072  INFO 8296 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-09-03 15:22:15.115  INFO 8296 --- [scheduling-1] l.w.community.schedule.HotTagTasks       : hotTagSchedule stop Tue Sep 03 15:22:15 CST 2019
+2019-09-03 15:22:17.050  INFO 8296 --- [http-nio-8887-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-09-03 15:22:17.050  INFO 8296 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-09-03 15:22:17.058  INFO 8296 --- [http-nio-8887-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms

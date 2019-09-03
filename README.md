@@ -91,8 +91,10 @@ create table notification
 (
     id bigint auto_increment,
     notifier bigint,
+    notifier_name varchar(100),
     receiver bigint,
     outer_id bigint,
+    outer_title varchar(100),
     type int,
     gmt_create bigint,
     status int default 0,
