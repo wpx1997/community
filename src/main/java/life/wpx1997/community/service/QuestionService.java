@@ -1,5 +1,7 @@
 package life.wpx1997.community.service;
 
+import life.wpx1997.community.cache.MessageTagCache;
+import life.wpx1997.community.dto.MessageTagDTO;
 import life.wpx1997.community.dto.PaginationDTO;
 import life.wpx1997.community.dto.QuestionDTO;
 import life.wpx1997.community.dto.QuestionQueryDTO;
@@ -16,9 +18,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -263,7 +264,33 @@ public class QuestionService {
     }
 
 
+    public List<MessageTagDTO> userTag(Long id){
+        List<Question> questions;
+        Map<String, Integer> priorities = new HashMap<>();
+        QuestionExample example = new QuestionExample();
+        example.createCriteria().andCreatorEqualTo(id);
+        questions = questionMapper.selectByExample(example);
+
+        for (Question question : questions) {
+            String[] tags = StringUtils.split(question.getTag(), "，");
+            for (String tag : tags) {
+                Integer priority = priorities.get(tag);
+                if (priority != null) {
+                    priorities.put(tag, (priority + 1));
+                } else {
+                    priorities.put(tag, 1);
+                }
+            }
+        }
+        MessageTagCache messageTagCache = new MessageTagCache();
+        List<MessageTagDTO> messageTagDTOS = messageTagCache.cacheTags(priorities);
+
+        return messageTagDTOS;
+
+    }
+
 }
+
 
 /*
     List<QuestionDTO> questionDTOS = questions.stream().map(q -> {

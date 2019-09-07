@@ -28,7 +28,7 @@
                 <h4 class="question-title"><span th:text="${question.title}"></span></h4>
                 <a class="question-tags" th:href="@{'/question/tag/'+${question.tag}}" th:text="${question.tag}"></a>
                 <span class="question-information">
-                  |  作者：<a href="/question/" th:text="${question.user.name}"></a>
+                  |  作者：<a th:href="'/message/'+${question.user.id}" th:text="${question.user.name}"></a>
                   |  阅读次数：<span th:text="${question.viewCount}"></span>
                   |  发布时间：<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
                 </span>

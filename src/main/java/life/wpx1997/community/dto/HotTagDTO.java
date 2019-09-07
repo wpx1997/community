@@ -1,7 +1,6 @@
 package life.wpx1997.community.dto;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 /**
  * created by 小case on 2019/9/2 12:32

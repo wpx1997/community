@@ -21,7 +21,8 @@ public class NodificationController {
     private NotificationService notificationService;
 
     @GetMapping("/notification/{id}")
-    public String notification(HttpServletRequest request, @PathVariable(name = "id") Long id){
+    public String notification(HttpServletRequest request,
+                               @PathVariable(name = "id") Long id){
 
         User user = (User)request.getSession().getAttribute("user");
         if (user == null){
