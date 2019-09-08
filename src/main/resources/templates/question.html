@@ -68,12 +68,10 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div th:each="comment,comentStat : ${comments}">
                     <div class="media-left">
-                        <a href="#">
-                            <img class="user-avatar img-rounded" th:src="${comment.user.avatarUrl}">
-                        </a>
+                        <img class="user-avatar img-rounded" th:src="${comment.user.avatarUrl}">
                     </div>
                     <div class="media-body" th:id="${'comment-body-'+comment.id}">
-                        <a href="/question/" th:text="${comment.user.name}"></a>
+                        <a th:href="'/message/'+${comment.user.id}" th:text="${comment.user.name}"></a>
                         <div class="comment-content-margin" th:id="'comment-view-'+${comment.id}">
                             <textarea style="display:none;" th:text="${comment.content}"></textarea>
                         </div>
@@ -111,13 +109,11 @@
                 <h4>提交回复</h4>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="media-left">
-                    <a href="#">
-                        <img class="user-avatar img-rounded" th:src="${session.user != null ? session.user.avatarUrl : '/images/defaultAvatar.png'}">
-                    </a>
+                    <img class="user-avatar img-rounded" th:src="${session.user != null ? session.user.avatarUrl : '/images/defaultAvatar.png'}">
                 </div>
                 <div class="media-body">
                     <h6 class="media-heading">
-                        <a href="/" th:text="${session.user != null ? session.user.name : '匿名大佬'}"></a>
+                        <a th:href="${session.user != null ? '/message/'+session.user.id : '/' }" th:text="${session.user != null ? session.user.name : '匿名大佬'}"></a>
                     </h6>
                 </div>
                 <div class="form-group" id="comment-editor">
@@ -149,13 +145,11 @@
                 <h4 class="question-title" th:if="${state} == 'disLogin'">发起人</h4>
                 <h4 class="question-title" th:if="${state} == 'login'">我的信息</h4>
                 <div class="media-left">
-                    <a href="#">
-                        <img class="user-avatar img-rounded" th:src="${question.user.avatarUrl}">
-                    </a>
+                    <img class="user-avatar img-rounded" th:src="${question.user.avatarUrl}">
                 </div>
                 <div class="media-body">
                     <h6 class="media-heading">
-                        <a th:href="@{'/question/'+${question.id}}" th:text="${question.user.name}"></a>
+                        <a th:href="'/message/'+${question.user.id}" th:text="${question.user.name}"></a>
                     </h6>
                 </div>
                 <hr>
@@ -196,9 +190,7 @@
                 <hr>
                 <div class="media" th:each="question : ${paginationMoreQuestion.data}">
                     <div class="media-left">
-                        <a href="#">
-                            <img class="user-avatar img-rounded" th:src="${question.user.avatarUrl}">
-                        </a>
+                        <img class="user-avatar img-rounded" th:src="${question.user.avatarUrl}">
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading"><a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a></h4>
