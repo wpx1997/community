@@ -1,5 +1,6 @@
 ## wpx1997
 
+ssh root@
 ## 部署
 ### 依赖
 - Git
@@ -13,10 +14,10 @@
 - cd App
 - git clone https://github.com/wpx1997/community.git
 - yum install maven
-- mvn compile package
+- mvn compile package  
 - cp src/main/resources/application.properties src/main/resources/application-production.properties
-- vim src/main/resources/application-production.properties
-- 按下esc，然后shift+；然后在输入wq保存
+- vim src/main/resources/application-production.properties(按下esc，然后shift+；然后在输入wq保存)
+- screen -r ssh(Ctrl + A + D)
 - java -jar -Dspring.profiles.active=production target/community-0.0.1-SNAPSHOT.jar
 
 ## 资料
@@ -35,16 +36,18 @@
 ##脚本
 创建user表
 ~~~sql
-create table user
+create table wx_user
 (
     id bigint auto_increment,
     account_id varchar(100),
     name varchar(50),
     token char(36),
     avatar_url varchar(100),
+    open_id varchar(64),
+    login_status int,
+    type int,
     gmt_create bigint,
     gmt_modified bigint,
-    bio varchar(256),
     constraint user_pk
         primary key (id)
 );

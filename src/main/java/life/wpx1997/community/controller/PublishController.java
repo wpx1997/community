@@ -18,9 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class PublishController {
-    
-    @Autowired
-    private QuestionMapper questionMapper;
 
     @Autowired
     private QuestionService questionService;
@@ -41,7 +38,7 @@ public class PublishController {
         model.addAttribute("tags", TagCache.get());
         return "publish";
     }
-    
+
     @PostMapping("/publish")
     public String doPublish(@RequestParam(value = "title",required = false) String title,
                             @RequestParam(value = "description",required = false) String description,
@@ -53,6 +50,7 @@ public class PublishController {
         model.addAttribute("title",title);
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
+        model.addAttribute("tags", TagCache.get());
 
         if (id != null){
             model.addAttribute("id",id);

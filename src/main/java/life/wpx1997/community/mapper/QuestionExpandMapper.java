@@ -1,6 +1,5 @@
 package life.wpx1997.community.mapper;
 
-import life.wpx1997.community.dto.PaginationDTO;
 import life.wpx1997.community.dto.QuestionQueryDTO;
 import life.wpx1997.community.model.Question;
 import java.util.List;

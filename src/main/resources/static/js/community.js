@@ -1,4 +1,5 @@
 
+
 function question_comment() {
     var questionId = $("#question-id").val();
     var content = $("#question-comment").val();
@@ -34,8 +35,8 @@ function commenttarget(targetId,type,content) {
                 if (response.code == 2003){
                     var isAccepted = confirm(response.message);
                     if (isAccepted){
-                        // window.open("https://github.com/login/oauth/authorize?client_id=a3d69bb3ea4d7ac6eae4&redirect_uri=http://localhost:8887/callback&scope=user&state=1");
-                        window.open("https://github.com/login/oauth/authorize?client_id=a4acac6694521f1c22a6&redirect_uri=http://106.75.29.98/callback&scope=user&state=1");
+                        window.open("https://github.com/login/oauth/authorize?client_id=a3d69bb3ea4d7ac6eae4&redirect_uri=http://localhost:8887/callback&scope=user&state=1");
+                        // window.open("https://github.com/login/oauth/authorize?client_id=a4acac6694521f1c22a6&redirect_uri=http://106.75.29.98/callback&scope=user&state=1");
                         window.localStorage.setItem("closable",true);
                     }
                 }else {
@@ -128,6 +129,10 @@ function addTag(e) {
 }
 
 function showAddTag() {
-    $("#add-tag").show();
+    var flag = $("#add-tag").is(":hidden");
+    if (flag){
+        $("#add-tag").show();
+    }else {
+        $("#add-tag").hide();
+    }
 }
-
