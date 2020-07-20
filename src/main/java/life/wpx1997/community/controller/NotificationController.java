@@ -13,9 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * created by 小case on 2019/8/27 0:14
+ * @author 不会飞的小鹏
  */
 @Controller
-public class NodificationController {
+public class NotificationController {
 
     @Autowired
     private NotificationService notificationService;

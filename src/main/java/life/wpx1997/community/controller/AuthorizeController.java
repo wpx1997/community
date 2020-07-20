@@ -1,9 +1,9 @@
 package life.wpx1997.community.controller;
 
 import life.wpx1997.community.dto.AccessokenDTO;
-import life.wpx1997.community.dto.GithubUser;
+import life.wpx1997.community.dto.GitHubUser;
 import life.wpx1997.community.model.User;
-import life.wpx1997.community.provider.GithubProvider;
+import life.wpx1997.community.provider.GitHubProvider;
 import life.wpx1997.community.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
+/**
+ * @author 小case
+ */
 @Controller
 @Slf4j
 public class AuthorizeController {
     @Autowired
-    private GithubProvider githubProvider;
+    private GitHubProvider gitHubProvider;
 
     @Value("${github.client.id}")
     private String clientId;
@@ -45,23 +48,23 @@ public class AuthorizeController {
         accessokenDTO.setCode(code);
         accessokenDTO.setRedirect_uri(redirectUri);
         accessokenDTO.setState(state);
-        String accessToken = githubProvider.getAccessToken(accessokenDTO);
-        GithubUser githubUser = githubProvider.getUser(accessToken);
+        String accessToken = gitHubProvider.getAccessToken(accessokenDTO);
+        GitHubUser gitHubUser = gitHubProvider.getUser(accessToken);
 
-        if(githubUser != null){
+        if(gitHubUser != null){
             User user = new User();
             String token = UUID.randomUUID().toString();
             user.setToken(token);
-            user.setName(githubUser.getName());
-            user.setAccountId(String.valueOf(githubUser.getId()));
-            user.setAvatarUrl(githubUser.getAvatar_url());
+            user.setName(gitHubUser.getName());
+            user.setAccountId(String.valueOf(gitHubUser.getId()));
+            user.setAvatarUrl(gitHubUser.getAvatar_url());
 
             userService.createOrUpdate(user);
 
             response.addCookie(new Cookie("token",token));
             return "redirect:/";
         }else {
-            log.error("callback get github error,{}",githubUser);
+            log.error("callback get github error,{}", (Object) null);
             //登录失败，重新登录
             return "redirect:/";
         }

@@ -15,11 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * @author 不会飞的小鹏
+ */
 @ControllerAdvice
 public class CustomizeExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    Object handle(Throwable e, Model model, HttpServletRequest request, HttpServletResponse response) {
+    Object handle(Exception e, Model model, HttpServletRequest request, HttpServletResponse response) {
 
         String contentType = request.getContentType();
 

@@ -63,55 +63,9 @@ function collapseComments(e) {
         e.removeAttribute("data-collapse");
         e.classList.remove("active");
     }else {
-
-        var subCommentContainer = $("#comment-"+id);
-
-        if (subCommentContainer.children().length != 1){
-            comments.addClass("in");
-            e.setAttribute("data-collapse","in");
-            e.classList.add("active");
-        }else {
-            $.getJSON("/comment/"+id,function (data) {
-                $.each(data.data.reverse(),function (index,comment) {
-                    var mediaLeftElement = $("<div/>",{
-                        "class":"media-left"
-                    }).append($("<img/>",{
-                        "class":"user-avatar img-rounded",
-                        "src":comment.user.avatarUrl
-                    }));
-
-                    var mediaBodyElement = $("<div/>",{
-                        "class":"media-body"
-                    }).append($("<a/>",{
-                        "href":'/message/'+comment.user.id,
-                        "html":comment.user.name
-                    })).append($("<div/>",{
-                        "class":"media-heading comment-body",
-                        "html":comment.content
-                    })).append($("<div/>",{
-                        "class":"comment-menu"
-                    }).append($("<span/>",{
-                        "class":"pull-right",
-                        "html":moment(comment.gmtCreate).format('YYYY-MM-DD HH:mm')
-                    })));
-
-                    var mediaElement = $("<div/>",{
-                        "class":"media"
-                    }).append(mediaLeftElement)
-                        .append(mediaBodyElement);
-
-                    var commentElement = $("<div/>",{
-                    }).append(mediaElement);
-
-                    subCommentContainer.prepend(commentElement);
-                });
-            });
-
-            comments.addClass("in");
-            e.setAttribute("data-collapse","in");
-            e.classList.add("active");
-        }
-
+        comments.addClass("in");
+        e.setAttribute("data-collapse","in");
+        e.classList.add("active");
     }
 
 }

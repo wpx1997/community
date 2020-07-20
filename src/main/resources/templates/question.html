@@ -19,7 +19,6 @@
 <body>
 <div th:insert="~{navigation :: nav}"></div>
 <div class="container-fluid main profile">
-
     <!--  当点击问题时传递id时显示  -->
     <div class="row" th:if="${judge} == 'id'">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
@@ -28,7 +27,7 @@
                 <h4 class="question-title"><span th:text="${question.title}"></span></h4>
                 <a class="question-tags" th:href="@{'/question/tag/'+${question.tag}}" th:text="${question.tag}"></a>
                 <span class="question-information">
-                  |  作者：<a th:href="'/message/'+${question.user.id}" th:text="${question.user.name}"></a>
+                  |  作者：<a th:href="'/message/'+${question.creator}" th:text="${question.creatorName}"></a>
                   |  阅读次数：<span th:text="${question.viewCount}"></span>
                   |  发布时间：<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
                 </span>
@@ -52,7 +51,7 @@
                 </span>
                 <hr>
                 <span class="meta comment-count-style">
-                    <a th:href="'/publish/'+${question.id}" class="community-menu comment-right" th:if="${state} == 'login'">
+                    <a th:href="'/publish/'+${question.id}" class="community-menu comment-right" th:if="${state} == 'mine'">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                         编辑
                     </a>
@@ -66,16 +65,16 @@
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <!--      问题回复内容      -->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div th:each="comment,comentStat : ${comments}">
+                <div th:each="questionComment : ${question.questionCommentList}">
                     <div class="media-left">
-                        <img class="user-avatar img-rounded" th:src="${comment.user.avatarUrl}">
+                        <img class="user-avatar img-rounded" th:src="${questionComment.creatorAvatarUrl}">
                     </div>
-                    <div class="media-body" th:id="${'comment-body-'+comment.id}">
-                        <a th:href="'/message/'+${comment.user.id}" th:text="${comment.user.name}"></a>
-                        <div class="comment-content-margin" th:id="'comment-view-'+${comment.id}">
-                            <textarea style="display:none;" th:text="${comment.content}"></textarea>
+                    <div class="media-body" th:id="${'comment-body-'+questionComment.id}">
+                        <a th:href="'/message/'+${questionComment.commentator}" th:text="${questionComment.creatorName}"></a>
+                        <div class="comment-content-margin" th:id="'comment-view-'+${questionComment.id}">
+                            <textarea style="display:none;" th:text="${questionComment.content}"></textarea>
                         </div>
-                        <input type="hidden" id="commentContent" th:value="${comment.id}">
+                        <input type="hidden" id="commentContent" th:value="${questionComment.id}">
                         <script type="text/javascript">
                             $(function() {
                                 var id = $("#commentContent").val();
@@ -86,15 +85,29 @@
                         <div class="comment-menu">
                             <span class="glyphicon glyphicon-thumbs-up like-count"></span>
                             <span class="like-count">
-                                <span class="glyphicon glyphicon-comment" th:data-id="${comment.id}" onclick="collapseComments(this)"></span>
-                                <span th:text="${comment.commentCount}"></span>
+                                <span class="glyphicon glyphicon-comment" th:data-id="${questionComment.id}" onclick="collapseComments(this)"></span>
+                                <span th:text="${questionComment.commentCount}"></span>
                             </span>
-                            <span class="pull-right" th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
+                            <span class="pull-right" th:text="${#dates.format(questionComment.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
                         </div>
                         <!--    二级评论    -->
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse comment-comment" th:id="${'comment-'+comment.id}">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse comment-comment" th:id="${'comment-'+questionComment.id}">
+                            <div th:each="commentComment : ${questionComment.commentCommentList}">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <img class="user-avatar" th:src="${commentComment.creatorAvatarUrl}">
+                                    </div>
+                                    <div class="media-body">
+                                        <a :href="'#/message/' + commentComment.id" th:text="${commentComment.creatorName}"></a>
+                                        <div class="media-heading comment-body" th:text="${commentComment.content}"></div>
+                                        <div class="comment-menu">
+                                            <span class="pull-right" th:text="${#dates.format(commentComment.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <input type="hidden" id="comment_id" th:value="${comment.id}">
+                                <input type="hidden" id="comment_id" th:value="${questionComment.id}">
                                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <input type="text" class="form-control" placeholder="评论一下....." id="comment_comment">
                                 <button type="button" class="btn btn-success pull-right sub-comment-btn" onclick="comment_comment()">评论</button>
@@ -142,14 +155,14 @@
         <!--    作者信息展示      -->
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h4 class="question-title" th:if="${state} == 'disLogin'">发起人</h4>
-                <h4 class="question-title" th:if="${state} == 'login'">我的信息</h4>
+                <h4 class="question-title" th:if="${state} == 'notMine'">发起人</h4>
+                <h4 class="question-title" th:if="${state} == 'mine'">我的信息</h4>
                 <div class="media-left">
-                    <img class="user-avatar img-rounded" th:src="${question.user.avatarUrl}">
+                    <img class="user-avatar img-rounded" th:src="${question.creatorAvatarUrl}">
                 </div>
                 <div class="media-body">
                     <h6 class="media-heading">
-                        <a th:href="'/message/'+${question.user.id}" th:text="${question.user.name}"></a>
+                        <a th:href="'/message/'+${question.creator}" th:text="${question.creatorName}"></a>
                     </h6>
                 </div>
                 <hr>
@@ -162,18 +175,18 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <!--    相关问题展示    -->
                 <h4>相关问题</h4>
-                <div class="media" th:each="titlequestion : ${label} ">
-                    <a th:href="@{'/question/'+${titlequestion.id}}" th:text="${titlequestion.title}"></a>
+                <div class="media" th:each="dependentQuestionTitle : ${question.dependentQuestionTitleList} ">
+                    <a th:href="@{'/question/'+${dependentQuestionTitle.id}}" th:text="${dependentQuestionTitle.title}"></a>
                 </div>
                 .........
                 <h5><a th:href="@{'/question/tag/'+${question.tag}}">更多相关问题</a></h5>
                 <hr>
             </div>
             <!--    如果用户为此问题作者  -->
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${state} == 'login'">
-                <h4>我的其他问题</h4>
-                <div class="media" th:each="myQuestion : ${myQuestions} ">
-                    <a th:href="@{'/question/'+${myQuestion.id}}" th:text="${myQuestion.title}"></a>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4 th:text="${state} == 'mine' ? '我的其他问题' : '本作者其他问题'"></h4>
+                <div class="media" th:each="thisCreatorQuestionTittle : ${question.thisCreatorQuestionTitleList} ">
+                    <a th:href="@{'/question/'+${thisCreatorQuestionTittle.id}}" th:text="${thisCreatorQuestionTittle.title}"></a>
                 </div>
                 .........
                 <h5><a th:href="@{/profile/questions}">我所有的问题</a></h5>
@@ -190,11 +203,11 @@
                 <hr>
                 <div class="media" th:each="question : ${paginationMoreQuestion.data}">
                     <div class="media-left">
-                        <img class="user-avatar img-rounded" th:src="${question.user.avatarUrl}">
+                        <img class="user-avatar img-rounded" th:src="${question.creatorAvatarUrl}">
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading"><a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a></h4>
-                        <span class="question-information"><span th:text="${question.user.name}"></span>
+                        <span class="question-information"><span th:text="${question.creatorName}"></span>
                               • <span th:text="${question.commentCount}"></span>
                             个回复 • <span th:text="${question.viewCount}"></span>
                             次浏览 • <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>

@@ -15,9 +15,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * created by 小case on 2019/8/26 16:49
+ * created on 2019/8/26 16:49
+ * @author 不会飞的小鹏
  */
 @Service
 public class NotificationService {
@@ -27,27 +29,12 @@ public class NotificationService {
 
     public PaginationDTO<NotificationDTO> list(Long userId, Integer page, Integer size) {
 
-        PaginationDTO<NotificationDTO> paginationNotificationDTO = new PaginationDTO<>();
+        PaginationDTO<NotificationDTO> paginationDTO = new PaginationDTO<>();
         NotificationExample notificationExample = new NotificationExample();
         notificationExample.createCriteria().andReceiverEqualTo(userId);
         Integer totalCount = (int)notificationMapper.countByExample(notificationExample);
-        Integer totalPage;
 
-        if (totalCount % size == 0){
-            totalPage = totalCount / size;
-        }else {
-            totalPage = totalCount / size + 1;
-        }
-
-        if (page<1){
-            page = 1;
-        }
-        if (page>totalPage){
-            page = totalPage;
-        }
-
-        paginationNotificationDTO.setPaination(totalPage,page);
-        Integer offset = size*(page-1);
+        Integer offset = paginationDTO.setPagination(totalCount,page);
 
         NotificationExample example = new NotificationExample();
         example.createCriteria().andReceiverEqualTo(userId);
@@ -55,20 +42,19 @@ public class NotificationService {
         List<Notification> notifications = notificationMapper.selectByExampleWithRowbounds(example,new RowBounds(offset,size));
 
         if (notifications.size() == 0){
-            return paginationNotificationDTO;
+            return paginationDTO;
         }
 
-        List<NotificationDTO> notificationDTOS = new ArrayList<>();
-
-        for (Notification notification : notifications) {
+        List<NotificationDTO> notificationDTOList = notifications.stream().map(notification -> {
             NotificationDTO notificationDTO = new NotificationDTO();
-            BeanUtils.copyProperties(notification,notificationDTO);
+            BeanUtils.copyProperties(notification, notificationDTO);
             notificationDTO.setTypeName(NotificationTypeEnum.nameOfType(notification.getType()));
-            notificationDTOS.add(notificationDTO);
-        }
-        paginationNotificationDTO.setData(notificationDTOS);
+            return notificationDTO;
+        }).collect(Collectors.toList());
 
-        return paginationNotificationDTO;
+        paginationDTO.setData(notificationDTOList);
+
+        return paginationDTO;
 
     }
 

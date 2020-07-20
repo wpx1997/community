@@ -3,6 +3,9 @@ package life.wpx1997.community.dto;
 import life.wpx1997.community.model.User;
 import lombok.Data;
 
+/**
+ * @author 不会飞的小鹏
+ */
 @Data
 public class QuestionDTO {
     private Long id;

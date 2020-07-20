@@ -20,7 +20,7 @@
                 <div class="media" th:each="question : ${paginationQuestions.data}">
                     <div class="media-left">
                         <a href="#">
-                            <img class="user-avatar img-rounded" th:src="${question.user.avatarUrl}">
+                            <img class="user-avatar img-rounded" th:src="${question.creatorAvatarUrl}">
                         </a>
                     </div>
                     <div class="media-body">
@@ -28,7 +28,7 @@
                             <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
                         </h4>
                         <span class="myquestion-information">
-                            <span th:text="${question.user.name}"></span>
+                            <span th:text="${question.creatorName}"></span>
                               • <span th:text="${question.commentCount}"></span>
                               个回复 •  <span th:text="${question.viewCount}"></span>
                             次浏览 •

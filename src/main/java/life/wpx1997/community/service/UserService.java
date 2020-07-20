@@ -1,18 +1,27 @@
 package life.wpx1997.community.service;
 
+import life.wpx1997.community.mapper.UserExpandMapper;
 import life.wpx1997.community.mapper.UserMapper;
 import life.wpx1997.community.model.User;
 import life.wpx1997.community.model.UserExample;
+import life.wpx1997.community.model.UserMessageModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
+/**
+ * @author 不会飞的小鹏
+ */
 @Service
 public class UserService {
+
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private UserExpandMapper userExpandMapper;
 
     public void createOrUpdate(User user) {
         UserExample userExample = new UserExample();
@@ -36,5 +45,25 @@ public class UserService {
             example.createCriteria().andIdEqualTo(dbUser.getId());
             userMapper.updateByExampleSelective(updateUser, example);
         }
+    }
+
+    public List<UserMessageModel> selectUserMessageDaoListByCreatorSet(Set<Long> creatorSet) {
+
+        List<UserMessageModel> userMessageModelList = userExpandMapper.selectUserMessageDaoListById(creatorSet);
+        return userMessageModelList;
+    }
+
+    public User selectUseById(Long id) {
+
+        User user = userMapper.selectByPrimaryKey(id);
+
+        return user;
+    }
+
+    public UserMessageModel selectUserMessageDaoByUserId(Long userId) {
+
+        UserMessageModel userMessageModel = userExpandMapper.selectUserMessageByUserId(userId);
+
+        return userMessageModel;
     }
 }

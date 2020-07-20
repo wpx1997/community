@@ -2,14 +2,17 @@ package life.wpx1997.community.provider;
 
 import com.alibaba.fastjson.JSON;
 import life.wpx1997.community.dto.AccessokenDTO;
-import life.wpx1997.community.dto.GithubUser;
+import life.wpx1997.community.dto.GitHubUser;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * @author 不会飞的小鹏
+ */
 @Component
-public class GithubProvider {
+public class GitHubProvider {
     public String getAccessToken(AccessokenDTO accessokenDTO){
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
         OkHttpClient client = new OkHttpClient();
@@ -29,7 +32,7 @@ public class GithubProvider {
         return null;
     }
 
-    public GithubUser getUser(String accessToken){
+    public GitHubUser getUser(String accessToken){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url("https://api.github.com/user?access_token="+accessToken)
@@ -37,7 +40,7 @@ public class GithubProvider {
         try{
             Response response = client.newCall(request).execute();
             String string = response.body().string();
-            GithubUser githubUser = JSON.parseObject(string,GithubUser.class);
+            GitHubUser githubUser = JSON.parseObject(string,GitHubUser.class);
             return  githubUser;
         }catch (IOException e){}
         return null;

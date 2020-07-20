@@ -1,5 +1,8 @@
 package life.wpx1997.community.exception;
 
+/**
+ * @author 不会飞的小鹏
+ */
 public class CustomizeException extends RuntimeException {
 
     private Integer code;

@@ -2,6 +2,9 @@ package life.wpx1997.community.dto;
 
 import lombok.Data;
 
+/**
+ * @author 不会飞的小鹏
+ */
 @Data
 public  class AccessokenDTO {
     private String client_id;

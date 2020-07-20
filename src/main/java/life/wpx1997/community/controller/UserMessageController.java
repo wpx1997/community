@@ -36,11 +36,11 @@ public class UserMessageController {
 
 //        如果当前用户未登录或已登录但id不匹配
         User currentUser = (User)request.getSession().getAttribute("user");
-        if (currentUser == null || currentUser.getId() != id){
+        if (currentUser == null || !currentUser.getId().equals(id)){
             model.addAttribute("whoIs","isOthers");
         }
 
-        if (currentUser != null && currentUser.getId() == id){
+        if (currentUser != null && currentUser.getId().equals(id)){
             model.addAttribute("whoIs","isMe");
         }
 

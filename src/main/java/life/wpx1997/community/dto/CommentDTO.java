@@ -4,7 +4,8 @@ import life.wpx1997.community.model.User;
 import lombok.Data;
 
 /**
- * created by 小case on 2019/8/22 23:33
+ * created on 2019/8/22 23:33
+ * @author 不会飞的小鹏
  */
 
 @Data
