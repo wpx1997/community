@@ -21,15 +21,15 @@ public class RedisService {
     @Autowired
     private RedisTemplate redisTemplate;
 
-    public void addQuestionListByIndexPage(PaginationDTO<QuestionShowModel> paginationDTO,String search, Integer page) {
+    public void addQuestionListByIndexPage(PaginationDTO<QuestionShowModel> paginationDTO, Integer page) {
 
-        redisTemplate.opsForValue().set("indexQuestionListBy" + search + "WithPage=" + page, JSON.toJSONString(paginationDTO),2, TimeUnit.HOURS);
+        redisTemplate.opsForValue().set("indexQuestionListByPage=" + page, JSON.toJSONString(paginationDTO),2, TimeUnit.HOURS);
 
     }
 
-    public PaginationDTO<QuestionShowModel> getIndexQuestionListByPage(String search, Integer page) {
+    public PaginationDTO<QuestionShowModel> getIndexQuestionListByPage(Integer page) {
 
-        String questionListString = (String) redisTemplate.opsForValue().get("indexQuestionListBy" + search + "WithPage=" + page);
+        String questionListString = (String) redisTemplate.opsForValue().get("indexQuestionListByPage=" + page);
         PaginationDTO<QuestionShowModel> paginationDTO = (PaginationDTO<QuestionShowModel>) JSONArray.parseObject(questionListString,PaginationDTO.class);
 
         return paginationDTO;

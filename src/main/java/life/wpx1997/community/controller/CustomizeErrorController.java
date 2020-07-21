@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author 不会飞的小鹏
+ */
 @Controller
 @RequestMapping("${server.error.path:error.path:/error}")
 public class CustomizeErrorController implements ErrorController {

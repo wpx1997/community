@@ -24,10 +24,6 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
-    @Autowired
-    private CommentService commentService;
-
-
     @GetMapping("/question/{id}")
     public String questionById(@PathVariable(name = "id") Long id,
                                HttpServletRequest request,
@@ -39,6 +35,10 @@ public class QuestionController {
         // 根据页面传递的id查询问题的内容
         QuestionMessageDTO thisQuestion = questionService.selectQuestionByQuestionId(id);
 
+        if (thisQuestion == null){
+            return "/";
+        }
+
         // 累计问题阅读数
         questionService.cumulativeView(id);
 
@@ -49,28 +49,24 @@ public class QuestionController {
             model.addAttribute("state", "mine");
         }
 
-//        增加此问题内容
+        // 增加此问题内容
         model.addAttribute("question", thisQuestion);
 
-//        问题的显示显示judge为id
-        model.addAttribute("judge", "id");
         return "question";
     }
 
 
-    @GetMapping("/question/tag/{tag}")
+    @GetMapping("/tag/{tag}")
     public String questionByTag(@PathVariable(name = "tag") String tag,
                                 @RequestParam(name = "page", defaultValue = "1") Integer page,
                                 Model model) {
 
-//        根据标签返回此页面问题的相似问题
-        PaginationDTO<QuestionShowModel> paginationMoreQuestion = questionService.listByTag(tag, page);
+        // 根据标签返回此页面问题的相似问题
+        PaginationDTO<QuestionShowModel> paginationDTO = questionService.selectQuestionListByTag(tag, page);
+        model.addAttribute("tagPagination", paginationDTO);
+        model.addAttribute("tag",tag);
 
-        model.addAttribute("paginationMoreQuestion", paginationMoreQuestion);
-//        问题显示形式judge为tag
-        model.addAttribute("judge", "tag");
-
-        return "question";
+        return "tag";
     }
 
 

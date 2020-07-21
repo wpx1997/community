@@ -1,21 +1,25 @@
 package life.wpx1997.community.controller;
 
 import life.wpx1997.community.cache.TagCache;
-import life.wpx1997.community.dto.QuestionDTO;
-import life.wpx1997.community.mapper.QuestionMapper;
+import life.wpx1997.community.dto.QuestionPublishDTO;
+import life.wpx1997.community.dto.ResultDTO;
+import life.wpx1997.community.exception.CustomizeErrorCode;
 import life.wpx1997.community.model.Question;
+import life.wpx1997.community.model.QuestionPublishModel;
 import life.wpx1997.community.model.User;
 import life.wpx1997.community.service.QuestionService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
+/**
+ * @author 不会飞的小鹏
+ */
 @Controller
 public class PublishController {
 
@@ -24,74 +28,54 @@ public class PublishController {
 
     @GetMapping("/publish/{id}")
     public String updateQuestion(@PathVariable(name = "id") Long id,
+                                 HttpServletRequest request,
                                  Model model){
-        QuestionDTO question = questionService.getById(id);
-        model.addAttribute("title",question.getTitle());
-        model.addAttribute("description",question.getDescription());
-        model.addAttribute("tag",question.getTag());
-        model.addAttribute("id",question.getId());
+
+        User user = (User)request.getSession().getAttribute("user");
+        if (user == null){
+            return "redirect:/";
+        }
+        QuestionPublishModel question = questionService.getQuestionPublishModelById(id);
+        if (question == null || !user.getId().equals(question.getId())){
+            return "redirect:/";
+        }
+        model.addAttribute("question",question);
+
         return "publish";
     }
 
     @GetMapping("/publish")
     public String publish(Model model){
+
+        QuestionPublishDTO questionPublishDTO = new QuestionPublishDTO();
+        model.addAttribute("question",questionPublishDTO);
         model.addAttribute("tags", TagCache.get());
+
         return "publish";
     }
 
-    @PostMapping("/publish")
-    public String doPublish(@RequestParam(value = "title",required = false) String title,
-                            @RequestParam(value = "description",required = false) String description,
-                            @RequestParam(value = "tag",required = false) String tag,
-                            @RequestParam(value = "id",required = false) Long id,
-                            HttpServletRequest request,
-                            Model model){
+    @ResponseBody
+    @RequestMapping(value = "/publish",method = RequestMethod.POST)
+    public Object doPublish(@RequestBody @Valid QuestionPublishDTO questionPublishDTO,
+                            HttpServletRequest request){
 
-        model.addAttribute("title",title);
-        model.addAttribute("description",description);
-        model.addAttribute("tag",tag);
-        model.addAttribute("tags", TagCache.get());
-
-        if (id != null){
-            model.addAttribute("id",id);
-        }
-
-        if (title == null || title == ""){
-            model.addAttribute("error","标题不能为空");
-            return "publish";
-        }
-        if (description == null || description == ""){
-            model.addAttribute("error","内容不能为空");
-            return "publish";
-        }
-        if (tag == null || tag == ""){
-            model.addAttribute("error","标签不能为空");
-            return "publish";
-        }
-
-        String invalid = TagCache.filterInvalid(tag);
+        String invalid = TagCache.filterInvalid(questionPublishDTO.getTag());
         if (StringUtils.isNotBlank(invalid)){
-            model.addAttribute("error","输入非法标签"+invalid);
-            return "publish";
+            return ResultDTO.errorOf(CustomizeErrorCode.ILLEGAL_TAG);
         }
-
 
         User user = (User) request.getSession().getAttribute("user");
 
         if (user == null){
-            model.addAttribute("error","用户未登录");
-            return "publish";
+            return ResultDTO.errorOf(CustomizeErrorCode.NOT_LOGIN);
         }
 
-        Question question = new Question();
-        question.setTitle(title);
-        question.setDescription(description);
-        question.setCreator(user.getId());
-        question.setTag(tag);
-        question.setId(id);
+        Boolean update = questionService.createOrUpdate(questionPublishDTO, user.getId());
 
-        questionService.createOrUpdate(question);
+        if (!update){
+            return ResultDTO.errorOf(CustomizeErrorCode.QUESTION_UPDATE_ERROR);
+        }
 
-        return "redirect:/";
+        return ResultDTO.okOf();
     }
 }

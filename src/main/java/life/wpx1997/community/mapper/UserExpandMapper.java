@@ -22,7 +22,7 @@ public interface UserExpandMapper {
      * @param userIdSet
      * @return: String
      */
-    List<UserMessageModel> selectUserMessageDaoListById(@Param("userIdSet")Set<Long> userIdSet);
+    List<UserMessageModel> selectUserMessageModelListById(@Param("userIdSet")Set<Long> userIdSet);
 
     /**
      *

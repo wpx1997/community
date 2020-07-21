@@ -47,9 +47,9 @@ public class UserService {
         }
     }
 
-    public List<UserMessageModel> selectUserMessageDaoListByCreatorSet(Set<Long> creatorSet) {
+    public List<UserMessageModel> selectUserMessageModelListByCreatorSet(Set<Long> creatorSet) {
 
-        List<UserMessageModel> userMessageModelList = userExpandMapper.selectUserMessageDaoListById(creatorSet);
+        List<UserMessageModel> userMessageModelList = userExpandMapper.selectUserMessageModelListById(creatorSet);
         return userMessageModelList;
     }
 

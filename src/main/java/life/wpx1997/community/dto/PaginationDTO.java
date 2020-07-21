@@ -85,24 +85,26 @@ public class PaginationDTO<T> {
      */
     public Integer setPagination(Integer totalCount, Integer page) {
 
+        setPageWithTotalPage(totalCount,page,SIZE);
+        organizePageList();
+        Integer offset = SIZE * (this.page - 1);
+
+        return offset;
+    }
+
+    public Integer setPagination(Integer totalCount, Integer page, Integer size){
+
+        setPageWithTotalPage(totalCount,page,size);
+        organizePageList();
+        Integer offset = size * (this.page - 1);
+
+        return offset;
+    }
+
+    private void organizePageList() {
+
         Integer showPage = 3;
 
-        if (totalCount % SIZE == 0) {
-            this.totalPage = totalCount / SIZE;
-        } else {
-            this.totalPage = totalCount / SIZE + 1;
-        }
-
-        if (page < 1) {
-            page = 1;
-        }
-        if (page > totalPage) {
-            page = totalPage;
-        }
-
-        this.page = page;
-
-        pageList.add(page);
         for (int i = 1; i <= showPage; i++) {
             if (page - i > 0) {
                 pageList.add(0, page - i);
@@ -140,9 +142,27 @@ public class PaginationDTO<T> {
             showEndPage = true;
         }
 
-        Integer offset = SIZE * (page - 1);
+    }
 
-        return offset;
+    private void setPageWithTotalPage(Integer totalCount, Integer page, Integer size) {
+
+        if (totalCount % size == 0) {
+            this.totalPage = totalCount / size;
+        } else {
+            this.totalPage = totalCount / size + 1;
+        }
+
+        if (page < 1) {
+            page = 1;
+        }
+        if (page > totalPage) {
+            page = totalPage;
+        }
+
+        this.page = page;
+
+        pageList.add(page);
+
     }
 
 }

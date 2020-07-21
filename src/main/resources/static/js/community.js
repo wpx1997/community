@@ -90,3 +90,43 @@ function showAddTag() {
         $("#add-tag").hide();
     }
 }
+
+function saveQuestion() {
+
+    var id = $("#id").val();
+    var title = $("#title").val();
+    var description = $("#description").val();
+    var tag = $("#tag").val();
+    if (null == title || "" == title){
+        alert("标题不能为空！");
+        return;
+    }
+    if (null == description || "" == description){
+        alert("内容不能为空！");
+        return;
+    }
+    if (null == tag || "" == tag){
+        alert("标签不能为空！");
+        return;
+    }
+    $.ajax({
+        type: "POST",
+        url: "/publish",
+        contentType:'application/json',
+        data: JSON.stringify({
+            "id":id,
+            "title":title,
+            "description":description,
+            "tag":tag
+        }),
+        success: function (response){
+            if(response.code == 200){
+                window.location.href="/";
+            }else {
+                alert(response.message);
+            }
+        },
+        dataType: "json"
+    })
+
+}

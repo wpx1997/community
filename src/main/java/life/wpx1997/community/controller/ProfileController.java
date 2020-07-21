@@ -43,12 +43,11 @@ public class ProfileController {
 
             model.addAttribute("section","questions");
             model.addAttribute("name","我的提问");
-            PaginationDTO<QuestionShowModel> paginationQuestions = questionService.list(user.getId(), page);
-            model.addAttribute("paginationQuestions",paginationQuestions);
+            PaginationDTO<QuestionShowModel> paginationDTO = questionService.selectQuestionListByUserIdWithPage(user.getId(), page);
+            model.addAttribute("questionPagination",paginationDTO);
         }else if (ActionTypeEnum.REPLIES.getType().equals(action)){
-            Integer size = 20;
-            PaginationDTO<NotificationDTO> paginationNotification = notificationService.list(user.getId(),page,size);
-            model.addAttribute("paginationNotification",paginationNotification);
+            PaginationDTO<NotificationDTO> paginationDTO = notificationService.selectNotificationList(user.getId(),page);
+            model.addAttribute("notificationPagination",paginationDTO);
             model.addAttribute("section","replies");
             model.addAttribute("name","最新回复");
         }

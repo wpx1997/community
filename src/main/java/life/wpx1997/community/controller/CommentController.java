@@ -55,20 +55,4 @@ public class CommentController {
         return ResultDTO.okOf();
     }
 
-    /**
-     *
-     * comments 根据commentId获取其comment
-     *
-     * @author: 小case
-     * @date: 2020/6/16 8:47
-     * @param id
-     * @return: ResultDTO
-     */
-    @ResponseBody
-    @RequestMapping(value = "/comment/{id}",method = RequestMethod.GET)
-    public ResultDTO comments(@PathVariable(name = "id")Long id){
-        List<CommentDTO> commentDTOS = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
-        return ResultDTO.okOf(commentDTOS);
-    }
-
 }

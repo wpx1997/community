@@ -1,5 +1,6 @@
 package life.wpx1997.community.mapper;
 
+import life.wpx1997.community.model.QuestionPublishModel;
 import life.wpx1997.community.model.QuestionTitleModel;
 import life.wpx1997.community.dto.QuestionQueryDTO;
 import life.wpx1997.community.model.Question;
@@ -144,4 +145,14 @@ public interface QuestionExpandMapper {
      */
     List<QuestionShowModel> selectQuestionShowModelListByOffset(Integer offset);
 
+    /**
+     *
+     * selectQuestionPublishModelById by 根据问题id查找问题的编辑页面信息
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/21 16:37
+     * @param id
+     * @return: QuestionPublishModel
+     */
+    QuestionPublishModel selectQuestionPublishModelById(Long id);
 }

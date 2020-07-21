@@ -25,7 +25,7 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
      * @date: 2020/7/5 17:25
      * @description: CustomizeErrorCode's NOT_LOGIN 用户未登录
      */
-    NOT_LOGIN(2003,"请登录后再进行评论！"),
+    NOT_LOGIN(2003,"你未进行登录！"),
 
     /**
      * @author: 不会飞的小鹏
@@ -74,7 +74,28 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
      * @date: 2020/7/5 17:29
      * @description: CustomizeErrorCode's FILE_UPLOAD_FAIL 图片上传失败
      */
-    FILE_UPLOAD_FAIL(2010,"图片上传失败！")
+    FILE_UPLOAD_FAIL(2010,"图片上传失败！"),
+
+    /**
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/21 11:42
+     * @description: CustomizeErrorCode's SEARCH_NOT_FOUND 查询内容不存在
+     */
+    SEARCH_NOT_FOUND(2011,"查询内容不存在!"),
+
+    /**
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/21 18:07
+     * @description: CustomizeErrorCode's ILLEGAL_TAG 问题标签非法
+     */
+    ILLEGAL_TAG(2012,"输入非法标签"),
+
+    /**
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/21 18:09
+     * @description: CustomizeErrorCode's QUESTION_UPDATE_ERROR 问题修改失败
+     */
+    QUESTION_UPDATE_ERROR(2013,"问题修改失败")
     ;
 
     @Override

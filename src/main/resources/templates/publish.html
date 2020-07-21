@@ -20,58 +20,55 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h2>
             <hr>
-            <form action="/publish" method="post">
-                <input type="hidden" name="id" th:value="${id}">
-                <!--    标题栏     -->
-                <div class="form-group">
-                    <label for="title">问题标题（简单扼要）：</label>
-                    <input type="text" class="form-control" th:value="${title}" id="title" name="title" autocomplete="off" placeholder="问题标题">
-                </div>
-                <!--    输入框     -->
-                <label for="description">问题补充（必填，请参照右侧提示）：</label>
-                <div class="form-group" id="question-editor">
-                    <textarea name="description" id="description" th:text="${description}" style="display: none;" class="form-control" cols="60" rows="10"></textarea>
-                </div>
-                <script type="text/javascript">
-                    $(function() {
-                        var editor = editormd("question-editor", {
-                            width  : "100%",
-                            height : 600,
-                            path   : "/js/lib/",
-                            delay : 0,
-                            watch : false,
-                            placeholder : "请输入问题描述",
-                            autoFocus :false,
-                            imageUpload    : true,
-                            imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                            imageUploadURL : "/file/upload",
-                        });
+            <input type="hidden" id="id" th:value="${question.id}">
+            <!--    标题栏     -->
+            <div class="form-group">
+                <label for="title">问题标题（简单扼要）：</label>
+                <input type="text" class="form-control" th:value="${question.title}" id="title" autocomplete="off" placeholder="问题标题">
+            </div>
+            <!--    输入框     -->
+            <label for="description">问题补充（必填，请参照右侧提示）：</label>
+            <div class="form-group" id="question-editor">
+                <textarea id="description" th:text="${question.description}" style="display: none;" class="form-control" cols="60" rows="10"></textarea>
+            </div>
+            <script type="text/javascript">
+                $(function() {
+                    var editor = editormd("question-editor", {
+                        width  : "100%",
+                        height : 600,
+                        path   : "/js/lib/",
+                        delay : 0,
+                        watch : false,
+                        placeholder : "请输入问题描述",
+                        autoFocus :false,
+                        imageUpload    : true,
+                        imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                        imageUploadURL : "/file/upload",
                     });
-                </script>
-                <!--    标签栏     -->
-                <div class="form-group">
-                    <label for="tag">添加标签：</label>
-                    <input type="text" class="form-control" th:value="${tag}" id="tag" name="tag" autocomplete="off" placeholder="输入标签，以“，”隔开" onclick="showAddTag()">
-                    <div id="add-tag" class="publish-tag-tab">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" th:each="addCategory,addCategoryStat : ${tags}" th:class="${addCategoryStat.first ? 'active' : ''}">
-                                <a th:href="${'#'+addCategory.categoryName}" aria-controls="home" role="tab" data-toggle="tab" th:text="${addCategory.categoryName}"></a>
-                            </li>
-                        </ul>
-                        <div class="tab-content">
-                            <div role="tabpanel" th:id="${addCategory.categoryName}" th:each="addCategory : ${tags}" th:class="${addCategoryStat.first ? 'active tab-pane tag-top' : 'tab-pane tag-top'}">
+                });
+            </script>
+            <!--    标签栏     -->
+            <div class="form-group">
+                <label for="tag">添加标签：</label>
+                <input type="text" class="form-control" th:value="${question.tag}" id="tag" autocomplete="off" placeholder="输入标签，以“，”隔开" onclick="showAddTag()">
+                <div id="add-tag" class="publish-tag-tab">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" th:each="addCategory,addCategoryStat : ${tags}" th:class="${addCategoryStat.first ? 'active' : ''}">
+                            <a th:href="${'#'+addCategory.categoryName}" aria-controls="home" role="tab" data-toggle="tab" th:text="${addCategory.categoryName}"></a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" th:id="${addCategory.categoryName}" th:each="addCategory : ${tags}" th:class="${addCategoryStat.first ? 'active tab-pane tag-top' : 'tab-pane tag-top'}">
                                 <span class="label label-info tag-style" th:each="addTag : ${addCategory.tags}">
                                     <span class="glyphicon glyphicon-tags" onclick="addTag(this)" th:data-tag="${addTag}" th:text="' '+${addTag}"></span>
                                 </span>
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="container-fluid">
-                    <div class="alert alert-danger" th:text="${error}" th:if="${error != null}" ></div>
-                    <button type="submit" class="btn btn-success btn-publish pull-right">发布</button>
-                </div>
-            </form>
+            </div>
+            <div class="container-fluid">
+                <button type="submit" class="btn btn-success btn-publish pull-right" onclick="saveQuestion()">发布</button>
+            </div>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <h3>问题发起指南</h3>

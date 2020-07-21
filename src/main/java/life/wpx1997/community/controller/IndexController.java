@@ -32,25 +32,28 @@ public class IndexController {
 
         PaginationDTO<QuestionShowModel> paginationDTO = questionService.selectIndexQuestionList(page);
         List<HotTagDTO> hotTags = hotTagCache.getHots();
-        model.addAttribute("pagination",paginationDTO);
+        model.addAttribute("indexPagination",paginationDTO);
         model.addAttribute("hotTags",hotTags);
 
         return "index";
     }
 
-    @GetMapping("/{search}")
+    @GetMapping("/search")
     public String searchIndex(Model model,
                               @RequestParam(name = "page",defaultValue = "1") Integer page,
-                              @PathVariable(name = "search")String search){
+                              @RequestParam(name = "search",required = false)String search){
 
-        PaginationDTO<QuestionShowModel> paginationDTO = questionService.questionListBySearchWithPage(search,page);
+        PaginationDTO<QuestionShowModel> paginationDTO = questionService.selectQuestionListBySearchWithPage(search,page);
+        if (paginationDTO == null){
+            model.addAttribute("tips","搜索内容不存在");
+        }
         List<HotTagDTO> hotTags = hotTagCache.getHots();
 
-        model.addAttribute("pagination",paginationDTO);
+        model.addAttribute("searchPagination",paginationDTO);
         model.addAttribute("hotTags",hotTags);
+        model.addAttribute("search",search);
 
-
-        return "index";
+        return "search";
     }
 
 }
