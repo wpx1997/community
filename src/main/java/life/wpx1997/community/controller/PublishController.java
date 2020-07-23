@@ -36,10 +36,11 @@ public class PublishController {
             return "redirect:/";
         }
         QuestionPublishModel question = questionService.getQuestionPublishModelById(id);
-        if (question == null || !user.getId().equals(question.getId())){
+        if (question == null || !user.getId().equals(question.getCreator())){
             return "redirect:/";
         }
         model.addAttribute("question",question);
+        model.addAttribute("tags", TagCache.get());
 
         return "publish";
     }

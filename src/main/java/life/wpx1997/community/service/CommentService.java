@@ -196,6 +196,16 @@ public class CommentService {
         return commentDTOS;
     }
 
+    /**
+     *
+     * selectCommentListByQuestionId by 根据问题id和评论类型查询评论
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/23 11:35
+     * @param id
+     * @param type
+     * @return: List<Comment>
+     */
     public List<Comment> selectCommentListByQuestionId(Long id,Integer type) {
 
         CommentExample commentExample = new CommentExample();
@@ -205,10 +215,20 @@ public class CommentService {
         return commentList;
     }
 
+    /**
+     *
+     * selectCommentListByCommentIdList by 根据问题评论id列表查询问题评论的回复
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/23 11:37
+     * @param commentIdList
+     * @param type
+     * @return: List<Comment>
+     */
     public List<Comment> selectCommentListByCommentIdList(List<Long> commentIdList, Integer type) {
 
         CommentExample commentExample = new CommentExample();
-        commentExample.createCriteria().andParentIdIn(commentIdList).andTypeEqualTo(type);
+        commentExample.createCriteria().andParentIdIn(commentIdList).andTypeEqualTo(type).andIsDeleteEqualTo((byte) 1);
         List<Comment> commentList = commentMapper.selectByExample(commentExample);
 
         return commentList;
@@ -216,13 +236,40 @@ public class CommentService {
 
     /**
      *
-     * insertComment 向数据库中插入comment
+     * checkOneself by 检查是否是评论作者本人
      *
-     * @author: 小case
-     * @date: 2020/6/16 8:50
-     * @param commentCreateDTO
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/23 11:37
+     * @param id
+     * @param userId
+     * @return: Boolean
+     */
+    public Boolean checkOneself(Long id, Long userId) {
+
+        CommentCreatorModel commentCreatorModel = commentExpandMapper.selectCommentCreatorModelById(id);
+        if (commentCreatorModel == null){
+            return null;
+        }
+        if (userId.equals(commentCreatorModel.getCommentator())){
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     *
+     * deleteCommentById by 将评论状态变更为删除状态
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/24 1:10
      * @param id
      * @return: void
      */
-
+    public void deleteCommentById(Long id) {
+        Comment comment = new Comment();
+        comment.setId(id);
+        comment.setIsDelete((byte) 1);
+        commentMapper.updateByPrimaryKeySelective(comment);
+    }
 }

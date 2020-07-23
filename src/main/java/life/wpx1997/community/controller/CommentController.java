@@ -55,4 +55,28 @@ public class CommentController {
         return ResultDTO.okOf();
     }
 
+    @ResponseBody
+    @GetMapping("/comment/delete/{id}")
+    public Object deleteComment(@PathVariable(name = "id")Long id,
+                                HttpServletRequest request){
+
+        User user = (User) request.getSession().getAttribute("user");
+
+        if (user == null){
+            return ResultDTO.errorOf(CustomizeErrorCode.NOT_LOGIN);
+        }else {
+            Boolean isOneself = commentService.checkOneself(id,user.getId());
+            if (isOneself == null){
+                return ResultDTO.errorOf(CustomizeErrorCode.COMMENT_NOT_FOUND);
+            }
+            if (isOneself){
+                commentService.deleteCommentById(id);
+                return ResultDTO.okOf();
+            }else {
+                return ResultDTO.errorOf(CustomizeErrorCode.COMMENT_CREATOR_NOT_YOU);
+            }
+        }
+
+    }
+
 }

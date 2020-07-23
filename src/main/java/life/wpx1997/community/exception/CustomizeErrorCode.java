@@ -46,7 +46,7 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
      * @date: 2020/7/5 17:27
      * @description: CustomizeErrorCode's COMMENT_NOT_FOUND 所回复的评论不存在
      */
-    COMMENT_NOT_FOUND(2006,"你回复的评论不存在了，要不换一个吧！"),
+    COMMENT_NOT_FOUND(2006,"该评论不存在了，要不换一个吧！"),
 
     /**
      * @author: 不会飞的小鹏
@@ -95,7 +95,21 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
      * @date: 2020/7/21 18:09
      * @description: CustomizeErrorCode's QUESTION_UPDATE_ERROR 问题修改失败
      */
-    QUESTION_UPDATE_ERROR(2013,"问题修改失败")
+    QUESTION_UPDATE_ERROR(2013,"问题修改失败"),
+
+    /**
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/23 9:14
+     * @description: CustomizeErrorCode's QUESTION_CREATOR_NOT_YOU 非问题作者修改问题
+     */
+    QUESTION_CREATOR_NOT_YOU(2014,"你不是问题作者，无权限修改"),
+
+    /**
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/23 11:53
+     * @description: CustomizeErrorCode's COMMENT_CREATOR_NOT_YOU 非评论作者修改评论
+     */
+    COMMENT_CREATOR_NOT_YOU(2015,"你不是评论作者，无权限修改")
     ;
 
     @Override

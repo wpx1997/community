@@ -37,6 +37,11 @@
     <result column="description" jdbcType="LONGVARCHAR" property="description" />
     <result column="tag" jdbcType="VARCHAR" property="tag" />
   </resultMap>
+  <!-- 问题作者id -->
+  <resultMap id="QuestionCreatorResultMap" type="life.wpx1997.community.model.QuestionCreatorModel">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="creator" jdbcType="BIGINT" property="creator" />
+  </resultMap>
   <!-- 问题重要信息展示查询列 -->
   <sql id="Question_Show_List">
     id,creator,title,comment_count,view_count,gmt_create
@@ -52,6 +57,10 @@
   <!-- 问题编辑信息查询列 -->
   <sql id="Question_Publish_List">
     id,creator,title,description,tag
+  </sql>
+  <!-- 问题作者id查询列 -->
+  <sql id="Question_Creator_List">
+    id,creator
   </sql>
   <!--  增加问题的阅读数  -->
   <update id="cumulativeView" parameterType="life.wpx1997.community.model.Question">
@@ -149,6 +158,12 @@
   <select id="selectQuestionPublishModelById" parameterType="java.lang.Long" resultMap="QuestionPublishResultMap">
     select
     <include refid="Question_Publish_List" />
+    from question
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectQuestionCreatorModelById" parameterType="java.lang.Long" resultMap="QuestionCreatorResultMap">
+    select
+    <include refid="Question_Creator_List" />
     from question
     where id = #{id,jdbcType=BIGINT}
   </select>

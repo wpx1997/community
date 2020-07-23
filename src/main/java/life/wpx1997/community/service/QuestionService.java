@@ -333,7 +333,9 @@ public class QuestionService {
         // 根据questionId获取问题
         Question question = questionMapper.selectByPrimaryKey(id);
 
-        if (question == null){
+        Byte isDelete = 1;
+
+        if (question == null || isDelete.equals(question.getIsDelete())){
             return null;
         }
 
@@ -355,8 +357,10 @@ public class QuestionService {
 
         // 若评论不为空
         if (question.getCommentCount() != 0) {
+
             // 获取此问题的评论
             List<Comment> questionCommentList = commentService.selectCommentListByQuestionId(id, CommentTypeEnum.QUESTION.getType());
+            setDeleteTypeComment(questionCommentList);
             List<Long> commentIdList = questionCommentList.stream().map(Comment::getId).collect(Collectors.toList());
             // 获取此问题评论的回复
             List<Comment> commentCommentList = commentService.selectCommentListByCommentIdList(commentIdList,CommentTypeEnum.COMMENT.getType());
@@ -364,10 +368,12 @@ public class QuestionService {
             // 获取去重的评论人
             Set<Long> creatorSet = questionCommentList.stream().map(Comment::getCommentator).collect(Collectors.toSet());
             Set<Long> commentCommentCreatorSet = commentCommentList.stream().map(Comment::getCommentator).collect(Collectors.toSet());
+
             creatorSet.addAll(commentCommentCreatorSet);
             List<UserMessageModel> userMessageModelList = userService.selectUserMessageModelListByCreatorSet(creatorSet);
 
             List<CommentMessageDTO> questionCommentMessageDTOList = setCommentCreatorMessage(questionCommentList, userMessageModelList);
+
             List<CommentMessageDTO> commentCommentMessageDTOList = setCommentCreatorMessage(commentCommentList, userMessageModelList);
 
             // 将问题评论的回复列表转为map
@@ -380,6 +386,33 @@ public class QuestionService {
         return questionMessageDTO;
     }
 
+    /**
+     *
+     * setDeleteTypeComment by 为删除状态的评论设值
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/24 1:07
+     * @param questionCommentList
+     * @return: void
+     */
+    private void setDeleteTypeComment(List<Comment> questionCommentList) {
+
+        Byte deleteType = 1;
+        questionCommentList.stream().filter(comment -> deleteType.equals(comment.getIsDelete())).forEach(comment -> comment.setContent("该评论已删除"));
+
+    }
+
+
+    /**
+     *
+     * setCommentCreatorMessage by 为评论添加作者信息
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/23 11:16
+     * @param commentList
+     * @param userMessageDaoList
+     * @return: List<CommentMessageDTO>
+     */
     private List<CommentMessageDTO> setCommentCreatorMessage(List<Comment> commentList, List<UserMessageModel> userMessageDaoList) {
 
         Map<Long, UserMessageModel> userMessageDaoMap = userMessageDaoList.stream().collect(Collectors.toMap((UserMessageModel::getId), userMessageModel -> userMessageModel));
@@ -396,12 +429,63 @@ public class QuestionService {
         return commentMessageDTOList;
     }
 
+    /**
+     *
+     * getQuestionPublishModelById by 根据问题id返回问题修改内容
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/23 11:15
+     * @param id
+     * @return: QuestionPublishModel
+     */
     public QuestionPublishModel getQuestionPublishModelById(Long id) {
 
         QuestionPublishModel questionPublishModel = questionExpandMapper.selectQuestionPublishModelById(id);
 
         return questionPublishModel;
     }
+
+    /**
+     *
+     * checkOneself by 检查是否为作者本人
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/23 11:15
+     * @param id
+     * @param userId
+     * @return: Boolean
+     */
+    public Boolean checkOneself(Long id, Long userId) {
+
+        QuestionCreatorModel questionCreatorModel = questionExpandMapper.selectQuestionCreatorModelById(id);
+
+        if (questionCreatorModel == null){
+            return null;
+        }
+
+        if (userId.equals(questionCreatorModel.getCreator())){
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     *
+     * deleteQuestionById by 根据问题id删除问题
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/23 11:14
+     * @param id
+     * @return: void
+     */
+    public void deleteQuestionById(Long id) {
+        Question question = new Question();
+        question.setId(id);
+        question.setIsDelete((byte) 1);
+        questionMapper.updateByPrimaryKeySelective(question);
+    }
+
 }
 
 

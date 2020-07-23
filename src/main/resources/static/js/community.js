@@ -121,7 +121,44 @@ function saveQuestion() {
         }),
         success: function (response){
             if(response.code == 200){
-                window.location.href="/";
+                window.location.href="/question/"+ id;
+            }else {
+                alert(response.message);
+            }
+        },
+        dataType: "json"
+    })
+
+}
+
+function deleteQuestion(e) {
+
+    var id = e.id;
+    $.ajax({
+        type: "GET",
+        url: "/question/delete/" + id,
+        success: function (response){
+            if(response.code == 200){
+                window.location.href="/"
+            }else {
+                alert(response.message);
+            }
+        },
+        dataType: "json"
+    })
+
+}
+
+function deleteQuestionComment(e) {
+
+    var id = e.id;
+    var commentContent = "comment-view-" + id;
+    $.ajax({
+        type: "GET",
+        url: "/comment/delete/" + id,
+        success: function (response){
+            if(response.code == 200){
+                window.location.reload();
             }else {
                 alert(response.message);
             }

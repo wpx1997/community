@@ -2,9 +2,10 @@ package life.wpx1997.community.controller;
 
 import life.wpx1997.community.dto.PaginationDTO;
 import life.wpx1997.community.dto.QuestionMessageDTO;
+import life.wpx1997.community.dto.ResultDTO;
+import life.wpx1997.community.exception.CustomizeErrorCode;
 import life.wpx1997.community.model.QuestionShowModel;
 import life.wpx1997.community.model.User;
-import life.wpx1997.community.service.CommentService;
 import life.wpx1997.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,19 +32,28 @@ public class QuestionController {
 
         // 获取当前登录用户
         User user = (User) request.getSession().getAttribute("user");
+        Long userId;
+        if (user == null){
+            userId = 0L;
+        }else {
+            userId = user.getId();
+        }
 
         // 根据页面传递的id查询问题的内容
         QuestionMessageDTO thisQuestion = questionService.selectQuestionByQuestionId(id);
 
         if (thisQuestion == null){
-            return "/";
+
+            model.addAttribute("message","问题不存在或已被删除");
+
+            return "error";
         }
 
         // 累计问题阅读数
         questionService.cumulativeView(id);
 
         // 如果用户未登录或不是此问题的作者，则状态state为disLogin
-        if (user == null || !user.getId().equals(thisQuestion.getCreator())) {
+        if (user == null || userId.equals(thisQuestion.getCreator())) {
             model.addAttribute("state", "notMine");
         }else {
             model.addAttribute("state", "mine");
@@ -54,7 +64,6 @@ public class QuestionController {
 
         return "question";
     }
-
 
     @GetMapping("/tag/{tag}")
     public String questionByTag(@PathVariable(name = "tag") String tag,
@@ -67,6 +76,28 @@ public class QuestionController {
         model.addAttribute("tag",tag);
 
         return "tag";
+    }
+
+    @GetMapping("/question/delete/{id}")
+    public Object deleteQuestionById(@PathVariable(name = "id")Long id,
+                                     HttpServletRequest request){
+
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null){
+            return ResultDTO.errorOf(CustomizeErrorCode.NOT_LOGIN);
+        }else {
+            Boolean isOneself = questionService.checkOneself(id,user.getId());
+            if (isOneself == null){
+                return ResultDTO.errorOf(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
+            if (isOneself){
+                questionService.deleteQuestionById(id);
+                return ResultDTO.okOf();
+            }else {
+                return ResultDTO.errorOf(CustomizeErrorCode.QUESTION_CREATOR_NOT_YOU);
+            }
+        }
+
     }
 
 

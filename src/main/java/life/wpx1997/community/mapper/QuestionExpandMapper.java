@@ -1,10 +1,7 @@
 package life.wpx1997.community.mapper;
 
-import life.wpx1997.community.model.QuestionPublishModel;
-import life.wpx1997.community.model.QuestionTitleModel;
+import life.wpx1997.community.model.*;
 import life.wpx1997.community.dto.QuestionQueryDTO;
-import life.wpx1997.community.model.Question;
-import life.wpx1997.community.model.QuestionShowModel;
 
 import java.util.List;
 
@@ -155,4 +152,15 @@ public interface QuestionExpandMapper {
      * @return: QuestionPublishModel
      */
     QuestionPublishModel selectQuestionPublishModelById(Long id);
+
+    /**
+     *
+     * selectQuestionCreatorModelById by 根据问题id查询作者id
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/23 8:53
+     * @param id
+     * @return: QuestionCreatorModel
+     */
+    QuestionCreatorModel selectQuestionCreatorModelById(Long id);
 }

@@ -32,7 +32,7 @@
                     <div role="tabpanel" class="tab-pane tag-top">
                         <span class="label message-tag-big" th:each="userTag : ${messageTagDTOS}">
                             <span class="label-info message-tag-style">
-                                <a th:href="'/question/tag/'+${userTag.name}" class="glyphicon glyphicon-tags tag-name-color" th:text="' '+${userTag.name}"></a>
+                                <a th:href="'/tag/'+${userTag.name}" class="glyphicon glyphicon-tags tag-name-color" th:text="' '+${userTag.name}"></a>
                             </span>
                             <span class="message-tag-color" th:text="'提问次数：'+${userTag.priority}"></span>
                         </span>
