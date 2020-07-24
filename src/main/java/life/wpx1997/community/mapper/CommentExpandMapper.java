@@ -1,7 +1,7 @@
 package life.wpx1997.community.mapper;
 
 import life.wpx1997.community.model.Comment;
-import life.wpx1997.community.model.CommentCreatorModel;
+import life.wpx1997.community.model.CommentUpdateModel;
 
 /**
  * @author 666
@@ -21,12 +21,23 @@ public interface CommentExpandMapper {
 
     /**
      *
-     * selectCommentCreatorModelById by 根据评论id过去作者id
+     * selectCommentUpdateModelById by 根据评论id获取评论的重要信息
      *
      * @author: 不会飞的小鹏
      * @date: 2020/7/23 11:41
      * @param id
      * @return: CommentCreatorModel
      */
-    CommentCreatorModel selectCommentCreatorModelById(Long id);
+    CommentUpdateModel selectCommentUpdateModelById(Long id);
+
+    /**
+     *
+     * reduceCommentCount by
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/24 23:19
+     * @param record
+     * @return: int
+     */
+    int reduceCommentCount(Comment record);
 }

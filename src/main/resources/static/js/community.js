@@ -135,11 +135,13 @@ function deleteQuestion(e) {
 
     var id = e.id;
     $.ajax({
-        type: "GET",
-        url: "/question/delete/" + id,
+        type: "POST",
+        url: "/question/delete/",
+        contentType:'application/json',
+        data: JSON.stringify(id),
         success: function (response){
             if(response.code == 200){
-                window.location.href="/"
+                window.location.reload();
             }else {
                 alert(response.message);
             }
@@ -149,13 +151,18 @@ function deleteQuestion(e) {
 
 }
 
-function deleteQuestionComment(e) {
+function deleteComment(e) {
 
-    var id = e.id;
-    var commentContent = "comment-view-" + id;
+    var commentId = e.id;
+    var questionId = $("#question-id").val();
     $.ajax({
-        type: "GET",
-        url: "/comment/delete/" + id,
+        type: "POST",
+        url: "/comment/delete/",
+        contentType:'application/json',
+        data: JSON.stringify({
+            "questionId":questionId,
+            "commentId":commentId
+        }),
         success: function (response){
             if(response.code == 200){
                 window.location.reload();

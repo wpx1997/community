@@ -1,20 +1,18 @@
 package life.wpx1997.community.controller;
 
 import life.wpx1997.community.dto.CommentCreateDTO;
-import life.wpx1997.community.dto.CommentDTO;
+import life.wpx1997.community.dto.CommentDeleteDTO;
 import life.wpx1997.community.dto.ResultDTO;
-import life.wpx1997.community.enums.CommentTypeEnum;
 import life.wpx1997.community.exception.CustomizeErrorCode;
+import life.wpx1997.community.model.CommentUpdateModel;
 import life.wpx1997.community.model.User;
 import life.wpx1997.community.service.CommentService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * @author 小case
@@ -56,8 +54,8 @@ public class CommentController {
     }
 
     @ResponseBody
-    @GetMapping("/comment/delete/{id}")
-    public Object deleteComment(@PathVariable(name = "id")Long id,
+    @PostMapping("/comment/delete")
+    public Object deleteComment(@RequestBody @Valid CommentDeleteDTO commentDeleteDTO,
                                 HttpServletRequest request){
 
         User user = (User) request.getSession().getAttribute("user");
@@ -65,12 +63,12 @@ public class CommentController {
         if (user == null){
             return ResultDTO.errorOf(CustomizeErrorCode.NOT_LOGIN);
         }else {
-            Boolean isOneself = commentService.checkOneself(id,user.getId());
-            if (isOneself == null){
+            CommentUpdateModel commentUpdateModel = commentService.selectCommentUpdateModelById(commentDeleteDTO.getCommentId());
+            if (commentUpdateModel == null){
                 return ResultDTO.errorOf(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
-            if (isOneself){
-                commentService.deleteCommentById(id);
+            if (user.getId().equals(commentUpdateModel.getCommentator())){
+                commentService.deleteCommentById(commentUpdateModel,commentDeleteDTO.getQuestionId());
                 return ResultDTO.okOf();
             }else {
                 return ResultDTO.errorOf(CustomizeErrorCode.COMMENT_CREATOR_NOT_YOU);

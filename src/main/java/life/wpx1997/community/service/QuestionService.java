@@ -27,9 +27,6 @@ public class QuestionService {
     private QuestionMapper questionMapper;
 
     @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
     private QuestionExpandMapper questionExpandMapper;
 
     @Autowired
@@ -68,7 +65,7 @@ public class QuestionService {
     }
 
     /**
-     * list 查询数据库中所有问题数量并进行分页和返回
+     * selectQuestionListBySearchWithPage 查询数据库中所有问题数量并进行分页和返回
      *
      * @param search
      * @param page
@@ -194,21 +191,6 @@ public class QuestionService {
             questionShowModel.setCreatorAvatarUrl(userMessageModelMap.get(questionShowModel.getCreator()).getAvatarUrl());
         });
 
-    }
-
-    /**
-     * getById 根据页面传递id查询问题的内容
-     *
-     * @param id
-     * @author: 不会飞的小鹏
-     * @date: 2020/7/3 12:21
-     * @return: QuestionDTO
-     */
-    public Question getQuestionById(Long id) {
-
-        Question question = questionMapper.selectByPrimaryKey(id);
-
-        return question;
     }
 
     /**
@@ -362,7 +344,7 @@ public class QuestionService {
             List<Comment> questionCommentList = commentService.selectCommentListByQuestionId(id, CommentTypeEnum.QUESTION.getType());
             setDeleteTypeComment(questionCommentList);
             List<Long> commentIdList = questionCommentList.stream().map(Comment::getId).collect(Collectors.toList());
-            // 获取此问题评论的回复
+            // 获取此问题评论的回复（二级评论）
             List<Comment> commentCommentList = commentService.selectCommentListByCommentIdList(commentIdList,CommentTypeEnum.COMMENT.getType());
 
             // 获取去重的评论人
@@ -372,13 +354,19 @@ public class QuestionService {
             creatorSet.addAll(commentCommentCreatorSet);
             List<UserMessageModel> userMessageModelList = userService.selectUserMessageModelListByCreatorSet(creatorSet);
 
+            // 一级评论
             List<CommentMessageDTO> questionCommentMessageDTOList = setCommentCreatorMessage(questionCommentList, userMessageModelList);
 
+            // 二级评论
             List<CommentMessageDTO> commentCommentMessageDTOList = setCommentCreatorMessage(commentCommentList, userMessageModelList);
 
-            // 将问题评论的回复列表转为map
+            // 将问题评论的回复列表转为map（根据二级评论的parentId分类）
             Map<Long, List<CommentMessageDTO>> commentCommentMap = commentCommentMessageDTOList.stream().collect(Collectors.groupingBy(CommentMessageDTO::getParentId));
-            questionCommentMessageDTOList.stream().forEach(commentMessageDTO -> commentMessageDTO.setCommentCommentList(commentCommentMap.get(commentMessageDTO.getId())));
+            // 将分类好的二级评论根据parentId赋值给一级评论
+            Set<Long> parentIdSet = commentCommentMap.keySet();
+            questionCommentMessageDTOList.stream()
+                    .filter(commentMessageDTO -> parentIdSet.contains(commentMessageDTO.getId()))
+                    .forEach(commentMessageDTO -> commentMessageDTO.setCommentCommentList(commentCommentMap.get(commentMessageDTO.getId())));
 
             questionMessageDTO.setQuestionCommentList(questionCommentMessageDTOList);
         }
@@ -486,13 +474,18 @@ public class QuestionService {
         questionMapper.updateByPrimaryKeySelective(question);
     }
 
+
+    /**
+     *
+     * cumulativeCommentCount by 累计问题回复数
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/24 23:42
+     * @param dbQuestion
+     * @return: void
+     */
+    public void cumulativeCommentCount(Question dbQuestion) {
+        questionExpandMapper.cumulativeCommentCount(dbQuestion);
+    }
+
 }
-
-
-/*
-    List<QuestionDTO> questionDTOS = questions.stream().map(q -> {
-        QuestionDTO questionDTO = new QuestionDTO();
-        BeanUtils.copyProperties(q,questionDTO);
-        return questionDTO;
-   }).collect(Collectors.toList());
-*/

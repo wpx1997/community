@@ -86,4 +86,36 @@ public class NotificationService {
 
         return notificationDTO;
     }
+
+
+    /**
+     *
+     * createNotify by
+     *
+     * @author: 小case
+     * @date: 2020/6/17 13:32
+     * @param comment
+     * @param receiver
+     * @param outerTitle
+     * @param notifierName
+     * @param outerId
+     * @param notificationTypeEnumType
+     * @return: void
+     */
+    public void createNotify(Comment comment, Long receiver, String outerTitle, String notifierName, Long outerId, NotificationTypeEnum notificationTypeEnumType) {
+        if (receiver.equals(comment.getCommentator())){
+            return;
+        }
+        Notification notification = new Notification();
+        notification.setGmtCreate(System.currentTimeMillis());
+        notification.setType(notificationTypeEnumType.getType());
+        notification.setOuterId(outerId);
+        notification.setNotifier(comment.getCommentator());
+        notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());
+        notification.setReceiver(receiver);
+        notification.setNotifierName(notifierName);
+        notification.setOuterTitle(outerTitle);
+        notificationMapper.insert(notification);
+    }
+
 }

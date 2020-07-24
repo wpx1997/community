@@ -10,9 +10,7 @@ import life.wpx1997.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -53,10 +51,10 @@ public class QuestionController {
         questionService.cumulativeView(id);
 
         // 如果用户未登录或不是此问题的作者，则状态state为disLogin
-        if (user == null || userId.equals(thisQuestion.getCreator())) {
-            model.addAttribute("state", "notMine");
-        }else {
+        if (userId.equals(thisQuestion.getCreator())) {
             model.addAttribute("state", "mine");
+        }else {
+            model.addAttribute("state", "notMine");
         }
 
         // 增加此问题内容
@@ -78,8 +76,9 @@ public class QuestionController {
         return "tag";
     }
 
-    @GetMapping("/question/delete/{id}")
-    public Object deleteQuestionById(@PathVariable(name = "id")Long id,
+    @ResponseBody
+    @PostMapping("/question/delete/")
+    public Object deleteQuestionById(@RequestBody Long id,
                                      HttpServletRequest request){
 
         User user = (User) request.getSession().getAttribute("user");
