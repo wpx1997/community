@@ -4,7 +4,6 @@ import life.wpx1997.community.mapper.UserExpandMapper;
 import life.wpx1997.community.mapper.UserMapper;
 import life.wpx1997.community.model.User;
 import life.wpx1997.community.model.UserExample;
-import life.wpx1997.community.model.UserMessageModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +22,15 @@ public class UserService {
     @Autowired
     private UserExpandMapper userExpandMapper;
 
+    /**
+     *
+     * createOrUpdate by 新增或更新用户
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/26 1:21
+     * @param user
+     * @return: void
+     */
     public void createOrUpdate(User user) {
         UserExample userExample = new UserExample();
         userExample.createCriteria().andAccountIdEqualTo(user.getAccountId());
@@ -47,12 +55,30 @@ public class UserService {
         }
     }
 
-    public List<UserMessageModel> selectUserMessageModelListByCreatorSet(Set<Long> creatorSet) {
+    /**
+     *
+     * selectUserMessageListByCreatorSet by 根据set查询用户的基本信息
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/26 1:21
+     * @param creatorSet
+     * @return: List<User>
+     */
+    public List<User> selectUserMessageListByCreatorSet(Set<Long> creatorSet) {
 
-        List<UserMessageModel> userMessageModelList = userExpandMapper.selectUserMessageModelListById(creatorSet);
-        return userMessageModelList;
+        List<User> userList = userExpandMapper.selectUserMessageModelListById(creatorSet);
+        return userList;
     }
 
+    /**
+     *
+     * selectUseById by 查询用户信息
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/26 1:23
+     * @param id
+     * @return: User
+     */
     public User selectUseById(Long id) {
 
         User user = userMapper.selectByPrimaryKey(id);
@@ -60,10 +86,19 @@ public class UserService {
         return user;
     }
 
-    public UserMessageModel selectUserMessageDaoByUserId(Long userId) {
+    /**
+     *
+     * selectUserMessageByUserId by 根据id查询用户基本信息
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/26 1:24
+     * @param userId
+     * @return: User
+     */
+    public User selectUserMessageByUserId(Long userId) {
 
-        UserMessageModel userMessageModel = userExpandMapper.selectUserMessageByUserId(userId);
+        User user = userExpandMapper.selectUserMessageByUserId(userId);
 
-        return userMessageModel;
+        return user;
     }
 }

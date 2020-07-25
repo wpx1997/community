@@ -172,11 +172,11 @@ public class CommentService {
      * @param id
      * @return: Boolean
      */
-    public CommentUpdateModel selectCommentUpdateModelById(Long id) {
+    public Comment selectCommentUpdateModelById(Long id) {
 
-        CommentUpdateModel commentUpdateModel = commentExpandMapper.selectCommentUpdateModelById(id);
+        Comment comment = commentExpandMapper.selectCommentUpdateModelById(id);
 
-        return commentUpdateModel;
+        return comment;
     }
 
     /**
@@ -185,18 +185,18 @@ public class CommentService {
      *
      * @author: 不会飞的小鹏
      * @date: 2020/7/24 1:10
-     * @param commentUpdateModel
+     * @param comment
      * @return: void
      */
-    public void deleteCommentById(CommentUpdateModel commentUpdateModel, Long questionId) {
-        Comment comment = new Comment();
-        comment.setId(commentUpdateModel.getId());
-        comment.setIsDelete((byte) 1);
-        commentMapper.updateByPrimaryKeySelective(comment);
-        if (commentUpdateModel.getType().equals(CommentTypeEnum.COMMENT.getType())){
-            comment.setId(commentUpdateModel.getParentId());
-            comment.setCommentCount((long) -1);
-            cumulativeCommentCount(comment);
+    public void deleteCommentById(Comment comment, Long questionId) {
+        Comment deleteComment = new Comment();
+        deleteComment.setId(comment.getId());
+        deleteComment.setIsDelete((byte) 1);
+        commentMapper.updateByPrimaryKeySelective(deleteComment);
+        if (comment.getType().equals(CommentTypeEnum.COMMENT.getType())){
+            deleteComment.setId(comment.getParentId());
+            deleteComment.setCommentCount((long) -1);
+            cumulativeCommentCount(deleteComment);
             Question question = new Question();
             question.setId(questionId);
             question.setCommentCount((long) -1);

@@ -1,6 +1,6 @@
 package life.wpx1997.community.dto;
 
-import life.wpx1997.community.model.QuestionTitleModel;
+import life.wpx1997.community.model.Question;
 import lombok.Data;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class QuestionMessageDTO {
     private Long likeCount;
     private String creatorName;
     private String creatorAvatarUrl;
-    private List<QuestionTitleModel> dependentQuestionTitleList;
-    private List<QuestionTitleModel> thisCreatorQuestionTitleList;
+    private List<Question> dependentQuestionTitleList;
+    private List<Question> thisCreatorQuestionTitleList;
     private List<CommentMessageDTO> questionCommentList;
 }

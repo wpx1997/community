@@ -68,8 +68,19 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <div class="list-group section">
-                <h3>热门话题</h3>
+            <h3>热门话题</h3>
+            <div class="media" th:each="hotTag : ${hotTagList} ">
+                <div class="media-left">
+                    <img class="user-avatar img-rounded" src="/images/HotTag/HotTag.jpg">
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        <a th:href="'/tag/'+${hotTag.name}" class="tag-round" th:text="${hotTag.name}"></a>
+                    </h4>
+                    <span class="question-information">
+                        话题热度：<span th:text="${hotTag.priority}"></span>
+                    </span>
+                </div>
             </div>
         </div>
     </div>

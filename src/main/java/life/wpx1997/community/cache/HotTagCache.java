@@ -1,43 +1,38 @@
 package life.wpx1997.community.cache;
 
 import life.wpx1997.community.dto.HotTagDTO;
-import lombok.Data;
 import org.springframework.stereotype.Component;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
- * created by 小case on 2019/9/1 23:08
+ * created on 2019/9/1 23:08
+ * @author 不会飞的小鹏
  */
 @Component
-@Data
 public class HotTagCache {
-    private List<HotTagDTO> hots = new ArrayList<>();
 
-    public void updateTags(Map<String,Integer> tags){
+    private List<HotTagDTO> hotTagDTOList;
+
+    public void updateTagList(Map<String,Long> tagMap){
+
         int max = 7;
-        PriorityQueue<HotTagDTO> priorityQueue =new PriorityQueue<>(max);
-        tags.forEach((name,priority) -> {
+
+        List<HotTagDTO> hotTagDTOList = new ArrayList<>();
+        tagMap.forEach((name,priority) -> {
             HotTagDTO hotTagDTO = new HotTagDTO();
             hotTagDTO.setName(name);
             hotTagDTO.setPriority(priority);
-            if (priorityQueue.size() < max){
-                priorityQueue.add(hotTagDTO);
-            }else {
-                HotTagDTO minHot = priorityQueue.peek();
-                if (hotTagDTO.compareTo(minHot) > 0){
-                    priorityQueue.poll();
-                    priorityQueue.add(hotTagDTO);
-                }
-            }
+            hotTagDTOList.add(hotTagDTO);
         });
 
-        List<HotTagDTO> sortedTags = new ArrayList<>();
+        List<HotTagDTO> priorities = hotTagDTOList.stream().sorted(Comparator.comparingLong(HotTagDTO::getPriority).reversed()).limit(max).collect(Collectors.toList());
 
-        HotTagDTO poll = priorityQueue.poll();
-        while (poll != null){
-            sortedTags.add(0,poll);
-            poll = priorityQueue.poll();
-        }
-        hots = sortedTags;
+        this.hotTagDTOList = priorities;
     }
+
+    public List<HotTagDTO> getHotTagDTOList(){
+        return this.hotTagDTOList;
+    }
+
 }

@@ -52,7 +52,7 @@ public interface QuestionExpandMapper {
      * @param question
      * @return: List<Question>
      */
-    List<QuestionTitleModel> selectByTagWithTen(Question question);
+    List<Question> selectByTagWithTen(Question question);
 
     /**
      *
@@ -74,7 +74,7 @@ public interface QuestionExpandMapper {
      * @param questionQueryDTO
      * @return: List<Question>
      */
-    List<QuestionShowModel> selectByTagWithPage(QuestionQueryDTO questionQueryDTO);
+    List<Question> selectByTagWithPage(QuestionQueryDTO questionQueryDTO);
 
     /**
      *
@@ -96,7 +96,7 @@ public interface QuestionExpandMapper {
      * @param questionQueryDTO
      * @return: List<Question>
      */
-    List<QuestionShowModel> selectBySearchWithPage(QuestionQueryDTO questionQueryDTO);
+    List<Question> selectBySearchWithPage(QuestionQueryDTO questionQueryDTO);
 
     /**
      *
@@ -107,7 +107,7 @@ public interface QuestionExpandMapper {
      * @param questionQueryDTO
      * @return: List<QuestionShowDao>
      */
-    List<QuestionShowModel> selectByUserIdWithPage(QuestionQueryDTO questionQueryDTO);
+    List<Question> selectByUserIdWithPage(QuestionQueryDTO questionQueryDTO);
 
     /**
      *
@@ -118,7 +118,7 @@ public interface QuestionExpandMapper {
      * @param creator
      * @return: List<QuestionTitleDao>
      */
-    List<QuestionTitleModel> selectByCreatorWithTen(Long creator);
+    List<Question> selectByCreatorWithTen(Long creator);
 
     /**
      *
@@ -140,7 +140,7 @@ public interface QuestionExpandMapper {
      * @param offset
      * @return: List<QuestionShowModel>
      */
-    List<QuestionShowModel> selectQuestionShowModelListByOffset(Integer offset);
+    List<Question> selectQuestionShowModelListByOffset(Integer offset);
 
     /**
      *
@@ -151,7 +151,7 @@ public interface QuestionExpandMapper {
      * @param id
      * @return: QuestionPublishModel
      */
-    QuestionPublishModel selectQuestionPublishModelById(Long id);
+    Question selectQuestionPublishModelById(Long id);
 
     /**
      *
@@ -162,6 +162,39 @@ public interface QuestionExpandMapper {
      * @param id
      * @return: QuestionCreatorModel
      */
-    QuestionCreatorModel selectQuestionCreatorModelById(Long id);
+    Question selectQuestionCreatorModelById(Long id);
+
+    /**
+     *
+     * selectAllQuestionShowModelList by 查询所有的QuestionModel
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/25 16:35
+     * @param
+     * @return: List<QuestionShowModel>
+     */
+    List<Question> selectAllQuestionShowModelList();
+
+    /**
+     *
+     * selectAllQuestionTagList by 查询标签热度相关信息
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/25 18:38
+     * @param
+     * @return: List<Question>
+     */
+    List<Question> selectAllQuestionTagList();
+
+    /**
+     *
+     * cumulativeViewCount by 批量更新问题阅读数
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/26 0:20
+     * @param questionList
+     * @return: int
+     */
+    int cumulativeViewCount(List<Question> questionList);
 
 }

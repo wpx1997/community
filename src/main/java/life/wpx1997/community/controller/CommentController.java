@@ -4,7 +4,7 @@ import life.wpx1997.community.dto.CommentCreateDTO;
 import life.wpx1997.community.dto.CommentDeleteDTO;
 import life.wpx1997.community.dto.ResultDTO;
 import life.wpx1997.community.exception.CustomizeErrorCode;
-import life.wpx1997.community.model.CommentUpdateModel;
+import life.wpx1997.community.model.Comment;
 import life.wpx1997.community.model.User;
 import life.wpx1997.community.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,12 +63,12 @@ public class CommentController {
         if (user == null){
             return ResultDTO.errorOf(CustomizeErrorCode.NOT_LOGIN);
         }else {
-            CommentUpdateModel commentUpdateModel = commentService.selectCommentUpdateModelById(commentDeleteDTO.getCommentId());
-            if (commentUpdateModel == null){
+            Comment comment = commentService.selectCommentUpdateModelById(commentDeleteDTO.getCommentId());
+            if (comment == null){
                 return ResultDTO.errorOf(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
-            if (user.getId().equals(commentUpdateModel.getCommentator())){
-                commentService.deleteCommentById(commentUpdateModel,commentDeleteDTO.getQuestionId());
+            if (user.getId().equals(comment.getCommentator())){
+                commentService.deleteCommentById(comment,commentDeleteDTO.getQuestionId());
                 return ResultDTO.okOf();
             }else {
                 return ResultDTO.errorOf(CustomizeErrorCode.COMMENT_CREATOR_NOT_YOU);

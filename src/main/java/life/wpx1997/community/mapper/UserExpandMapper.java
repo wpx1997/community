@@ -1,6 +1,6 @@
 package life.wpx1997.community.mapper;
 
-import life.wpx1997.community.model.UserMessageModel;
+import life.wpx1997.community.model.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public interface UserExpandMapper {
      * @param userIdSet
      * @return: String
      */
-    List<UserMessageModel> selectUserMessageModelListById(@Param("userIdSet")Set<Long> userIdSet);
+    List<User> selectUserMessageModelListById(@Param("userIdSet")Set<Long> userIdSet);
 
     /**
      *
@@ -33,6 +33,6 @@ public interface UserExpandMapper {
      * @param userId
      * @return: UserMessageDao
      */
-    UserMessageModel selectUserMessageByUserId(Long userId);
+    User selectUserMessageByUserId(Long userId);
 
 }

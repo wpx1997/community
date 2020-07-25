@@ -1,7 +1,6 @@
 package life.wpx1997.community.mapper;
 
 import life.wpx1997.community.model.Comment;
-import life.wpx1997.community.model.CommentUpdateModel;
 
 /**
  * @author 666
@@ -28,7 +27,7 @@ public interface CommentExpandMapper {
      * @param id
      * @return: CommentCreatorModel
      */
-    CommentUpdateModel selectCommentUpdateModelById(Long id);
+    Comment selectCommentUpdateModelById(Long id);
 
     /**
      *

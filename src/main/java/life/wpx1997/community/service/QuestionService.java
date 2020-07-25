@@ -1,6 +1,7 @@
 package life.wpx1997.community.service;
 
 import life.wpx1997.community.cache.MessageTagCache;
+import life.wpx1997.community.cache.ViewCountCache;
 import life.wpx1997.community.dto.*;
 import life.wpx1997.community.enums.CommentTypeEnum;
 import life.wpx1997.community.exception.CustomizeErrorCode;
@@ -38,6 +39,9 @@ public class QuestionService {
     @Autowired
     private CommentService commentService;
 
+    @Autowired
+    private ViewCountCache viewCountCache;
+
     /**
      *
      * selectIndexQuestionList by
@@ -47,16 +51,16 @@ public class QuestionService {
      * @param page
      * @return: PaginationDTO<QuestionShowModel>
      */
-    public PaginationDTO<QuestionShowModel> selectIndexQuestionList(Integer page) {
+    public PaginationDTO<QuestionShowDTO> selectIndexQuestionList(Integer page) {
 
-        PaginationDTO<QuestionShowModel> paginationDTO = redisService.getIndexQuestionListByPage(page);
+        PaginationDTO<QuestionShowDTO> paginationDTO = redisService.getIndexQuestionListByPage(page);
         if (paginationDTO == null){
             paginationDTO = new PaginationDTO<>();
             Integer totalCount = questionExpandMapper.countQuestion();
             Integer offset = paginationDTO.setPagination(totalCount, page);
-            List<QuestionShowModel> questionShowModelList = questionExpandMapper.selectQuestionShowModelListByOffset(offset);
-            questionSetCreatorName(questionShowModelList);
-            paginationDTO.setData(questionShowModelList);
+            List<Question> questionList = questionExpandMapper.selectQuestionShowModelListByOffset(offset);
+            List<QuestionShowDTO> questionShowDTOList = questionSetCreatorName(questionList);
+            paginationDTO.setData(questionShowDTOList);
             redisService.addQuestionListByIndexPage(paginationDTO,page);
         }
 
@@ -73,7 +77,7 @@ public class QuestionService {
      * @date: 2020/7/1 23:01
      * @return: PaginationDTO<QuestionDTO>
      */
-    public PaginationDTO<QuestionShowModel> selectQuestionListBySearchWithPage(String search, Integer page) {
+    public PaginationDTO<QuestionShowDTO> selectQuestionListBySearchWithPage(String search, Integer page) {
 
 
         PaginationDTO paginationDTO = new PaginationDTO();
@@ -95,12 +99,12 @@ public class QuestionService {
         Integer offset = paginationDTO.setPagination(totalCount,page);
         questionQueryDTO.setOffset(offset);
         // 根据当前页码查询问题的介绍信息
-        List<QuestionShowModel> questionShowModelList = questionExpandMapper.selectBySearchWithPage(questionQueryDTO);
+        List<Question> questionList = questionExpandMapper.selectBySearchWithPage(questionQueryDTO);
 
         // 对问题进行作者关联
-        questionSetCreatorName(questionShowModelList);
+        List<QuestionShowDTO> questionShowDTOList = questionSetCreatorName(questionList);
         // 进行分页的页码处理
-        paginationDTO.setData(questionShowModelList);
+        paginationDTO.setData(questionShowDTOList);
 
         return paginationDTO;
     }
@@ -114,8 +118,8 @@ public class QuestionService {
      * @date: 2020/7/1 23:01
      * @return: PaginationDTO<QuestionDTO>
      */
-    public PaginationDTO<QuestionShowModel> selectQuestionListByUserIdWithPage(Long userId, Integer page) {
-        PaginationDTO<QuestionShowModel> paginationDTO = new PaginationDTO();
+    public PaginationDTO<QuestionShowDTO> selectQuestionListByUserIdWithPage(Long userId, Integer page) {
+        PaginationDTO<QuestionShowDTO> paginationDTO = new PaginationDTO();
         QuestionExample example = new QuestionExample();
         example.createCriteria().andCreatorEqualTo(userId);
         Integer totalCount = (int) questionMapper.countByExample(example);
@@ -130,9 +134,9 @@ public class QuestionService {
         QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
         questionQueryDTO.setUserId(userId);
         questionQueryDTO.setOffset(offset);
-        List<QuestionShowModel> questionShowModelList = questionExpandMapper.selectByUserIdWithPage(questionQueryDTO);
-        questionSetCreatorName(questionShowModelList);
-        paginationDTO.setData(questionShowModelList);
+        List<Question> questionList = questionExpandMapper.selectByUserIdWithPage(questionQueryDTO);
+        List<QuestionShowDTO> questionShowDTOList = questionSetCreatorName(questionList);
+        paginationDTO.setData(questionShowDTOList);
 
         return paginationDTO;
     }
@@ -146,9 +150,9 @@ public class QuestionService {
      * @date: 2020/7/1 23:01
      * @return: PaginationDTO<QuestionDTO>
      */
-    public PaginationDTO<QuestionShowModel> selectQuestionListByTag(String tag, Integer page) {
+    public PaginationDTO<QuestionShowDTO> selectQuestionListByTag(String tag, Integer page) {
 
-        PaginationDTO<QuestionShowModel> paginationDTO = new PaginationDTO();
+        PaginationDTO<QuestionShowDTO> paginationDTO = new PaginationDTO();
 
         String regexpTag = Arrays.stream(tag.split("，")).collect(Collectors.joining("|"));
         QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
@@ -164,10 +168,10 @@ public class QuestionService {
 
         questionQueryDTO.setOffset(offset);
 
-        List<QuestionShowModel> questionShowModelList = questionExpandMapper.selectByTagWithPage(questionQueryDTO);
+        List<Question> questionList = questionExpandMapper.selectByTagWithPage(questionQueryDTO);
 
-        questionSetCreatorName(questionShowModelList);
-        paginationDTO.setData(questionShowModelList);
+        List<QuestionShowDTO> questionShowDTOList = questionSetCreatorName(questionList);
+        paginationDTO.setData(questionShowDTOList);
 
         return paginationDTO;
     }
@@ -175,22 +179,26 @@ public class QuestionService {
     /**
      * questionSetData 封装返回问题结果集的方法
      *
-     * @param questionShowModelList
+     * @param questionList
      * @author: 不会飞的小鹏
      * @date: 2020/7/1 22:59
      * @return: void
      */
-    private void questionSetCreatorName(List<QuestionShowModel> questionShowModelList) {
+    public List<QuestionShowDTO> questionSetCreatorName(List<Question> questionList) {
 
         // 获取去重的评论人
-        Set<Long> creatorSet = questionShowModelList.stream().map(QuestionShowModel::getCreator).collect(Collectors.toSet());
-        List<UserMessageModel> creatorMessageList = userService.selectUserMessageModelListByCreatorSet(creatorSet);
-        Map<Long, UserMessageModel> userMessageModelMap = creatorMessageList.stream().collect(Collectors.toMap(userMessageModel -> userMessageModel.getId(), userMessageModel -> userMessageModel));
-        questionShowModelList.stream().forEach(questionShowModel -> {
-            questionShowModel.setCreatorName(userMessageModelMap.get(questionShowModel.getCreator()).getName());
-            questionShowModel.setCreatorAvatarUrl(userMessageModelMap.get(questionShowModel.getCreator()).getAvatarUrl());
-        });
+        Set<Long> creatorSet = questionList.stream().map(Question::getCreator).collect(Collectors.toSet());
+        List<User> userList = userService.selectUserMessageListByCreatorSet(creatorSet);
+        Map<Long, User> userMap = userList.stream().collect(Collectors.toMap(user -> user.getId(), user -> user));
+        List<QuestionShowDTO> questionShowDTOList = questionList.stream().map(question -> {
+            QuestionShowDTO questionShowDTO = new QuestionShowDTO();
+            BeanUtils.copyProperties(question, questionShowDTO);
+            questionShowDTO.setCreatorName(userMap.get(question.getCreator()).getName());
+            questionShowDTO.setCreatorAvatarUrl(userMap.get(question.getCreator()).getAvatarUrl());
+            return questionShowDTO;
+        }).collect(Collectors.toList());
 
+        return questionShowDTOList;
     }
 
     /**
@@ -244,11 +252,11 @@ public class QuestionService {
      * @date: 2020/7/3 12:22
      * @return: List<QuestionDTO>
      */
-    public List<QuestionTitleModel> listTitleByCreator(Long creator) {
+    public List<Question> listTitleByCreator(Long creator) {
 
-        List<QuestionTitleModel> questionTitleDaoList = questionExpandMapper.selectByCreatorWithTen(creator);
+        List<Question> questionList = questionExpandMapper.selectByCreatorWithTen(creator);
 
-        return questionTitleDaoList;
+        return questionList;
     }
 
     /**
@@ -260,16 +268,16 @@ public class QuestionService {
      * @date: 2020/7/3 12:23
      * @return: List<QuestionDTO>
      */
-    public List<QuestionTitleModel> listTitleByTag(Long id, String tag) {
+    public List<Question> listTitleByTag(Long id, String tag) {
 
         // 将问题标签转化为正则匹配
         String regexpTag = Arrays.stream(tag.split("，")).collect(Collectors.joining("|"));
         Question conditionQuestion = new Question();
         conditionQuestion.setId(id);
         conditionQuestion.setTag(regexpTag);
-        List<QuestionTitleModel> questionTitleDaoList = questionExpandMapper.selectByTagWithTen(conditionQuestion);
+        List<Question> questionList = questionExpandMapper.selectByTagWithTen(conditionQuestion);
 
-        return questionTitleDaoList;
+        return questionList;
     }
 
     /**
@@ -281,10 +289,7 @@ public class QuestionService {
      * @return: void
      */
     public void cumulativeView(Long id) {
-        Question question = new Question();
-        question.setId(id);
-        question.setViewCount(1L);
-        questionExpandMapper.cumulativeView(question);
+        viewCountCache.cumulativeViewCount(id);
     }
 
     /**
@@ -323,18 +328,25 @@ public class QuestionService {
 
         // 根据creator获取作者信息
         Long creatorId = question.getCreator();
-        UserMessageModel userMessageModel = userService.selectUserMessageDaoByUserId(creatorId);
+        User user = userService.selectUserMessageByUserId(creatorId);
         QuestionMessageDTO questionMessageDTO = new QuestionMessageDTO();
         BeanUtils.copyProperties(question,questionMessageDTO);
-        questionMessageDTO.setCreatorName(userMessageModel.getName());
-        questionMessageDTO.setCreatorAvatarUrl(userMessageModel.getAvatarUrl());
+        questionMessageDTO.setCreatorName(user.getName());
+        questionMessageDTO.setCreatorAvatarUrl(user.getAvatarUrl());
+
+        // 从累计阅读数缓存中读取
+        Long viewCount = viewCountCache.getViewCountCacheById(id);
+        if (viewCount != null){
+            Long questionViewCount = questionMessageDTO.getViewCount();
+            questionMessageDTO.setViewCount(questionViewCount + viewCount);
+        }
 
         // 获取十条相同标签问题的标题
-        List<QuestionTitleModel> dependentQuestionTitleDaoList = listTitleByTag(questionMessageDTO.getId(), questionMessageDTO.getTag());
-        questionMessageDTO.setDependentQuestionTitleList(dependentQuestionTitleDaoList);
+        List<Question> dependentQuestionTitleList = listTitleByTag(questionMessageDTO.getId(), questionMessageDTO.getTag());
+        questionMessageDTO.setDependentQuestionTitleList(dependentQuestionTitleList);
 
         // 获取作者的十条问题标题
-        List<QuestionTitleModel> myQuestionTitleDaoList = listTitleByCreator(creatorId);
+        List<Question> myQuestionTitleDaoList = listTitleByCreator(creatorId);
         questionMessageDTO.setThisCreatorQuestionTitleList(myQuestionTitleDaoList);
 
         // 若评论不为空
@@ -352,13 +364,13 @@ public class QuestionService {
             Set<Long> commentCommentCreatorSet = commentCommentList.stream().map(Comment::getCommentator).collect(Collectors.toSet());
 
             creatorSet.addAll(commentCommentCreatorSet);
-            List<UserMessageModel> userMessageModelList = userService.selectUserMessageModelListByCreatorSet(creatorSet);
+            List<User> userList = userService.selectUserMessageListByCreatorSet(creatorSet);
 
             // 一级评论
-            List<CommentMessageDTO> questionCommentMessageDTOList = setCommentCreatorMessage(questionCommentList, userMessageModelList);
+            List<CommentMessageDTO> questionCommentMessageDTOList = setCommentCreatorMessage(questionCommentList, userList);
 
             // 二级评论
-            List<CommentMessageDTO> commentCommentMessageDTOList = setCommentCreatorMessage(commentCommentList, userMessageModelList);
+            List<CommentMessageDTO> commentCommentMessageDTOList = setCommentCreatorMessage(commentCommentList, userList);
 
             // 将问题评论的回复列表转为map（根据二级评论的parentId分类）
             Map<Long, List<CommentMessageDTO>> commentCommentMap = commentCommentMessageDTOList.stream().collect(Collectors.groupingBy(CommentMessageDTO::getParentId));
@@ -401,16 +413,16 @@ public class QuestionService {
      * @param userMessageDaoList
      * @return: List<CommentMessageDTO>
      */
-    private List<CommentMessageDTO> setCommentCreatorMessage(List<Comment> commentList, List<UserMessageModel> userMessageDaoList) {
+    private List<CommentMessageDTO> setCommentCreatorMessage(List<Comment> commentList, List<User> userMessageDaoList) {
 
-        Map<Long, UserMessageModel> userMessageDaoMap = userMessageDaoList.stream().collect(Collectors.toMap((UserMessageModel::getId), userMessageModel -> userMessageModel));
+        Map<Long, User> userMap = userMessageDaoList.stream().collect(Collectors.toMap((User::getId), user -> user));
 
         List<CommentMessageDTO> commentMessageDTOList = commentList.stream().map(comment -> {
             CommentMessageDTO commentMessageDTO = new CommentMessageDTO();
             BeanUtils.copyProperties(comment, commentMessageDTO);
-            UserMessageModel userMessageModel = userMessageDaoMap.get(comment.getCommentator());
-            commentMessageDTO.setCreatorName(userMessageModel.getName());
-            commentMessageDTO.setCreatorAvatarUrl(userMessageModel.getAvatarUrl());
+            User user = userMap.get(comment.getCommentator());
+            commentMessageDTO.setCreatorName(user.getName());
+            commentMessageDTO.setCreatorAvatarUrl(user.getAvatarUrl());
             return commentMessageDTO;
         }).collect(Collectors.toList());
 
@@ -426,11 +438,11 @@ public class QuestionService {
      * @param id
      * @return: QuestionPublishModel
      */
-    public QuestionPublishModel getQuestionPublishModelById(Long id) {
+    public Question getQuestionPublishModelById(Long id) {
 
-        QuestionPublishModel questionPublishModel = questionExpandMapper.selectQuestionPublishModelById(id);
+        Question question = questionExpandMapper.selectQuestionPublishModelById(id);
 
-        return questionPublishModel;
+        return question;
     }
 
     /**
@@ -445,13 +457,13 @@ public class QuestionService {
      */
     public Boolean checkOneself(Long id, Long userId) {
 
-        QuestionCreatorModel questionCreatorModel = questionExpandMapper.selectQuestionCreatorModelById(id);
+        Question question = questionExpandMapper.selectQuestionCreatorModelById(id);
 
-        if (questionCreatorModel == null){
+        if (question == null){
             return null;
         }
 
-        if (userId.equals(questionCreatorModel.getCreator())){
+        if (userId.equals(question.getCreator())){
             return true;
         }
 
@@ -488,4 +500,28 @@ public class QuestionService {
         questionExpandMapper.cumulativeCommentCount(dbQuestion);
     }
 
+    public List<Question> selectAllQuestionShowModelList() {
+
+        List<Question> questionList = questionExpandMapper.selectAllQuestionShowModelList();
+
+        return questionList;
+    }
+
+    public List<Question> selectAllQuestionTagList() {
+
+        List<Question> questionList =  questionExpandMapper.selectAllQuestionTagList();
+
+        return questionList;
+    }
+
+    public void cumulativeViewCount(List<Question> questionList) {
+        questionExpandMapper.cumulativeViewCount(questionList);
+    }
+
+    public Long countByCreator(Long creator) {
+        QuestionExample example = new QuestionExample();
+        example.createCriteria().andCreatorEqualTo(creator);
+        Long questionCount = questionMapper.countByExample(example);
+        return questionCount;
+    }
 }

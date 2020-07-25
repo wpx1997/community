@@ -1,10 +1,8 @@
 package life.wpx1997.community.controller;
 
-import life.wpx1997.community.dto.PaginationDTO;
-import life.wpx1997.community.dto.QuestionMessageDTO;
-import life.wpx1997.community.dto.ResultDTO;
+import life.wpx1997.community.cache.HotTagCache;
+import life.wpx1997.community.dto.*;
 import life.wpx1997.community.exception.CustomizeErrorCode;
-import life.wpx1997.community.model.QuestionShowModel;
 import life.wpx1997.community.model.User;
 import life.wpx1997.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author 不会飞的小鹏
@@ -22,6 +21,9 @@ public class QuestionController {
 
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private HotTagCache hotTagCache;
 
     @GetMapping("/question/{id}")
     public String questionById(@PathVariable(name = "id") Long id,
@@ -69,8 +71,10 @@ public class QuestionController {
                                 Model model) {
 
         // 根据标签返回此页面问题的相似问题
-        PaginationDTO<QuestionShowModel> paginationDTO = questionService.selectQuestionListByTag(tag, page);
+        PaginationDTO<QuestionShowDTO> paginationDTO = questionService.selectQuestionListByTag(tag, page);
+        List<HotTagDTO> hotTagList = hotTagCache.getHotTagDTOList();
         model.addAttribute("tagPagination", paginationDTO);
+        model.addAttribute("hotTagList",hotTagList);
         model.addAttribute("tag",tag);
 
         return "tag";

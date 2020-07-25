@@ -5,7 +5,6 @@ import life.wpx1997.community.dto.QuestionPublishDTO;
 import life.wpx1997.community.dto.ResultDTO;
 import life.wpx1997.community.exception.CustomizeErrorCode;
 import life.wpx1997.community.model.Question;
-import life.wpx1997.community.model.QuestionPublishModel;
 import life.wpx1997.community.model.User;
 import life.wpx1997.community.service.QuestionService;
 import org.apache.commons.lang3.StringUtils;
@@ -35,7 +34,7 @@ public class PublishController {
         if (user == null){
             return "redirect:/";
         }
-        QuestionPublishModel question = questionService.getQuestionPublishModelById(id);
+        Question question = questionService.getQuestionPublishModelById(id);
         if (question == null || !user.getId().equals(question.getCreator())){
             return "redirect:/";
         }

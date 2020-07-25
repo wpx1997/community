@@ -1,14 +1,14 @@
-package life.wpx1997.community.model;
+package life.wpx1997.community.dto;
 
 import lombok.Data;
 
 /**
  * @author 不会飞的小鹏
- * create on 2020/7/20 22:11
- * @Description QuestionShowModel is
+ * create on 2020/7/25 18:58
+ * @Description QuestionShowDTO is
  */
 @Data
-public class QuestionShowModel {
+public class QuestionShowDTO {
     private Long id;
     private Long creator;
     private String creatorAvatarUrl;

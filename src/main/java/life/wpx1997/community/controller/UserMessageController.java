@@ -6,6 +6,7 @@ import life.wpx1997.community.mapper.UserMapper;
 import life.wpx1997.community.model.QuestionExample;
 import life.wpx1997.community.model.User;
 import life.wpx1997.community.service.QuestionService;
+import life.wpx1997.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,18 +17,19 @@ import java.util.List;
 
 /**
  * created by 小case on 2019/9/7 14:15
+ * @author 不会飞的小鹏
  */
 @Controller
 public class UserMessageController {
-
-    @Autowired
-    private UserMapper userMapper;
 
     @Autowired
     private QuestionMapper questionMapper;
 
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/message/{id}")
     public String userMessage(@PathVariable(name = "id")Long id,
@@ -44,13 +46,11 @@ public class UserMessageController {
             model.addAttribute("whoIs","isMe");
         }
 
-        User user = userMapper.selectByPrimaryKey(id);
-        QuestionExample example = new QuestionExample();
-        example.createCriteria().andCreatorEqualTo(user.getId());
-        long countQuestion = questionMapper.countByExample(example);
+        User user = userService.selectUseById(id);
+        Long questionCount = questionService.countByCreator(id);
         List<MessageTagDTO> messageTagDTOS = questionService.userTag(user.getId());
         model.addAttribute("userMessage",user);
-        model.addAttribute("countQuestion",countQuestion);
+        model.addAttribute("questionCount",questionCount);
         model.addAttribute("messageTagDTOS",messageTagDTOS);
 
         return "message";

@@ -2,8 +2,8 @@ package life.wpx1997.community.controller;
 
 import life.wpx1997.community.dto.NotificationDTO;
 import life.wpx1997.community.dto.PaginationDTO;
+import life.wpx1997.community.dto.QuestionShowDTO;
 import life.wpx1997.community.enums.ActionTypeEnum;
-import life.wpx1997.community.model.QuestionShowModel;
 import life.wpx1997.community.model.User;
 import life.wpx1997.community.service.NotificationService;
 import life.wpx1997.community.service.QuestionService;
@@ -43,7 +43,7 @@ public class ProfileController {
 
             model.addAttribute("section","questions");
             model.addAttribute("name","我的提问");
-            PaginationDTO<QuestionShowModel> paginationDTO = questionService.selectQuestionListByUserIdWithPage(user.getId(), page);
+            PaginationDTO<QuestionShowDTO> paginationDTO = questionService.selectQuestionListByUserIdWithPage(user.getId(), page);
             model.addAttribute("questionPagination",paginationDTO);
         }else if (ActionTypeEnum.REPLIES.getType().equals(action)){
             PaginationDTO<NotificationDTO> paginationDTO = notificationService.selectNotificationList(user.getId(),page);

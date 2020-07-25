@@ -3,15 +3,11 @@ package life.wpx1997.community.dto;
 import lombok.Data;
 
 /**
- * created by 小case on 2019/9/2 12:32
+ * created on 2019/9/2 12:32
+ * @author 不会飞的小鹏
  */
 @Data
-public class HotTagDTO implements Comparable{
+public class HotTagDTO{
    private String name;
-   private Integer priority;
-
-    @Override
-    public int compareTo(Object o) {
-        return this.getPriority() - ((HotTagDTO) o).getPriority();
-    }
+   private Long priority;
 }
