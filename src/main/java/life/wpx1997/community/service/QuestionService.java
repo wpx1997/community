@@ -1,14 +1,11 @@
 package life.wpx1997.community.service;
 
+import life.wpx1997.community.cache.CumulativeCache;
 import life.wpx1997.community.cache.MessageTagCache;
-import life.wpx1997.community.cache.ViewCountCache;
 import life.wpx1997.community.dto.*;
 import life.wpx1997.community.enums.CommentTypeEnum;
-import life.wpx1997.community.exception.CustomizeErrorCode;
-import life.wpx1997.community.exception.CustomizeException;
 import life.wpx1997.community.mapper.QuestionExpandMapper;
 import life.wpx1997.community.mapper.QuestionMapper;
-import life.wpx1997.community.mapper.UserMapper;
 import life.wpx1997.community.model.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -40,7 +37,7 @@ public class QuestionService {
     private CommentService commentService;
 
     @Autowired
-    private ViewCountCache viewCountCache;
+    private CumulativeCache cumulativeCache;
 
     /**
      *
@@ -289,7 +286,7 @@ public class QuestionService {
      * @return: void
      */
     public void cumulativeView(Long id) {
-        viewCountCache.cumulativeViewCount(id);
+        cumulativeCache.cumulativeQuestionViewCount(id);
     }
 
     /**
@@ -315,6 +312,22 @@ public class QuestionService {
 
     }
 
+    public Question selectQuestionTitleById(Long id){
+
+        Question question = questionExpandMapper.selectQuestionTitleById(id);
+
+        return question;
+    }
+
+    /**
+     *
+     * selectQuestionByQuestionId by 根据问题id返回问题的所有信息
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/26 16:14
+     * @param id
+     * @return: QuestionMessageDTO
+     */
     public QuestionMessageDTO selectQuestionByQuestionId(Long id) {
 
         // 根据questionId获取问题
@@ -335,10 +348,14 @@ public class QuestionService {
         questionMessageDTO.setCreatorAvatarUrl(user.getAvatarUrl());
 
         // 从累计阅读数缓存中读取
-        Long viewCount = viewCountCache.getViewCountCacheById(id);
-        if (viewCount != null){
-            Long questionViewCount = questionMessageDTO.getViewCount();
-            questionMessageDTO.setViewCount(questionViewCount + viewCount);
+        QuestionCumulativeDTO questionCumulativeDTO = cumulativeCache.getQuestionCumulativeCacheById(id);
+        if (questionCumulativeDTO != null){
+            Long viewCount = questionMessageDTO.getViewCount();
+            Long commentCount = questionMessageDTO.getCommentCount();
+            Long likeCount = questionMessageDTO.getLikeCount();
+            questionMessageDTO.setViewCount(questionCumulativeDTO.getViewCount() + viewCount);
+            questionMessageDTO.setCommentCount(questionCumulativeDTO.getCommentCount() + commentCount);
+            questionMessageDTO.setLikeCount(questionCumulativeDTO.getLikeCount() + likeCount);
         }
 
         // 获取十条相同标签问题的标题
@@ -397,8 +414,20 @@ public class QuestionService {
      */
     private void setDeleteTypeComment(List<Comment> questionCommentList) {
 
+        Map<Long, CommentCumulativeDTO> commentCumulativeMap = cumulativeCache.getCommentCumulativeMap();
         Byte deleteType = 1;
-        questionCommentList.stream().filter(comment -> deleteType.equals(comment.getIsDelete())).forEach(comment -> comment.setContent("该评论已删除"));
+        questionCommentList.stream().forEach(comment -> {
+            if (deleteType.equals(comment.getIsDelete())){
+                comment.setContent("该评论已删除");
+            }
+            CommentCumulativeDTO commentCumulativeDTO = commentCumulativeMap.get(comment.getId());
+            if (commentCumulativeDTO != null){
+                Long commentCount = comment.getCommentCount();
+                Long likeCount = comment.getLikeCount();
+                comment.setCommentCount(commentCount + commentCumulativeDTO.getCommentCount());
+                comment.setLikeCount(likeCount + commentCumulativeDTO.getLikeCount());
+            }
+        });
 
     }
 
@@ -493,13 +522,38 @@ public class QuestionService {
      *
      * @author: 不会飞的小鹏
      * @date: 2020/7/24 23:42
-     * @param dbQuestion
+     * @param question
      * @return: void
      */
-    public void cumulativeCommentCount(Question dbQuestion) {
-        questionExpandMapper.cumulativeCommentCount(dbQuestion);
+    public void cumulativeCommentCount(Question question) {
+        cumulativeCache.cumulativeQuestionCommentCount(question.getId(),question.getCommentCount());
     }
 
+    /**
+     *
+     * countByCreator by 统计作者的问题数
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/26 16:13
+     * @param creator
+     * @return: Long
+     */
+    public Long countByCreator(Long creator) {
+        QuestionExample example = new QuestionExample();
+        example.createCriteria().andCreatorEqualTo(creator);
+        Long questionCount = questionMapper.countByExample(example);
+        return questionCount;
+    }
+
+    /**
+     *
+     * selectAllQuestionShowModelList by 查询所有问题的热度相关信息
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/26 16:12
+     * @param
+     * @return: List<Question>
+     */
     public List<Question> selectAllQuestionShowModelList() {
 
         List<Question> questionList = questionExpandMapper.selectAllQuestionShowModelList();
@@ -507,6 +561,15 @@ public class QuestionService {
         return questionList;
     }
 
+    /**
+     *
+     * selectAllQuestionTagList by 查询所有问题的标签热度相关信息
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/26 16:11
+     * @param
+     * @return: List<Question>
+     */
     public List<Question> selectAllQuestionTagList() {
 
         List<Question> questionList =  questionExpandMapper.selectAllQuestionTagList();
@@ -514,14 +577,17 @@ public class QuestionService {
         return questionList;
     }
 
-    public void cumulativeViewCount(List<Question> questionList) {
-        questionExpandMapper.cumulativeViewCount(questionList);
+    /**
+     *
+     * questionCumulative by 批量更新问题的累计数
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/26 16:11
+     * @param cumulativeList
+     * @return: void
+     */
+    public void questionCumulative(List<QuestionCumulativeDTO> cumulativeList) {
+        questionExpandMapper.questionCumulative(cumulativeList);
     }
 
-    public Long countByCreator(Long creator) {
-        QuestionExample example = new QuestionExample();
-        example.createCriteria().andCreatorEqualTo(creator);
-        Long questionCount = questionMapper.countByExample(example);
-        return questionCount;
-    }
 }

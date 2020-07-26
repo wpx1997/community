@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="life.wpx1997.community.mapper.CommentExpandMapper">
+  <!-- 评论父id -->
+  <resultMap id="CommentParentIdResultMap" type="life.wpx1997.community.model.Comment">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+  </resultMap>
   <!-- 评论作者id -->
   <resultMap id="CommentUpdateResultMap" type="life.wpx1997.community.model.Comment">
     <!--
@@ -17,21 +22,37 @@
   <sql id="Comment_Update_List">
     id, parent_id, commentator, type
   </sql>
-  <update id="cumulativeCommentCount" parameterType="life.wpx1997.community.model.Comment">
+  <sql id="Comment_Parent_Id_List">
+    id, parent_id
+  </sql>
+  <update id="cumulativeCommentCount" parameterType="java.util.List">
     update comment
-    set
-    comment_count = comment_count + #{commentCount,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="reduceCommentCount" parameterType="life.wpx1997.community.model.Comment">
-    update comment
-    set
-    comment_count = comment_count - #{commentCount,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="comment_count =case" suffix="end,">
+        <foreach collection="list" item="item" index="index">
+          when id = #{item.id} then comment_count + #{item.commentCount}
+        </foreach>
+      </trim>
+      <trim prefix="like_count =case" suffix="end,">
+        <foreach collection="list" item="item" index="index">
+          when id = #{item.id} then like_count + #{item.likeCount}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+      #{item.id,jdbcType=BIGINT}
+    </foreach>
   </update>
   <select id="selectCommentUpdateModelById" parameterType="java.lang.Long" resultMap="CommentUpdateResultMap">
     select
     <include refid="Comment_Update_List" />
+    from comment
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectCommentParentIdById" parameterType="java.lang.Long" resultMap="CommentParentIdResultMap">
+    select
+    <include refid="Comment_Parent_Id_List" />
     from comment
     where id = #{id,jdbcType=BIGINT}
   </select>

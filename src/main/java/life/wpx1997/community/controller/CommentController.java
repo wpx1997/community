@@ -1,7 +1,6 @@
 package life.wpx1997.community.controller;
 
 import life.wpx1997.community.dto.CommentCreateDTO;
-import life.wpx1997.community.dto.CommentDeleteDTO;
 import life.wpx1997.community.dto.ResultDTO;
 import life.wpx1997.community.exception.CustomizeErrorCode;
 import life.wpx1997.community.model.Comment;
@@ -55,20 +54,26 @@ public class CommentController {
 
     @ResponseBody
     @PostMapping("/comment/delete")
-    public Object deleteComment(@RequestBody @Valid CommentDeleteDTO commentDeleteDTO,
+    public Object deleteComment(@RequestBody Long id,
                                 HttpServletRequest request){
 
         User user = (User) request.getSession().getAttribute("user");
 
+        // 未登录
         if (user == null){
             return ResultDTO.errorOf(CustomizeErrorCode.NOT_LOGIN);
         }else {
-            Comment comment = commentService.selectCommentUpdateModelById(commentDeleteDTO.getCommentId());
+            // 从数据库中查询评论
+            Comment comment = commentService.selectCommentUpdateModelById(id);
+
+            // 评论不存在
             if (comment == null){
                 return ResultDTO.errorOf(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
+
+            // 是否为评论作者
             if (user.getId().equals(comment.getCommentator())){
-                commentService.deleteCommentById(comment,commentDeleteDTO.getQuestionId());
+                commentService.deleteCommentById(comment);
                 return ResultDTO.okOf();
             }else {
                 return ResultDTO.errorOf(CustomizeErrorCode.COMMENT_CREATOR_NOT_YOU);

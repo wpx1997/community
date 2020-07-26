@@ -86,17 +86,22 @@ public class QuestionController {
                                      HttpServletRequest request){
 
         User user = (User) request.getSession().getAttribute("user");
+
+        // 未登录
         if (user == null){
             return ResultDTO.errorOf(CustomizeErrorCode.NOT_LOGIN);
         }else {
             Boolean isOneself = questionService.checkOneself(id,user.getId());
+
+            // 问题已不存在
             if (isOneself == null){
                 return ResultDTO.errorOf(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
+            // 作者本人
             if (isOneself){
                 questionService.deleteQuestionById(id);
                 return ResultDTO.okOf();
-            }else {
+            }else { // 非作者本人
                 return ResultDTO.errorOf(CustomizeErrorCode.QUESTION_CREATOR_NOT_YOU);
             }
         }

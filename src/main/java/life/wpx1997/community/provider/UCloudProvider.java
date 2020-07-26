@@ -17,6 +17,7 @@ import java.util.UUID;
 
 /**
  * created by 小case on 2019/8/27 21:52
+ * @author 不会飞的小鹏
  */
 @Service
 public class UCloudProvider {
@@ -38,7 +39,6 @@ public class UCloudProvider {
 
     @Value("${ucloud.ufile.expires}")
     private Integer expires;
-
 
     public String upload(InputStream fileStream,String mimeType,String fileName){
 

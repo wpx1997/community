@@ -153,16 +153,12 @@ function deleteQuestion(e) {
 
 function deleteComment(e) {
 
-    var commentId = e.id;
-    var questionId = $("#question-id").val();
+    var id = e.id;
     $.ajax({
         type: "POST",
         url: "/comment/delete/",
         contentType:'application/json',
-        data: JSON.stringify({
-            "questionId":questionId,
-            "commentId":commentId
-        }),
+        data: JSON.stringify(id),
         success: function (response){
             if(response.code == 200){
                 window.location.reload();

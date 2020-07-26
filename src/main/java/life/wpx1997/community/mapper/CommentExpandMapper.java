@@ -1,6 +1,9 @@
 package life.wpx1997.community.mapper;
 
+import life.wpx1997.community.dto.CommentCumulativeDTO;
 import life.wpx1997.community.model.Comment;
+
+import java.util.List;
 
 /**
  * @author 666
@@ -13,10 +16,10 @@ public interface CommentExpandMapper {
      *
      * @author: 不会飞的小鹏
      * @date: 2020/7/4 20:21
-     * @param record
+     * @param commentCumulativeList
      * @return: int
      */
-    int cumulativeCommentCount(Comment record);
+    int cumulativeCommentCount(List<CommentCumulativeDTO> commentCumulativeList);
 
     /**
      *
@@ -31,12 +34,12 @@ public interface CommentExpandMapper {
 
     /**
      *
-     * reduceCommentCount by
+     * selectCommentParentIdById by 查询父评论
      *
      * @author: 不会飞的小鹏
-     * @date: 2020/7/24 23:19
-     * @param record
-     * @return: int
+     * @date: 2020/7/26 13:50
+     * @param id
+     * @return: Comment
      */
-    int reduceCommentCount(Comment record);
+    Comment selectCommentParentIdById(Long id);
 }

@@ -1,5 +1,6 @@
 package life.wpx1997.community.mapper;
 
+import life.wpx1997.community.dto.QuestionCumulativeDTO;
 import life.wpx1997.community.model.*;
 import life.wpx1997.community.dto.QuestionQueryDTO;
 
@@ -192,9 +193,19 @@ public interface QuestionExpandMapper {
      *
      * @author: 不会飞的小鹏
      * @date: 2020/7/26 0:20
-     * @param questionList
+     * @param cumulativeList
      * @return: int
      */
-    int cumulativeViewCount(List<Question> questionList);
+    int questionCumulative(List<QuestionCumulativeDTO> cumulativeList);
 
+    /**
+     *
+     * selectQuestionTitleById by
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/26 14:40
+     * @param id
+     * @return: Question
+     */
+    Question selectQuestionTitleById(Long id);
 }

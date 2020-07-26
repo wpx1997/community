@@ -1,24 +1,19 @@
 package life.wpx1997.community.service;
 
+import life.wpx1997.community.cache.CumulativeCache;
 import life.wpx1997.community.dto.CommentCreateDTO;
-import life.wpx1997.community.dto.CommentDTO;
-import life.wpx1997.community.dto.CommentDeleteDTO;
+import life.wpx1997.community.dto.CommentCumulativeDTO;
 import life.wpx1997.community.enums.CommentTypeEnum;
 import life.wpx1997.community.enums.NotificationTypeEnum;
-import life.wpx1997.community.enums.NotificationStatusEnum;
 import life.wpx1997.community.exception.CustomizeErrorCode;
 import life.wpx1997.community.exception.CustomizeException;
 import life.wpx1997.community.mapper.*;
 import life.wpx1997.community.model.*;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @author 小case
@@ -30,18 +25,15 @@ public class CommentService {
     private CommentMapper commentMapper;
 
     @Autowired
-    private QuestionExpandMapper questionExpandMapper;
-
-    @Autowired
-    private QuestionMapper questionMapper;
-
-    @Autowired
     private CommentExpandMapper commentExpandMapper;
 
     @Autowired
     private NotificationService notificationService;
 
     @Autowired QuestionService questionService;
+
+    @Autowired
+    private CumulativeCache cumulativeCache;
 
     /**
      *
@@ -80,16 +72,16 @@ public class CommentService {
 
         // 如果需要传入的comment的type与COMMENT匹配
         if (comment.getType().equals(CommentTypeEnum.COMMENT.getType()) ){
-            Comment dbComment = commentMapper.selectByPrimaryKey(parentId);
+            Comment dbComment = commentExpandMapper.selectCommentParentIdById(parentId);
 
             // 如果回复的comment不存在
             if (dbComment == null){
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
-            Question dbQuestion = questionMapper.selectByPrimaryKey(dbComment.getParentId());
+            Question question = questionService.selectQuestionTitleById(dbComment.getParentId());
 
             // 如果需要传入的comment的type与COMMENT匹配但comment所在的question不存在
-            if (dbQuestion == null){
+            if (question == null){
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
 
@@ -100,15 +92,18 @@ public class CommentService {
             dbComment.setCommentCount(1L);
             cumulativeCommentCount(dbComment);
 
+            question.setCommentCount(1L);
+            questionService.cumulativeCommentCount(question);
+
             // 创建通知
-            notificationService.createNotify(comment, dbComment.getCommentator(),dbQuestion.getTitle(), commentator.getName(),dbQuestion.getId(), NotificationTypeEnum.REPLY_COMMENT);
+            notificationService.createNotify(comment, dbComment.getCommentator(),question.getTitle(), commentator.getName(),question.getId(), NotificationTypeEnum.REPLY_COMMENT);
         }
         // 如果需要传入的comment的type与QUESTION匹配
         else {
-            Question dbQuestion = questionMapper.selectByPrimaryKey(comment.getParentId());
+            Question question = questionService.selectQuestionTitleById(comment.getParentId());
 
             // 如果需要传入的comment的type与QUESTION匹配但问题不存在
-            if (dbQuestion == null){
+            if (question == null){
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
 
@@ -116,11 +111,11 @@ public class CommentService {
             commentMapper.insert(comment);
 
             // 累计评论数
-            dbQuestion.setCommentCount(1L);
-            questionService.cumulativeCommentCount(dbQuestion);
+            question.setCommentCount(1L);
+            questionService.cumulativeCommentCount(question);
 
             // 创建通知.
-            notificationService.createNotify(comment, dbQuestion.getCreator(),dbQuestion.getTitle(), commentator.getName(), dbQuestion.getId(),NotificationTypeEnum.REPLY_QUESTION);
+            notificationService.createNotify(comment, question.getCreator(),question.getTitle(), commentator.getName(), question.getId(),NotificationTypeEnum.REPLY_QUESTION);
 
         }
     }
@@ -188,17 +183,21 @@ public class CommentService {
      * @param comment
      * @return: void
      */
-    public void deleteCommentById(Comment comment, Long questionId) {
-        Comment deleteComment = new Comment();
-        deleteComment.setId(comment.getId());
-        deleteComment.setIsDelete((byte) 1);
-        commentMapper.updateByPrimaryKeySelective(deleteComment);
+    public void deleteCommentById(Comment comment) {
+
+        comment.setIsDelete((byte) 1);
+        commentMapper.updateByPrimaryKeySelective(comment);
+
+        // 删除的评论为二级评论
         if (comment.getType().equals(CommentTypeEnum.COMMENT.getType())){
-            deleteComment.setId(comment.getParentId());
-            deleteComment.setCommentCount((long) -1);
-            cumulativeCommentCount(deleteComment);
-            Question question = new Question();
-            question.setId(questionId);
+            Comment dbComment = commentExpandMapper.selectCommentParentIdById(comment.getParentId());
+            dbComment.setCommentCount((long) -1);
+            cumulativeCommentCount(dbComment);
+            Question question = questionService.selectQuestionTitleById(dbComment.getParentId());
+            question.setCommentCount((long) -1);
+            questionService.cumulativeCommentCount(question);
+        }else { // 删除的评论为一级评论
+            Question question = questionService.selectQuestionTitleById(comment.getParentId());
             question.setCommentCount((long) -1);
             questionService.cumulativeCommentCount(question);
         }
@@ -214,7 +213,19 @@ public class CommentService {
      * @return: void
      */
     public void cumulativeCommentCount(Comment comment){
-        commentExpandMapper.cumulativeCommentCount(comment);
+        cumulativeCache.cumulativeCommentCommentCount(comment.getId(),comment.getCommentCount());
     }
 
+    /**
+     *
+     * commentCumulative by 批量更新commentCount
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/26 15:30
+     * @param commentCumulativeList
+     * @return: void
+     */
+    public void commentCumulative(List<CommentCumulativeDTO> commentCumulativeList) {
+        commentExpandMapper.cumulativeCommentCount(commentCumulativeList);
+    }
 }

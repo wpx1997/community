@@ -41,25 +41,25 @@
                 <nav aria-label="Page navigation" th:if="${tagPagination.totalPage}>1">
                     <ul class="pagination">
                         <li th:if="${tagPagination.showFirstPage}">
-                            <a th:href="@{'/question/tag/'+${tag}(page=1)}" aria-label="First">
+                            <a th:href="@{'/tag/'+${tag}(page=1)}" aria-label="First">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
                         <li th:if="${tagPagination.showPrevious}">
-                            <a th:href="@{'/question/tag/'+${tag}(page=${tagPagination.page}-1)}" aria-label="Previous">
+                            <a th:href="@{'/tag/'+${tag}(page=${tagPagination.page}-1)}" aria-label="Previous">
                                 <span aria-hidden="true">&lt;</span>
                             </a>
                         </li>
                         <li th:each="page : ${tagPagination.pageList}" th:class="${tagPagination.page == page}?'active':''">
-                            <a th:text="${page}" th:href="@{'/question/tag/'+${tag}(page=${page})}"></a>
+                            <a th:text="${page}" th:href="@{'/tag/'+${tag}(page=${page})}"></a>
                         </li>
                         <li th:if="${tagPagination.showNext}">
-                            <a th:href="@{'/question/tag/'+${tag}(page=${tagPagination.page}+1)}" aria-label="Next">
+                            <a th:href="@{'/tag/'+${tag}(page=${tagPagination.page}+1)}" aria-label="Next">
                                 <span aria-hidden="true">&gt;</span>
                             </a>
                         </li>
                         <li th:if="${tagPagination.showEndPage}">
-                            <a th:href="@{'/question/tag/'+${tag}(page=${tagPagination.totalPage})}" aria-label="End">
+                            <a th:href="@{'/tag/'+${tag}(page=${tagPagination.totalPage})}" aria-label="End">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
