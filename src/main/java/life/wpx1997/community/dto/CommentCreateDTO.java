@@ -16,5 +16,5 @@ public class CommentCreateDTO {
 
     @NotBlank(message = "回复内容为空")
     private String content;
-    private Integer type;
+    private Byte type;
 }

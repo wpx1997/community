@@ -10,7 +10,6 @@ import life.wpx1997.community.exception.CustomizeErrorCode;
 import life.wpx1997.community.exception.CustomizeException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import sun.security.pkcs11.wrapper.Constants;
 
 import java.io.InputStream;
 import java.util.UUID;

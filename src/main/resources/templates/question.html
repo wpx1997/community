@@ -185,7 +185,7 @@
                     <a th:href="@{'/question/'+${dependentQuestionTitle.id}}" th:text="${dependentQuestionTitle.title}"></a>
                 </div>
                 .........
-                <h5><a th:href="@{'/question/tag/'+${question.tag}}">更多相关问题</a></h5>
+                <h5><a th:href="@{'/tag/'+${question.tag}}">更多相关问题</a></h5>
                 <hr>
             </div>
             <!--    如果用户为此问题作者  -->
@@ -195,7 +195,7 @@
                     <a th:href="@{'/question/'+${thisCreatorQuestionTittle.id}}" th:text="${thisCreatorQuestionTittle.title}"></a>
                 </div>
                 .........
-                <h5><a th:href="@{/profile/questions}">我所有的问题</a></h5>
+                <h5><a th:href="@{/profile/questions}" th:text="${state} == 'mine' ? '我的其他问题' : '本作者其他问题'"></a></h5>
             </div>
             <hr>
         </div>

@@ -109,7 +109,14 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
      * @date: 2020/7/23 11:53
      * @description: CustomizeErrorCode's COMMENT_CREATOR_NOT_YOU 非评论作者修改评论
      */
-    COMMENT_CREATOR_NOT_YOU(2015,"你不是评论作者，无权限修改")
+    COMMENT_CREATOR_NOT_YOU(2015,"你不是评论作者，无权限修改"),
+
+    /**
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/27 22:44
+     * @description: CustomizeErrorCode's HAVE_NOT_LIKE 未点赞
+     */
+    HAVE_NOT_LIKE(2016,"没有点赞记录，无法取消")
     ;
 
     @Override

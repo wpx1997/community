@@ -26,6 +26,18 @@
             <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span>发现</h2>
             <hr>
             <h4 th:text="${tips}"></h4>
+            <hr>
+            <div class="media" th:each="question : ${hotQuestionList}">
+                <div class="media-left">
+                    <img class="user-avatar img-rounded" th:src="${question.creatorAvatarUrl}">
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
+                    </h4>
+                    <span class="question-information"><span th:text="${question.creatorName}"></span> • <span th:text="${question.commentCount}"></span>个回复 • <span th:text="${question.viewCount}"></span>次浏览 • <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span></span><hr>
+                </div>
+            </div>
         </div>
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" th:if="${tips == null}">
             <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span>发现</h2>

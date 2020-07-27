@@ -16,7 +16,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="parent_id" jdbcType="BIGINT" property="parentId" />
     <result column="commentator" jdbcType="BIGINT" property="commentator" />
-    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="type" jdbcType="TINYINT" property="type" />
   </resultMap>
   <!-- 评论作者查询列 -->
   <sql id="Comment_Update_List">

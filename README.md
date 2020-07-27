@@ -35,7 +35,7 @@ ssh root@
 
 ##脚本
 创建user表
-~~~sql
+```sql
 create table user
 (
     id bigint auto_increment,
@@ -49,10 +49,9 @@ create table user
     constraint user_pk
         primary key (id)
 );
-
-~~~
+```
 创建question表
-~~~sql
+```sql
 create table question
 (
     id bigint auto_increment,
@@ -68,9 +67,9 @@ create table question
     constraint question_pk
         primary key (id)
 );
-~~~
+```
 创建comment表
-~~~sql
+```sql
 create table comment
 (
     id bigint auto_increment,
@@ -85,9 +84,9 @@ create table comment
     constraint comment_pk
         primary key (id)
 );
-~~~
+```
 创建notification表
-~~~sql
+```sql
 create table notification
 (
     id bigint auto_increment,
@@ -102,8 +101,25 @@ create table notification
     constraint notification_pk
         primary key (id)
 );
+```
+创建点赞表
+```sql
+create table community_like
+(
+	id bigint auto_increment,
+	parent_id bigint not null,
+	user_id bigint not null,
+	type tinyint unsigned default 0 not null,
+	is_delete tinyint unsigned default 0 not null,
+	gmt_create bigint not null,
+	gmt_modified bigint,
+	constraint community_like_pk
+		primary key (id)
+);
+```
 
-~~~
+
+
 ~~~
 mvn flyway:migrate
 mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate

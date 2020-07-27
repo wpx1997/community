@@ -7,8 +7,12 @@ import life.wpx1997.community.enums.CommentTypeEnum;
 import life.wpx1997.community.enums.NotificationTypeEnum;
 import life.wpx1997.community.exception.CustomizeErrorCode;
 import life.wpx1997.community.exception.CustomizeException;
-import life.wpx1997.community.mapper.*;
-import life.wpx1997.community.model.*;
+import life.wpx1997.community.mapper.CommentExpandMapper;
+import life.wpx1997.community.mapper.CommentMapper;
+import life.wpx1997.community.model.Comment;
+import life.wpx1997.community.model.CommentExample;
+import life.wpx1997.community.model.Question;
+import life.wpx1997.community.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -130,7 +134,7 @@ public class CommentService {
      * @param type
      * @return: List<Comment>
      */
-    public List<Comment> selectCommentListByQuestionId(Long id,Integer type) {
+    public List<Comment> selectCommentListByQuestionId(Long id,Byte type) {
 
         CommentExample commentExample = new CommentExample();
         commentExample.createCriteria().andParentIdEqualTo(id).andTypeEqualTo(type);
@@ -149,7 +153,7 @@ public class CommentService {
      * @param type
      * @return: List<Comment>
      */
-    public List<Comment> selectCommentListByCommentIdList(List<Long> commentIdList, Integer type) {
+    public List<Comment> selectCommentListByCommentIdList(List<Long> commentIdList, Byte type) {
 
         CommentExample commentExample = new CommentExample();
         commentExample.createCriteria().andParentIdIn(commentIdList).andTypeEqualTo(type).andIsDeleteEqualTo((byte) 0);

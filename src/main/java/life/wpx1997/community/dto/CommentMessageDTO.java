@@ -14,7 +14,7 @@ import java.util.List;
 public class CommentMessageDTO {
     private Long id;
     private Long parentId;
-    private Integer type;
+    private Byte type;
     private Long commentator;
     private Long gmtCreate;
     private Long gmtModified;
@@ -23,5 +23,6 @@ public class CommentMessageDTO {
     private Long commentCount;
     private String creatorName;
     private String creatorAvatarUrl;
+    private Boolean isLike;
     private List<CommentMessageDTO> commentCommentList;
 }

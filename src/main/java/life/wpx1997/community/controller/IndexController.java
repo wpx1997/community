@@ -48,12 +48,15 @@ public class IndexController {
         PaginationDTO<QuestionShowDTO> paginationDTO = questionService.selectQuestionListBySearchWithPage(search,page);
         if (paginationDTO == null){
             model.addAttribute("tips","搜索内容不存在");
+            List<QuestionShowDTO> hotQuestionList = hotQuestionCache.getHotQuestionList();
+            model.addAttribute("hotQuestionList",hotQuestionList);
+        }else {
+            model.addAttribute("tips",null);
+            model.addAttribute("searchPagination",paginationDTO);
+            model.addAttribute("search",search);
         }
         List<HotTagDTO> hotTagList = hotTagCache.getHotTagDTOList();
-
-        model.addAttribute("searchPagination",paginationDTO);
         model.addAttribute("hotTagList",hotTagList);
-        model.addAttribute("search",search);
 
         return "search";
     }

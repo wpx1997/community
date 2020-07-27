@@ -11,18 +11,18 @@ public enum CommentTypeEnum {
      * @date: 2020/7/4 17:13
      * @description: CommentTypeEnum's QUESTION is 回复类型为问题评论
      */
-    QUESTION(1),
+    QUESTION((byte)1),
 
     /**
      * @author: 不会飞的小鹏
      * @date: 2020/7/4 17:14
      * @description: CommentTypeEnum's COMMENT is 回复类型为评论回复
      */
-    COMMENT(2);
+    COMMENT((byte)2);
 
-    private Integer type;
+    private Byte type;
 
-    public static boolean isExist(Integer type) {
+    public static boolean isExist(Byte type) {
         for (CommentTypeEnum commentTypeEnum : CommentTypeEnum.values()){
             if (commentTypeEnum.getType().equals(type)){
                 return true;
@@ -31,11 +31,11 @@ public enum CommentTypeEnum {
         return false;
     }
 
-    public Integer getType() {
+    public Byte getType() {
         return type;
     }
 
-    CommentTypeEnum(Integer type) {
+    CommentTypeEnum(Byte type) {
         this.type = type;
     }
 }

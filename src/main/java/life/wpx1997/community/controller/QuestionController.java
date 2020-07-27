@@ -3,6 +3,7 @@ package life.wpx1997.community.controller;
 import life.wpx1997.community.cache.HotTagCache;
 import life.wpx1997.community.dto.*;
 import life.wpx1997.community.exception.CustomizeErrorCode;
+import life.wpx1997.community.model.CommunityLike;
 import life.wpx1997.community.model.User;
 import life.wpx1997.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class QuestionController {
         }
 
         // 根据页面传递的id查询问题的内容
-        QuestionMessageDTO thisQuestion = questionService.selectQuestionByQuestionId(id);
+        QuestionMessageDTO thisQuestion = questionService.selectQuestionByQuestionId(id,userId);
 
         if (thisQuestion == null){
 
@@ -52,7 +53,7 @@ public class QuestionController {
         // 累计问题阅读数
         questionService.cumulativeView(id);
 
-        // 如果用户未登录或不是此问题的作者，则状态state为disLogin
+        // 如果用户未登录或不是此问题的作者，则状态state为notMine
         if (userId.equals(thisQuestion.getCreator())) {
             model.addAttribute("state", "mine");
         }else {

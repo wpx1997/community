@@ -23,6 +23,7 @@ public class QuestionMessageDTO {
     private Long likeCount;
     private String creatorName;
     private String creatorAvatarUrl;
+    private Boolean isLike;
     private List<Question> dependentQuestionTitleList;
     private List<Question> thisCreatorQuestionTitleList;
     private List<CommentMessageDTO> questionCommentList;

@@ -39,6 +39,9 @@ public class QuestionService {
     @Autowired
     private CumulativeCache cumulativeCache;
 
+    @Autowired
+    private LikeService likeService;
+
     /**
      *
      * selectIndexQuestionList by
@@ -89,7 +92,7 @@ public class QuestionService {
 
         // 没有符合条件的问题
         if (totalCount == 0){
-            return paginationDTO;
+            return null;
         }
 
         // 进行页码处理
@@ -328,7 +331,7 @@ public class QuestionService {
      * @param id
      * @return: QuestionMessageDTO
      */
-    public QuestionMessageDTO selectQuestionByQuestionId(Long id) {
+    public QuestionMessageDTO selectQuestionByQuestionId(Long id, Long userId) {
 
         // 根据questionId获取问题
         Question question = questionMapper.selectByPrimaryKey(id);
@@ -358,6 +361,20 @@ public class QuestionService {
             questionMessageDTO.setLikeCount(questionCumulativeDTO.getLikeCount() + likeCount);
         }
 
+        // 查询点赞记录
+        if (userId != 0){
+            CommunityLike like = new CommunityLike();
+            like.setParentId(id);
+            like.setUserId(userId);
+            like.setType((byte) 1);
+            CommunityLike communityLike = likeService.selectLikeByParentIdWithUserId(like);
+            if (communityLike == null || communityLike.getIsDelete().equals((byte)1)){
+                questionMessageDTO.setIsLike(false);
+            }else {
+                questionMessageDTO.setIsLike(true);
+            }
+        }
+
         // 获取十条相同标签问题的标题
         List<Question> dependentQuestionTitleList = listTitleByTag(questionMessageDTO.getId(), questionMessageDTO.getTag());
         questionMessageDTO.setDependentQuestionTitleList(dependentQuestionTitleList);
@@ -373,14 +390,20 @@ public class QuestionService {
             List<Comment> questionCommentList = commentService.selectCommentListByQuestionId(id, CommentTypeEnum.QUESTION.getType());
             setDeleteTypeComment(questionCommentList);
             List<Long> commentIdList = questionCommentList.stream().map(Comment::getId).collect(Collectors.toList());
+
+            // 获取去重的一级评论用户
+            Set<Long> creatorSet = questionCommentList.stream().map(Comment::getCommentator).collect(Collectors.toSet());
+
             // 获取此问题评论的回复（二级评论）
             List<Comment> commentCommentList = commentService.selectCommentListByCommentIdList(commentIdList,CommentTypeEnum.COMMENT.getType());
 
-            // 获取去重的评论人
-            Set<Long> creatorSet = questionCommentList.stream().map(Comment::getCommentator).collect(Collectors.toSet());
+            // 合并一级评论和二级评论的评论人和评论id
             Set<Long> commentCommentCreatorSet = commentCommentList.stream().map(Comment::getCommentator).collect(Collectors.toSet());
-
             creatorSet.addAll(commentCommentCreatorSet);
+            List<Long> commentCommentIdList = commentCommentList.stream().map(Comment::getId).collect(Collectors.toList());
+            commentIdList.addAll(commentCommentIdList);
+
+            // 获取去重的评论人信息
             List<User> userList = userService.selectUserMessageListByCreatorSet(creatorSet);
 
             // 一级评论
@@ -388,6 +411,16 @@ public class QuestionService {
 
             // 二级评论
             List<CommentMessageDTO> commentCommentMessageDTOList = setCommentCreatorMessage(commentCommentList, userList);
+
+            // 查询点赞列表
+            if (userId != 0){
+                LikeQueryDTO likeQueryDTO = new LikeQueryDTO();
+                likeQueryDTO.setUserId(userId);
+                likeQueryDTO.setParentIdList(commentIdList);
+                List<Long> parentIdList = likeService.selectCommentLikeListByParentIdList(likeQueryDTO);
+                setCommentLike(questionCommentMessageDTOList,parentIdList);
+                setCommentLike(commentCommentMessageDTOList,parentIdList);
+            }
 
             // 将问题评论的回复列表转为map（根据二级评论的parentId分类）
             Map<Long, List<CommentMessageDTO>> commentCommentMap = commentCommentMessageDTOList.stream().collect(Collectors.groupingBy(CommentMessageDTO::getParentId));
@@ -397,10 +430,17 @@ public class QuestionService {
                     .filter(commentMessageDTO -> parentIdSet.contains(commentMessageDTO.getId()))
                     .forEach(commentMessageDTO -> commentMessageDTO.setCommentCommentList(commentCommentMap.get(commentMessageDTO.getId())));
 
+
             questionMessageDTO.setQuestionCommentList(questionCommentMessageDTOList);
         }
 
         return questionMessageDTO;
+    }
+
+    private void setCommentLike(List<CommentMessageDTO> commentMessageDTOList, List<Long> parentIdList) {
+
+        commentMessageDTOList.stream().filter(commentMessageDTO -> parentIdList.contains(commentMessageDTO.getId())).forEach(commentMessageDTO -> commentMessageDTO.setIsLike(true));
+
     }
 
     /**
@@ -509,10 +549,12 @@ public class QuestionService {
      * @return: void
      */
     public void deleteQuestionById(Long id) {
+
         Question question = new Question();
         question.setId(id);
         question.setIsDelete((byte) 1);
         questionMapper.updateByPrimaryKeySelective(question);
+
     }
 
 
@@ -539,9 +581,11 @@ public class QuestionService {
      * @return: Long
      */
     public Long countByCreator(Long creator) {
+
         QuestionExample example = new QuestionExample();
         example.createCriteria().andCreatorEqualTo(creator);
         Long questionCount = questionMapper.countByExample(example);
+
         return questionCount;
     }
 
