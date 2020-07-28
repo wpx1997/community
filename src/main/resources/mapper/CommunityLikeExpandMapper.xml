@@ -40,7 +40,7 @@
     <include refid="Parent_Id_List" />
     from community_like
     where parent_id in
-    <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+    <foreach collection="parentIdList" index="index" item="item" separator="," open="(" close=")">
       #{item}
     </foreach>
     and user_id = #{userId} and type = 2 and is_delete = 0

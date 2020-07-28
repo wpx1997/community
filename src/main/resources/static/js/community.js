@@ -170,3 +170,105 @@ function deleteComment(e) {
     })
 
 }
+
+function starQuestion(e) {
+    var status = e.getAttribute("like");
+    var parentId = $("#question-id").val();
+    var likeCount = document.getElementById("question-like-count").innerText;
+    if (status == 1){
+        $.ajax({
+            type: "POST",
+            url: "/like/deleteLike/",
+            contentType:'application/json',
+            data: JSON.stringify({
+                "parentId":parentId,
+                "type":1
+            }),
+            success: function (response){
+                if(response.code == 200){
+                    e.setAttribute("class","glyphicon glyphicon-star-empty like-count comment-right")
+                    e.setAttribute("like",2);
+                    likeCount = likeCount - 1;
+                    document.getElementById("question-like-count").innerText = likeCount;
+                }else {
+                    alert(response.message);
+                }
+            },
+            dataType: "json"
+        });
+    }
+    if (status == 2){
+        $.ajax({
+            type: "POST",
+            url: "/like/addLike/",
+            contentType:'application/json',
+            data: JSON.stringify({
+                "parentId":parentId,
+                "type":1
+            }),
+            success: function (response){
+                if(response.code == 200){
+                    e.setAttribute("class","glyphicon glyphicon-star-empty like-count comment-right active");
+                    likeCount = likeCount - (-1);
+                    document.getElementById("question-like-count").innerText = likeCount;
+                    e.setAttribute("like",1);
+                }else {
+                    alert(response.message);
+                }
+            },
+            dataType: "json"
+        })
+    }
+}
+
+function commentLike(e) {
+
+    var status = e.getAttribute("like");
+    var parentId = e.id;
+    var likeCount = e.innerText;
+    if (status == 1){
+        $.ajax({
+            type: "POST",
+            url: "/like/deleteLike/",
+            contentType:'application/json',
+            data: JSON.stringify({
+                "parentId":parentId,
+                "type":2
+            }),
+            success: function (response){
+                if(response.code == 200){
+                    e.setAttribute("class","glyphicon glyphicon-thumbs-up like-count")
+                    e.setAttribute("like",2);
+                    likeCount = likeCount - 1;
+                    e.innerText = likeCount;
+                }else {
+                    alert(response.message);
+                }
+            },
+            dataType: "json"
+        });
+    }
+    if (status == 2){
+        $.ajax({
+            type: "POST",
+            url: "/like/addLike/",
+            contentType:'application/json',
+            data: JSON.stringify({
+                "parentId":parentId,
+                "type":2
+            }),
+            success: function (response){
+                if(response.code == 200){
+                    e.setAttribute("class","glyphicon glyphicon-thumbs-up like-count active");
+                    likeCount = likeCount - (-1);
+                    e.innerText = likeCount;
+                    e.setAttribute("like",1);
+                }else {
+                    alert(response.message);
+                }
+            },
+            dataType: "json"
+        })
+    }
+
+}

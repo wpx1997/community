@@ -66,21 +66,18 @@ public class LikeService {
         // 查询是否有点赞记录
         CommunityLike dbCommunityLike = selectLikeByParentIdWithUserId(communityLike);
 
-        Long likeId;
         if (dbCommunityLike == null){
             communityLike.setIsDelete((byte) 0);
             communityLike.setGmtCreate(System.currentTimeMillis());
             communityLike.setGmtModified(System.currentTimeMillis());
             communityLikeMapper.insert(communityLike);
-            likeId = communityLike.getId();
         }else {
             dbCommunityLike.setIsDelete((byte) 0);
             dbCommunityLike.setGmtModified(System.currentTimeMillis());
             communityLikeMapper.updateByPrimaryKeySelective(dbCommunityLike);
-            likeId = dbCommunityLike.getId();
         }
 
-        cumulativeLikeCount(likeId,likeDTO.getType(),1L);
+        cumulativeLikeCount(likeDTO.getParentId(),likeDTO.getType(),1L);
 
     }
 
@@ -109,7 +106,7 @@ public class LikeService {
             dbCommunityLike.setIsDelete((byte) 1);
             dbCommunityLike.setGmtModified(System.currentTimeMillis());
             communityLikeMapper.updateByPrimaryKeySelective(dbCommunityLike);
-            cumulativeLikeCount(dbCommunityLike.getId(),likeDTO.getType(),-1L);
+            cumulativeLikeCount(likeDTO.getParentId(),likeDTO.getType(),-1L);
             return true;
         }
 
