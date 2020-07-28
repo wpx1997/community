@@ -56,25 +56,25 @@
             <nav aria-label="Page navigation" th:if="${searchPagination.totalPage}>1">
                 <ul class="pagination">
                     <li th:if="${searchPagination.showFirstPage}">
-                        <a th:href="@{/(page=1,search=${search})}" aria-label="First" th:if="${search} != null">
+                        <a th:href="@{/search(search=${search},page=1)}" aria-label="First" th:if="${search} != null">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li th:if="${searchPagination.showPrevious}">
-                        <a th:href="@{/(page=${searchPagination.page -1},search=${search})}" aria-label="Previous" th:if="${search} != null">
+                        <a th:href="@{/search(search=${search},page=${searchPagination.page -1})}" aria-label="Previous" th:if="${search} != null">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <li th:each="page : ${searchPagination.pageList}" th:class="${searchPagination.page == page}?'active':''">
-                        <a th:text="${page}" th:href="@{/(page=${page},search=${search})}" th:if="${search} != null"></a>
+                        <a th:text="${page}" th:href="@{/search(search=${search},page=${page})}" th:if="${search} != null"></a>
                     </li>
                     <li th:if="${searchPagination.showNext}">
-                        <a th:href="@{/(page=${searchPagination.page +1},search=${search})}" aria-label="Next" th:if="${search} != null">
+                        <a th:href="@{/search(search=${search},page=${searchPagination.page +1})}" aria-label="Next" th:if="${search} != null">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                     <li th:if="${searchPagination.showEndPage}">
-                        <a th:href="@{/(page=${searchPagination.totalPage},search=${search})}" aria-label="End" th:if="${search} != null">
+                        <a th:href="@{/search(search=${search},page=${searchPagination.totalPage})}" aria-label="End" th:if="${search} != null">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>

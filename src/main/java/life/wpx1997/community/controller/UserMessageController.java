@@ -1,9 +1,12 @@
 package life.wpx1997.community.controller;
 
+import life.wpx1997.community.cache.HotQuestionCache;
+import life.wpx1997.community.cache.HotTagCache;
+import life.wpx1997.community.dto.HotTagDTO;
 import life.wpx1997.community.dto.MessageTagDTO;
+import life.wpx1997.community.dto.PaginationDTO;
+import life.wpx1997.community.dto.QuestionShowDTO;
 import life.wpx1997.community.mapper.QuestionMapper;
-import life.wpx1997.community.mapper.UserMapper;
-import life.wpx1997.community.model.QuestionExample;
 import life.wpx1997.community.model.User;
 import life.wpx1997.community.service.QuestionService;
 import life.wpx1997.community.service.UserService;
@@ -12,7 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 /**
@@ -23,15 +29,18 @@ import java.util.List;
 public class UserMessageController {
 
     @Autowired
-    private QuestionMapper questionMapper;
-
-    @Autowired
     private QuestionService questionService;
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/message/{id}")
+    @Autowired
+    private HotQuestionCache hotQuestionCache;
+
+    @Autowired
+    private HotTagCache hotTagCache;
+
+    @GetMapping("/message/user/{id}")
     public String userMessage(@PathVariable(name = "id")Long id,
                               HttpServletRequest request,
                               Model model){
@@ -52,6 +61,30 @@ public class UserMessageController {
         model.addAttribute("userMessage",user);
         model.addAttribute("questionCount",questionCount);
         model.addAttribute("messageTagDTOS",messageTagDTOS);
+        model.addAttribute("message","user");
+        model.addAttribute("id",id);
+
+        return "message";
+    }
+
+    @GetMapping("/message/questions/{id}")
+    public String questionMessage(@PathVariable(name = "id")Long id,
+                                  @RequestParam(name = "page",defaultValue = "1")Integer page,
+                                  Model model){
+
+        PaginationDTO<QuestionShowDTO> paginationDTO = questionService.selectQuestionListByUserIdWithPage(id, page);
+        if (paginationDTO == null){
+            model.addAttribute("tips","该作者未有创作");
+            List<QuestionShowDTO> hotQuestionList = hotQuestionCache.getHotQuestionList();
+            model.addAttribute("hotQuestionList",hotQuestionList);
+        }else {
+            model.addAttribute("tips",null);
+            model.addAttribute("searchPagination",paginationDTO);
+        }
+        List<HotTagDTO> hotTagList = hotTagCache.getHotTagDTOList();
+        model.addAttribute("hotTagList",hotTagList);
+        model.addAttribute("message","questions");
+        model.addAttribute("id",id);
 
         return "message";
     }

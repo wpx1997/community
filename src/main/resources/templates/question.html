@@ -27,7 +27,7 @@
                 <h4 class="question-title"><span th:text="${question.title}"></span></h4>
                 <a class="question-tags" th:href="@{'/tag/'+${question.tag}}" th:text="${question.tag}"></a>
                 <span class="question-information">
-                  |  作者：<a th:href="'/message/'+${question.creator}" th:text="${question.creatorName}"></a>
+                  |  作者：<a th:href="'/message/user/'+${question.creator}" th:text="${question.creatorName}"></a>
                   |  阅读次数：<span th:text="${question.viewCount}"></span>
                   |  发布时间：<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
                 </span>
@@ -76,7 +76,7 @@
                         <img class="user-avatar img-rounded" th:src="${questionComment.creatorAvatarUrl}">
                     </div>
                     <div class="media-body" th:id="${'comment-body-'+questionComment.id}">
-                        <a th:href="'/message/'+${questionComment.commentator}" th:text="${questionComment.creatorName}"></a>
+                        <a th:href="'/message/user/'+${questionComment.commentator}" th:text="${questionComment.creatorName}"></a>
                         <div class="comment-content-margin" th:id="'comment-view-'+${questionComment.id}">
                             <textarea style="display:none;" th:data-id="${'comment-content-' + questionComment.id}" th:id="${'comment-content' + questionComment.id}" th:text="${questionComment.content}"></textarea>
                         </div>
@@ -105,7 +105,7 @@
                                         <img class="user-avatar" th:src="${commentComment.creatorAvatarUrl}">
                                     </div>
                                     <div class="media-body">
-                                        <a :href="'#/message/' + commentComment.id" th:text="${commentComment.creatorName}"></a>
+                                        <a th:href="${'/message/user' + commentComment.id}" th:text="${commentComment.creatorName}"></a>
                                         <div class="media-heading comment-body" th:id="${'comment-view-' + commentComment.id}" th:text="${commentComment.content}"></div>
                                         <div class="comment-menu">
                                             <span th:id="${commentComment.id}" th:like="${commentComment.isLike == true ? '1' : '2'}" th:class="${commentComment.isLike == null ? 'glyphicon glyphicon-thumbs-up like-count' : 'glyphicon glyphicon-thumbs-up like-count active'}" th:text="${commentComment.likeCount}" onclick="commentLike(this)"></span>
@@ -135,7 +135,7 @@
                 </div>
                 <div class="media-body">
                     <h6 class="media-heading">
-                        <a th:href="${session.user != null ? '/message/'+session.user.id : '/' }" th:text="${session.user != null ? session.user.name : '匿名大佬'}"></a>
+                        <a th:href="${session.user != null ? '/message/user/'+session.user.id : '/' }" th:text="${session.user != null ? session.user.name : '匿名大佬'}"></a>
                     </h6>
                 </div>
                 <div class="form-group" id="comment-editor">
@@ -171,7 +171,7 @@
                 </div>
                 <div class="media-body">
                     <h6 class="media-heading">
-                        <a th:href="'/message/'+${question.creator}" th:text="${question.creatorName}"></a>
+                        <a th:href="'/message/user/'+${question.creator}" th:text="${question.creatorName}"></a>
                     </h6>
                 </div>
                 <hr>
@@ -198,7 +198,7 @@
                     <a th:href="@{'/question/'+${thisCreatorQuestionTittle.id}}" th:text="${thisCreatorQuestionTittle.title}"></a>
                 </div>
                 .........
-                <h5><a th:href="@{/profile/questions}" th:text="${state} == 'mine' ? '我的其他问题' : '本作者其他问题'"></a></h5>
+                <h5><a th:href="@{'/search/question/' + ${question.creator}}" th:text="${state} == 'mine' ? '我的其他问题' : '本作者其他问题'"></a></h5>
             </div>
             <hr>
         </div>

@@ -79,7 +79,6 @@ public class QuestionService {
      */
     public PaginationDTO<QuestionShowDTO> selectQuestionListBySearchWithPage(String search, Integer page) {
 
-
         PaginationDTO paginationDTO = new PaginationDTO();
         QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
         // 是否有查询内容
@@ -119,6 +118,7 @@ public class QuestionService {
      * @return: PaginationDTO<QuestionDTO>
      */
     public PaginationDTO<QuestionShowDTO> selectQuestionListByUserIdWithPage(Long userId, Integer page) {
+
         PaginationDTO<QuestionShowDTO> paginationDTO = new PaginationDTO();
         QuestionExample example = new QuestionExample();
         example.createCriteria().andCreatorEqualTo(userId);
@@ -126,7 +126,7 @@ public class QuestionService {
 
         // 没有符合条件的问题
         if (totalCount == 0){
-            return paginationDTO;
+            return null;
         }
 
         Integer offset = paginationDTO.setPagination(totalCount,page);
@@ -344,22 +344,8 @@ public class QuestionService {
 
         // 根据creator获取作者信息
         Long creatorId = question.getCreator();
-        User user = userService.selectUserMessageByUserId(creatorId);
-        QuestionMessageDTO questionMessageDTO = new QuestionMessageDTO();
-        BeanUtils.copyProperties(question,questionMessageDTO);
-        questionMessageDTO.setCreatorName(user.getName());
-        questionMessageDTO.setCreatorAvatarUrl(user.getAvatarUrl());
-
-        // 从累计阅读数缓存中读取
-        QuestionCumulativeDTO questionCumulativeDTO = cumulativeCache.getQuestionCumulativeCacheById(id);
-        if (questionCumulativeDTO != null){
-            Long viewCount = questionMessageDTO.getViewCount();
-            Long commentCount = questionMessageDTO.getCommentCount();
-            Long likeCount = questionMessageDTO.getLikeCount();
-            questionMessageDTO.setViewCount(questionCumulativeDTO.getViewCount() + viewCount);
-            questionMessageDTO.setCommentCount(questionCumulativeDTO.getCommentCount() + commentCount);
-            questionMessageDTO.setLikeCount(questionCumulativeDTO.getLikeCount() + likeCount);
-        }
+        User creator = userService.selectUserMessageByUserId(creatorId);
+        QuestionMessageDTO questionMessageDTO = questionSetMessage(question, creator);
 
         // 查询点赞记录
         if (userId != 0){
@@ -386,52 +372,100 @@ public class QuestionService {
         // 若评论不为空
         if (question.getCommentCount() != 0) {
 
-            // 获取此问题的评论
-            List<Comment> questionCommentList = commentService.selectCommentListByQuestionId(id, CommentTypeEnum.QUESTION.getType());
-            setDeleteTypeComment(questionCommentList);
-            List<Long> commentIdList = questionCommentList.stream().map(Comment::getId).collect(Collectors.toList());
-
-            // 获取去重的一级评论用户
-            Set<Long> creatorSet = questionCommentList.stream().map(Comment::getCommentator).collect(Collectors.toSet());
-
-            // 获取此问题评论的回复（二级评论）
-            List<Comment> commentCommentList = commentService.selectCommentListByCommentIdList(commentIdList,CommentTypeEnum.COMMENT.getType());
-
-            // 合并一级评论和二级评论的评论人和评论id
-            Set<Long> commentCommentCreatorSet = commentCommentList.stream().map(Comment::getCommentator).collect(Collectors.toSet());
-            creatorSet.addAll(commentCommentCreatorSet);
-            List<Long> commentCommentIdList = commentCommentList.stream().map(Comment::getId).collect(Collectors.toList());
-            commentIdList.addAll(commentCommentIdList);
-
-            // 获取去重的评论人信息
-            List<User> userList = userService.selectUserMessageListByCreatorSet(creatorSet);
-
-            // 一级评论
-            List<CommentMessageDTO> questionCommentMessageDTOList = setCommentCreatorMessage(questionCommentList, userList);
-
-            // 二级评论
-            List<CommentMessageDTO> commentCommentMessageDTOList = setCommentCreatorMessage(commentCommentList, userList);
-
-            // 查询点赞列表
-            if (userId != 0){
-                LikeQueryDTO likeQueryDTO = new LikeQueryDTO();
-                likeQueryDTO.setUserId(userId);
-                likeQueryDTO.setParentIdList(commentIdList);
-                List<Long> parentIdList = likeService.selectCommentLikeListByParentIdList(likeQueryDTO);
-                setCommentLike(questionCommentMessageDTOList,parentIdList);
-                setCommentLike(commentCommentMessageDTOList,parentIdList);
-            }
-
-            // 将问题评论的回复列表转为map（根据二级评论的parentId分类）
-            Map<Long, List<CommentMessageDTO>> commentCommentMap = commentCommentMessageDTOList.stream().collect(Collectors.groupingBy(CommentMessageDTO::getParentId));
-            // 将分类好的二级评论根据parentId赋值给一级评论
-            Set<Long> parentIdSet = commentCommentMap.keySet();
-            questionCommentMessageDTOList.stream()
-                    .filter(commentMessageDTO -> parentIdSet.contains(commentMessageDTO.getId()))
-                    .forEach(commentMessageDTO -> commentMessageDTO.setCommentCommentList(commentCommentMap.get(commentMessageDTO.getId())));
-
+            List<CommentMessageDTO> questionCommentMessageDTOList = selectCommentMessageListByQuestionId(id,userId);
 
             questionMessageDTO.setQuestionCommentList(questionCommentMessageDTOList);
+        }
+
+        return questionMessageDTO;
+    }
+
+    /**
+     *
+     * selectCommentMessageListByQuestionId by 获取问题的评论列表
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/28 17:57
+     * @param id
+     * @param userId
+     * @return: List<CommentMessageDTO>
+     */
+    private List<CommentMessageDTO> selectCommentMessageListByQuestionId(Long id,Long userId) {
+
+        // 获取此问题的评论
+        List<Comment> questionCommentList = commentService.selectCommentListByQuestionId(id, CommentTypeEnum.QUESTION.getType());
+        setDeleteTypeComment(questionCommentList);
+        List<Long> commentIdList = questionCommentList.stream().map(Comment::getId).collect(Collectors.toList());
+
+        // 获取去重的一级评论用户
+        Set<Long> creatorSet = questionCommentList.stream().map(Comment::getCommentator).collect(Collectors.toSet());
+
+        // 获取此问题评论的回复（二级评论）
+        List<Comment> commentCommentList = commentService.selectCommentListByCommentIdList(commentIdList,CommentTypeEnum.COMMENT.getType());
+
+        // 合并一级评论和二级评论的评论人和评论id
+        Set<Long> commentCommentCreatorSet = commentCommentList.stream().map(Comment::getCommentator).collect(Collectors.toSet());
+        creatorSet.addAll(commentCommentCreatorSet);
+        List<Long> commentCommentIdList = commentCommentList.stream().map(Comment::getId).collect(Collectors.toList());
+        commentIdList.addAll(commentCommentIdList);
+
+        // 获取去重的评论人信息
+        List<User> userList = userService.selectUserMessageListByCreatorSet(creatorSet);
+
+        // 一级评论
+        List<CommentMessageDTO> questionCommentMessageDTOList = setCommentCreatorMessage(questionCommentList, userList);
+
+        // 二级评论
+        List<CommentMessageDTO> commentCommentMessageDTOList = setCommentCreatorMessage(commentCommentList, userList);
+
+        // 查询点赞列表
+        if (userId != 0){
+            LikeQueryDTO likeQueryDTO = new LikeQueryDTO();
+            likeQueryDTO.setUserId(userId);
+            likeQueryDTO.setParentIdList(commentIdList);
+            List<Long> parentIdList = likeService.selectCommentLikeListByParentIdList(likeQueryDTO);
+            setCommentLike(questionCommentMessageDTOList,parentIdList);
+            setCommentLike(commentCommentMessageDTOList,parentIdList);
+        }
+
+        // 将问题评论的回复列表转为map（根据二级评论的parentId分类）
+        Map<Long, List<CommentMessageDTO>> commentCommentMap = commentCommentMessageDTOList.stream().collect(Collectors.groupingBy(CommentMessageDTO::getParentId));
+        // 将分类好的二级评论根据parentId赋值给一级评论
+        Set<Long> parentIdSet = commentCommentMap.keySet();
+        questionCommentMessageDTOList.stream()
+                .filter(commentMessageDTO -> parentIdSet.contains(commentMessageDTO.getId()))
+                .forEach(commentMessageDTO -> commentMessageDTO.setCommentCommentList(commentCommentMap.get(commentMessageDTO.getId())));
+
+        return questionCommentMessageDTOList;
+    }
+
+    /**
+     *
+     * questionSetMessage by
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/28 17:50
+     * @param question
+     * @param user
+     * @return: QuestionMessageDTO 装配question的一些展示信息
+     */
+    private QuestionMessageDTO questionSetMessage(Question question, User user) {
+
+        // 将Question转为QuestionMessageDTO
+        QuestionMessageDTO questionMessageDTO = new QuestionMessageDTO();
+        BeanUtils.copyProperties(question,questionMessageDTO);
+        questionMessageDTO.setCreatorName(user.getName());
+        questionMessageDTO.setCreatorAvatarUrl(user.getAvatarUrl());
+
+        // 从缓存中读取未更新到数据库的累计数
+        QuestionCumulativeDTO questionCumulativeDTO = cumulativeCache.getQuestionCumulativeCacheById(question.getId());
+        if (questionCumulativeDTO != null){
+            Long viewCount = questionMessageDTO.getViewCount();
+            Long commentCount = questionMessageDTO.getCommentCount();
+            Long likeCount = questionMessageDTO.getLikeCount();
+            questionMessageDTO.setViewCount(questionCumulativeDTO.getViewCount() + viewCount);
+            questionMessageDTO.setCommentCount(questionCumulativeDTO.getCommentCount() + commentCount);
+            questionMessageDTO.setLikeCount(questionCumulativeDTO.getLikeCount() + likeCount);
         }
 
         return questionMessageDTO;

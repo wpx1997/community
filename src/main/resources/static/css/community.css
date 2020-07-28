@@ -295,10 +295,11 @@ body{
 }
 
 .message-tag-big{
+    width: 230px;
     font-size: 15px;
     white-space: normal;
-    display: inline-block;
-    margin: 10px 15px;
+    display: inline-flex;
+    margin: 6px 0;
 }
 
 .message-tag-color{
@@ -308,6 +309,7 @@ body{
 }
 
 .tag-name-color{
+    width: 105px;
     color: white;
 }
 
