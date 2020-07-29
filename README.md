@@ -118,8 +118,6 @@ create table community_like
 );
 ```
 
-
-
 ~~~
 mvn flyway:migrate
 mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate

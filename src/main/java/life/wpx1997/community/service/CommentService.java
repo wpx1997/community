@@ -39,6 +39,12 @@ public class CommentService {
     @Autowired
     private CumulativeCache cumulativeCache;
 
+    @Autowired
+    private CacheService cacheService;
+
+    @Autowired
+    private RedisService redisService;
+
     /**
      *
      * insertComment by
@@ -49,7 +55,6 @@ public class CommentService {
      * @param commentator
      * @return: void
      */
-    @Transactional(rollbackFor = Exception.class)
     public void insertComment(CommentCreateDTO commentCreateDTO, User commentator) {
 
         Comment comment = new Comment();
@@ -92,12 +97,14 @@ public class CommentService {
             // 将comment的comment插入数据库
             commentMapper.insert(comment);
 
+            redisService.insertComment(comment);
+
             // 累计comment的commentCount
             dbComment.setCommentCount(1L);
             cumulativeCommentCount(dbComment);
 
             question.setCommentCount(1L);
-            questionService.cumulativeCommentCount(question);
+            cacheService.cumulativeCommentCount(question);
 
             // 创建通知
             notificationService.createNotify(comment, dbComment.getCommentator(),question.getTitle(), commentator.getName(),question.getId(), NotificationTypeEnum.REPLY_COMMENT);
@@ -116,7 +123,7 @@ public class CommentService {
 
             // 累计评论数
             question.setCommentCount(1L);
-            questionService.cumulativeCommentCount(question);
+            cacheService.cumulativeCommentCount(question);
 
             // 创建通知.
             notificationService.createNotify(comment, question.getCreator(),question.getTitle(), commentator.getName(), question.getId(),NotificationTypeEnum.REPLY_QUESTION);
@@ -199,11 +206,11 @@ public class CommentService {
             cumulativeCommentCount(dbComment);
             Question question = questionService.selectQuestionTitleById(dbComment.getParentId());
             question.setCommentCount((long) -1);
-            questionService.cumulativeCommentCount(question);
+            cacheService.cumulativeCommentCount(question);
         }else { // 删除的评论为一级评论
             Question question = questionService.selectQuestionTitleById(comment.getParentId());
             question.setCommentCount((long) -1);
-            questionService.cumulativeCommentCount(question);
+            cacheService.cumulativeCommentCount(question);
         }
     }
 

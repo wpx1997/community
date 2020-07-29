@@ -594,19 +594,6 @@ public class QuestionService {
 
     /**
      *
-     * cumulativeCommentCount by 累计问题回复数
-     *
-     * @author: 不会飞的小鹏
-     * @date: 2020/7/24 23:42
-     * @param question
-     * @return: void
-     */
-    public void cumulativeCommentCount(Question question) {
-        cumulativeCache.cumulativeQuestionCommentCount(question.getId(),question.getCommentCount());
-    }
-
-    /**
-     *
      * countByCreator by 统计作者的问题数
      *
      * @author: 不会飞的小鹏
