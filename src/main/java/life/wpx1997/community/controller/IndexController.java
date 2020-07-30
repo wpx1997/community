@@ -5,16 +5,19 @@ import life.wpx1997.community.cache.HotTagCache;
 import life.wpx1997.community.dto.HotTagDTO;
 import life.wpx1997.community.dto.PaginationDTO;
 import life.wpx1997.community.dto.QuestionShowDTO;
+import life.wpx1997.community.dto.ResultDTO;
+import life.wpx1997.community.model.Comment;
 import life.wpx1997.community.model.User;
 import life.wpx1997.community.service.QuestionService;
+import life.wpx1997.community.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author 不会飞的小鹏
@@ -30,6 +33,9 @@ public class IndexController {
 
     @Autowired
     private HotQuestionCache hotQuestionCache;
+
+    @Autowired
+    private RedisService redisService;
 
     @GetMapping("/")
     public String index(Model model){
@@ -62,5 +68,30 @@ public class IndexController {
 
         return "search";
     }
+
+    @ResponseBody
+    @GetMapping("/test/{id}")
+    public Object testComment(@PathVariable(name = "id")Long id){
+
+        Comment comment = new Comment();
+        comment.setId(id);
+        comment.setParentId(1L);
+        comment.setType((byte) 1);
+        comment.setLikeCount(0L);
+        redisService.insertComment(comment);
+
+        return ResultDTO.okOf();
+    }
+
+    @ResponseBody
+    @GetMapping("/getComment")
+    public Object getComment(){
+
+        redisService.del();
+
+        return ResultDTO.okOf();
+    }
+
+
 
 }

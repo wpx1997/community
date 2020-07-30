@@ -57,7 +57,9 @@ public class CommentService {
      */
     public void insertComment(CommentCreateDTO commentCreateDTO, User commentator) {
 
+        Long commentId = cacheService.getCommentId();
         Comment comment = new Comment();
+        comment.setId(commentId);
         comment.setParentId(commentCreateDTO.getParentId());
         comment.setCommentator(commentator.getId());
         comment.setContent(commentCreateDTO.getContent());
@@ -94,9 +96,6 @@ public class CommentService {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
 
-            // 将comment的comment插入数据库
-            commentMapper.insert(comment);
-
             redisService.insertComment(comment);
 
             // 累计comment的commentCount
@@ -119,7 +118,7 @@ public class CommentService {
             }
 
             // 需要传入的comment的type与QUESTION匹配且存在
-            commentMapper.insert(comment);
+            redisService.insertComment(comment);
 
             // 累计评论数
             question.setCommentCount(1L);
@@ -238,5 +237,20 @@ public class CommentService {
      */
     public void commentCumulative(List<CommentCumulativeDTO> commentCumulativeList) {
         commentExpandMapper.cumulativeCommentCount(commentCumulativeList);
+    }
+
+    /**
+     *
+     * insertCommentList by 批量插入批量
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/31 1:29
+     * @param commentList
+     * @return: void
+     */
+    public void insertCommentList(List<Comment> commentList) {
+
+        commentExpandMapper.insertCommentList(commentList);
+
     }
 }

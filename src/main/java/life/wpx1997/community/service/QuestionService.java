@@ -37,10 +37,10 @@ public class QuestionService {
     private CommentService commentService;
 
     @Autowired
-    private CumulativeCache cumulativeCache;
+    private LikeService likeService;
 
     @Autowired
-    private LikeService likeService;
+    private CacheService cacheService;
 
     /**
      *
@@ -289,7 +289,7 @@ public class QuestionService {
      * @return: void
      */
     public void cumulativeView(Long id) {
-        cumulativeCache.cumulativeQuestionViewCount(id);
+        cacheService.cumulativeQuestionViewCount(id);
     }
 
     /**
@@ -458,7 +458,7 @@ public class QuestionService {
         questionMessageDTO.setCreatorAvatarUrl(user.getAvatarUrl());
 
         // 从缓存中读取未更新到数据库的累计数
-        QuestionCumulativeDTO questionCumulativeDTO = cumulativeCache.getQuestionCumulativeCacheById(question.getId());
+        QuestionCumulativeDTO questionCumulativeDTO = cacheService.getQuestionCumulativeCacheById(question.getId());
         if (questionCumulativeDTO != null){
             Long viewCount = questionMessageDTO.getViewCount();
             Long commentCount = questionMessageDTO.getCommentCount();
@@ -488,7 +488,7 @@ public class QuestionService {
      */
     private void setDeleteTypeComment(List<Comment> questionCommentList) {
 
-        Map<Long, CommentCumulativeDTO> commentCumulativeMap = cumulativeCache.getCommentCumulativeMap();
+        Map<Long, CommentCumulativeDTO> commentCumulativeMap = cacheService.getCommentCumulativeMap();
         Byte deleteType = 1;
         questionCommentList.stream().forEach(comment -> {
             if (deleteType.equals(comment.getIsDelete())){

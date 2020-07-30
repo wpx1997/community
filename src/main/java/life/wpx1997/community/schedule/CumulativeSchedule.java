@@ -36,7 +36,10 @@ public class CumulativeSchedule {
 
         log.info("cumulativeScheduled start {}", new Date());
 
+        // 从缓存中取出数据并清除缓存
         Map<Long, QuestionCumulativeDTO> questionCumulativeMap = cumulativeCache.getQuestionCumulativeMap();
+        cumulativeCache.clearCumulativeCache();
+
         if (questionCumulativeMap.isEmpty()){
             log.info("问题缓存无数据更新", new Date());
         }else {
@@ -51,8 +54,6 @@ public class CumulativeSchedule {
             List<CommentCumulativeDTO> commentCumulativeList = new ArrayList<>(commentCumulativeMap.values());
             commentService.commentCumulative(commentCumulativeList);
         }
-
-        cumulativeCache.clearCumulativeCache();
 
         log.info("cumulativeScheduled end {}", new Date());
     }

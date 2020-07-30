@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  */
 @Component
 @Slf4j
-public class HotTag {
+public class HotTagSchedule {
 
     @Autowired
     private QuestionService questionService;
@@ -28,7 +28,7 @@ public class HotTag {
     @Autowired
     private HotTagCache hotTagCache;
 
-    @Scheduled(cron = "0 1 0/2 * * ?")
+    @Scheduled(cron = "0 2 0/2 * * ?")
     public void hotTagSchedule() {
 
         log.info("hotTagSchedule start {}", new Date());

@@ -8,8 +8,11 @@ import life.wpx1997.community.model.Comment;
 import life.wpx1997.community.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -24,7 +27,7 @@ import java.util.stream.Collectors;
 public class RedisService {
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private StringRedisTemplate stringRedisTemplate;
 
     /**
      *
@@ -38,7 +41,7 @@ public class RedisService {
      */
     public void addQuestionListByIndexPage(PaginationDTO<QuestionShowDTO> paginationDTO, Integer page) {
 
-        redisTemplate.opsForValue().set("indexQuestionListByPage=" + page, JSON.toJSONString(paginationDTO),2, TimeUnit.HOURS);
+        stringRedisTemplate.opsForValue().set("indexQuestionListByPage=" + page, JSON.toJSONString(paginationDTO),2, TimeUnit.HOURS);
 
     }
 
@@ -53,7 +56,7 @@ public class RedisService {
      */
     public PaginationDTO<QuestionShowDTO> getIndexQuestionListByPage(Integer page) {
 
-        String questionListString = (String) redisTemplate.opsForValue().get("indexQuestionListByPage=" + page);
+        String questionListString = stringRedisTemplate.opsForValue().get("indexQuestionListByPage=" + page);
         PaginationDTO<QuestionShowDTO> paginationDTO = JSONArray.parseObject(questionListString,PaginationDTO.class);
 
         return paginationDTO;
@@ -69,12 +72,12 @@ public class RedisService {
      * @return: void
      */
     public void insertComment(Comment comment) {
-        redisTemplate.opsForValue().set("comment-parent=" + comment.getParentId() + "-type=" + comment.getType() + "-id=" + comment.getId(),JSON.toJSONString(comment),3,TimeUnit.HOURS);
+        stringRedisTemplate.opsForList().rightPush("comment-parent=" + comment.getParentId() + "-type=" + comment.getType(),JSON.toJSONString(comment));
     }
 
     /**
      *
-     * getCommentByParentId by 根据parentId和type获取批量列表
+     * getCommentByParentId by 根据parentId和type获取评论列表
      *
      * @author: 不会飞的小鹏
      * @date: 2020/7/29 23:44
@@ -84,14 +87,59 @@ public class RedisService {
      */
     public List<Comment> getCommentByParentId(Long id,Byte type){
 
-        Set<String> keySet = redisTemplate.keys("comment-parent=" + id + "-type=" + type + "*");
-        List<Comment> commentList = keySet.stream().map(key -> {
-            String commentString = (String) redisTemplate.opsForValue().get(key);
+        List<String> commentListString = stringRedisTemplate.opsForList().range("comment-parent=" + id + "-type=" + type, 0, -1);
+        List<Comment> commentList = stringToCommentList(commentListString);
+
+        return commentList;
+    }
+
+    /**
+     *
+     * getCommentList by 获取缓存中的所有评论并情况缓存
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/31 1:34
+     * @param
+     * @return: List<Comment>
+     */
+    public List<Comment> getCommentList(){
+
+        Set<String> ketSet = stringRedisTemplate.keys("comment-parent=*");
+        List<String> commentListString = new ArrayList<>();
+
+        ketSet.stream().forEach(key -> {
+            List<String> commentString = stringRedisTemplate.opsForList().range(key, 0, -1);
+            commentListString.addAll(commentString);
+        });
+
+        List<Comment> commentList = stringToCommentList(commentListString);
+        stringRedisTemplate.delete(ketSet);
+
+        return commentList;
+    }
+
+    /**
+     *
+     * stringToCommentList by 将JSON字符串列表转化为评论对象列表
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/31 1:35
+     * @param commentListString
+     * @return: List<Comment>
+     */
+    public List<Comment> stringToCommentList(List<String> commentListString){
+
+        List<Comment> commentList = commentListString.stream().map(commentString -> {
             Comment comment = JSONArray.parseObject(commentString, Comment.class);
             return comment;
         }).collect(Collectors.toList());
 
         return commentList;
+    }
+
+    public void del(){
+        Set<String> ketSet = stringRedisTemplate.keys("comment-parent=*");
+        stringRedisTemplate.delete(ketSet);
     }
 
 }

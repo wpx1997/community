@@ -42,4 +42,15 @@ public interface CommentExpandMapper {
      * @return: Comment
      */
     Comment selectCommentParentIdById(Long id);
+
+    /**
+     *
+     * insertCommentList by 批量插入评论
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/31 1:30
+     * @param commentList
+     * @return: int
+     */
+    int insertCommentList(List<Comment> commentList);
 }

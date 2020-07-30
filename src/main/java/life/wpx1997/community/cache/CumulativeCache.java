@@ -32,6 +32,13 @@ public class CumulativeCache {
     private Map<Long, CommentCumulativeDTO> commentCumulativeMap = new HashMap<>();
 
     /**
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/31 0:27
+     * @description: CumulativeCache's 最新评论id
+     */
+    private Long commentId;
+
+    /**
      *
      * cumulativeQuestionViewCount by 累计问题阅读数
      *
@@ -211,4 +218,30 @@ public class CumulativeCache {
         this.commentCumulativeMap.clear();
     }
 
+    /**
+     *
+     * getCommentId by 获取最新的评论id
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/31 0:28
+     * @param
+     * @return: Long
+     */
+    public Long getCommentId() {
+        this.commentId++;
+        return this.commentId;
+    }
+
+    /**
+     *
+     * setCommentId by 为评论id设值
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/31 0:29
+     * @param commentId
+     * @return: void
+     */
+    public void setCommentId(Long commentId) {
+        this.commentId = commentId;
+    }
 }

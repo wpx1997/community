@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  */
 @Component
 @Slf4j
-public class HotQuestion {
+public class HotQuestionSchedule {
 
     @Autowired
     private QuestionService questionService;
@@ -27,7 +27,7 @@ public class HotQuestion {
     @Autowired
     private HotQuestionCache hotQuestionCache;
 
-    @Scheduled(cron = "0 2 0/2 * * ?")
+    @Scheduled(cron = "0 3 0/2 * * ?")
     public void hotQuestionSchedule(){
 
         log.info("hotQuestionSchedule start {}", new Date());
