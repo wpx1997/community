@@ -1,19 +1,20 @@
 
 
 function question_comment() {
-    var questionId = $("#question-id").val();
+    var parentId = $("#question-id").val();
     var content = $("#question-comment").val();
-    commenttarget(questionId,1,content);
+    commentTarget(parentId,1,content);
 }
 
 function comment_comment(e) {
-    var commentId = $("#comment_id").val();
+    var parentId = $("#comment_id").val();
     var content = $("#comment_comment").val();
-    commenttarget(commentId,2,content);
+    commentTarget(parentId,2,content);
 }
 
-function commenttarget(targetId,type,content) {
+function commentTarget(parentId,type,content) {
 
+    var questionId = $("#question-id").val();
     if (!content){
         alert("不能回复空内容！")
         return;
@@ -24,9 +25,10 @@ function commenttarget(targetId,type,content) {
         url: "/comment",
         contentType:'application/json',
         data: JSON.stringify({
-            "parentId":targetId,
+            "parentId":parentId,
             "content":content,
-            "type":type
+            "type":type,
+            "questionId":questionId
         }),
         success: function (response) {
             if (response.code == 200){
@@ -151,14 +153,33 @@ function deleteQuestion(e) {
 
 }
 
-function deleteComment(e) {
-
+function deleteQuestionComment(e) {
     var id = e.id;
+    var type = 1;
+    var parentId = $("#question-id").val();
+    deleteComment(id,type,parentId);
+}
+
+function deleteCommentComment(e) {
+    var id = e.id;
+    var type = 2;
+    var parentId = e.parent;
+    deleteComment(id,type,parentId)
+}
+
+function deleteComment(id,type,parentId) {
+
+    var questionId = $("#question-id").val();
     $.ajax({
         type: "POST",
         url: "/comment/delete/",
         contentType:'application/json',
-        data: JSON.stringify(id),
+        data: JSON.stringify({
+            "id":id,
+            "type":type,
+            "parentId":parentId,
+            "questionId":questionId
+        }),
         success: function (response){
             if(response.code == 200){
                 window.location.reload();
@@ -270,5 +291,27 @@ function commentLike(e) {
             dataType: "json"
         })
     }
+}
+
+function postTest() {
+
+    $.ajax({
+        type: "POST",
+        url: "/comment",
+        contentType:'application/json',
+        data: JSON.stringify({
+            "a":1,
+            "bb":"null",
+            "cc":1
+        }),
+        success: function (response){
+            if(response.code == 200){
+                alert(response.message)
+            }else {
+                alert(response.message);
+            }
+        },
+        dataType: "json"
+    })
 
 }

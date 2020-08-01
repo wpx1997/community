@@ -29,8 +29,8 @@ public interface CommunityLikeExpandMapper {
      *
      * @author: 不会飞的小鹏
      * @date: 2020/7/28 0:52
-     * @param likeQueryDTO
+     * @param communityLike
      * @return: List<Long>
      */
-    List<CommunityLike> selectCommentLikeListByParentIdList(LikeQueryDTO likeQueryDTO);
+    List<CommunityLike> selectCommentLikeListByUserId(CommunityLike communityLike);
 }

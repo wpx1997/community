@@ -1,8 +1,9 @@
 package life.wpx1997.community.service;
 
 import life.wpx1997.community.cache.CumulativeCache;
-import life.wpx1997.community.dto.CommentCreateDTO;
-import life.wpx1997.community.dto.CommentCumulativeDTO;
+import life.wpx1997.community.constant.CumulativeConstant;
+import life.wpx1997.community.constant.TypeConstant;
+import life.wpx1997.community.dto.*;
 import life.wpx1997.community.enums.CommentTypeEnum;
 import life.wpx1997.community.enums.NotificationTypeEnum;
 import life.wpx1997.community.exception.CustomizeErrorCode;
@@ -13,6 +14,7 @@ import life.wpx1997.community.model.Comment;
 import life.wpx1997.community.model.CommentExample;
 import life.wpx1997.community.model.Question;
 import life.wpx1997.community.model.User;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,9 +39,6 @@ public class CommentService {
     @Autowired QuestionService questionService;
 
     @Autowired
-    private CumulativeCache cumulativeCache;
-
-    @Autowired
     private CacheService cacheService;
 
     @Autowired
@@ -47,87 +46,98 @@ public class CommentService {
 
     /**
      *
-     * insertComment by
+     * insertComment by 新增comment
      *
      * @author: 小case
      * @date: 2020/6/17 13:31
-     * @param commentCreateDTO
+     * @param commentDTO
      * @param commentator
      * @return: void
      */
-    public void insertComment(CommentCreateDTO commentCreateDTO, User commentator) {
+    public void insertComment(CommentDTO commentDTO, User commentator) {
+
+        Question question = questionService.selectQuestionTitleById(commentDTO.getQuestionId());
+
+        // 如果需要传入的comment的type与QUESTION匹配但问题不存在
+        if (question == null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
 
         Long commentId = cacheService.getCommentId();
         Comment comment = new Comment();
         comment.setId(commentId);
-        comment.setParentId(commentCreateDTO.getParentId());
+        comment.setParentId(commentDTO.getParentId());
         comment.setCommentator(commentator.getId());
-        comment.setContent(commentCreateDTO.getContent());
-        comment.setType(commentCreateDTO.getType());
+        comment.setContent(commentDTO.getContent());
+        comment.setType(commentDTO.getType());
         comment.setGmtCreate(System.currentTimeMillis());
         comment.setGmtModified(System.currentTimeMillis());
         comment.setLikeCount(0L);
         comment.setCommentCount(0L);
 
-        Long parentId = comment.getParentId();
-
-        // 如果回复的问题或评论的id为null或0
-        if (parentId == null || parentId == 0){
-            throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
-        }
-
-        // 如果需要传入的comment的type不存在或与所有的typeEnum不匹配
-        if (comment.getType() == null || !CommentTypeEnum.isExist(comment.getType())){
-            throw new CustomizeException(CustomizeErrorCode.TYPE_PARAM_WRONG);
-        }
-
         // 如果需要传入的comment的type与COMMENT匹配
-        if (comment.getType().equals(CommentTypeEnum.COMMENT.getType()) ){
-            Comment dbComment = commentExpandMapper.selectCommentParentIdById(parentId);
+        if (comment.getType().equals(TypeConstant.COMMENT_TYPE_COMMENT)){
 
-            // 如果回复的comment不存在
-            if (dbComment == null){
-                throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
-            }
-            Question question = questionService.selectQuestionTitleById(dbComment.getParentId());
+            updateQuestionInRedis(comment,commentDTO.getQuestionId(),commentator);
 
-            // 如果需要传入的comment的type与COMMENT匹配但comment所在的question不存在
-            if (question == null){
-                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
-            }
-
-            redisService.insertComment(comment);
+            // 将comment写入redis
+            addCommentToRedis(comment);
 
             // 累计comment的commentCount
+            Comment dbComment = new Comment();
+            dbComment.setId(comment.getParentId());
             dbComment.setCommentCount(1L);
             cumulativeCommentCount(dbComment);
 
             question.setCommentCount(1L);
-            cacheService.cumulativeCommentCount(question);
+            questionService.cumulativeCommentCount(question);
 
             // 创建通知
             notificationService.createNotify(comment, dbComment.getCommentator(),question.getTitle(), commentator.getName(),question.getId(), NotificationTypeEnum.REPLY_COMMENT);
         }
         // 如果需要传入的comment的type与QUESTION匹配
         else {
-            Question question = questionService.selectQuestionTitleById(comment.getParentId());
 
-            // 如果需要传入的comment的type与QUESTION匹配但问题不存在
-            if (question == null){
-                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
-            }
+            updateQuestionInRedis(comment,commentDTO.getQuestionId(),commentator);
 
             // 需要传入的comment的type与QUESTION匹配且存在
-            redisService.insertComment(comment);
+            addCommentToRedis(comment);
 
             // 累计评论数
             question.setCommentCount(1L);
-            cacheService.cumulativeCommentCount(question);
+            questionService.cumulativeCommentCount(question);
 
             // 创建通知.
             notificationService.createNotify(comment, question.getCreator(),question.getTitle(), commentator.getName(), question.getId(),NotificationTypeEnum.REPLY_QUESTION);
 
         }
+    }
+
+    /**
+     *
+     * updateQuestionInRedis by 更新redis中的question，将新增的comment添加进去
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/8/1 21:52
+     * @param comment
+     * @param questionId
+     * @param commentator
+     * @return: void
+     */
+    private void updateQuestionInRedis(Comment comment, Long questionId, User commentator) {
+        QuestionMessageDTO questionMessageDTO = questionService.selectQuestionMessageByRedis(questionId);
+        if (questionMessageDTO != null){
+            CommentMessageDTO commentMessageDTO = new CommentMessageDTO();
+            BeanUtils.copyProperties(comment,commentMessageDTO);
+            commentMessageDTO.setCreatorName(commentator.getName());
+            commentMessageDTO.setCreatorAvatarUrl(commentator.getAvatarUrl());
+            questionMessageDTO.getQuestionCommentList().add(commentMessageDTO);
+            questionService.addQuestionToRedis(questionMessageDTO);
+        }
+    }
+
+    private void addCommentToRedis(Comment comment) {
+        redisService.insertComment(comment);
     }
 
     /**
@@ -142,9 +152,13 @@ public class CommentService {
      */
     public List<Comment> selectCommentListByQuestionId(Long id,Byte type) {
 
+        // 从数据库中获取评论
         CommentExample commentExample = new CommentExample();
         commentExample.createCriteria().andParentIdEqualTo(id).andTypeEqualTo(type);
         List<Comment> commentList = commentMapper.selectByExample(commentExample);
+
+        // 从redis缓存中获取评论
+        commentList.addAll(redisService.getCommentByParentId(id,type));
 
         return commentList;
     }
@@ -161,16 +175,20 @@ public class CommentService {
      */
     public List<Comment> selectCommentListByCommentIdList(List<Long> commentIdList, Byte type) {
 
+        // 从数据库中获取二级评论
         CommentExample commentExample = new CommentExample();
-        commentExample.createCriteria().andParentIdIn(commentIdList).andTypeEqualTo(type).andIsDeleteEqualTo((byte) 0);
+        commentExample.createCriteria().andParentIdIn(commentIdList).andTypeEqualTo(type).andIsDeleteEqualTo(TypeConstant.IS_DELETE_NOT);
         List<Comment> commentList = commentMapper.selectByExample(commentExample);
+
+        // 从redis中获取二级评论
+        commentList.addAll(redisService.getCommentByParentIdList(commentIdList, type));
 
         return commentList;
     }
 
     /**
      *
-     * checkOneself by 检查是否是评论作者本人
+     * selectCommentUpdateModelById by 查询问题作者
      *
      * @author: 不会飞的小鹏
      * @date: 2020/7/23 11:37
@@ -190,27 +208,85 @@ public class CommentService {
      *
      * @author: 不会飞的小鹏
      * @date: 2020/7/24 1:10
-     * @param comment
+     * @param commentDTO
+     * @param userId
      * @return: void
      */
-    public void deleteCommentById(Comment comment) {
+    public Boolean deleteComment(CommentDTO commentDTO,Long userId) {
 
-        comment.setIsDelete((byte) 1);
-        commentMapper.updateByPrimaryKeySelective(comment);
-
-        // 删除的评论为二级评论
-        if (comment.getType().equals(CommentTypeEnum.COMMENT.getType())){
-            Comment dbComment = commentExpandMapper.selectCommentParentIdById(comment.getParentId());
-            dbComment.setCommentCount((long) -1);
-            cumulativeCommentCount(dbComment);
-            Question question = questionService.selectQuestionTitleById(dbComment.getParentId());
-            question.setCommentCount((long) -1);
-            cacheService.cumulativeCommentCount(question);
-        }else { // 删除的评论为一级评论
-            Question question = questionService.selectQuestionTitleById(comment.getParentId());
-            question.setCommentCount((long) -1);
-            cacheService.cumulativeCommentCount(question);
+        Question question = questionService.selectQuestionTitleById(commentDTO.getParentId());
+        if (question == null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
         }
+
+        // 从缓存中删除评论
+        Boolean delete = deleteCommentFromRedis(commentDTO.getId(),commentDTO.getParentId(),commentDTO.getType(),userId);
+        // 非评论作者本人操作
+        if (delete == null){
+            return null;
+        }else {
+            if (delete){
+                setQuestionWithCommentCount(question,commentDTO.getType(),commentDTO.getParentId());
+                return true;
+            }else {
+                Comment comment = selectCommentUpdateModelById(commentDTO.getId());
+                if (comment == null){
+                    return false;
+                }else {
+                    if (userId.equals(comment.getCommentator())){
+                        comment.setIsDelete(TypeConstant.IS_DELETE_YES);
+                        commentMapper.updateByPrimaryKeySelective(comment);
+                        setQuestionWithCommentCount(question,commentDTO.getType(),commentDTO.getParentId());
+                        return true;
+                    }else {
+                        return null;
+                    }
+                }
+            }
+        }
+
+    }
+
+    /**
+     *
+     * setQuestionWithCommentCount by 对问题和评论的回复数进行修改
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/8/2 1:14
+     * @param question
+     * @param type
+     * @param userId
+     * @return: void
+     */
+    public void setQuestionWithCommentCount(Question question,Byte type,Long userId){
+        question.setCommentCount(CumulativeConstant.CUMULATIVE_CUT);
+        questionService.cumulativeCommentCount(question);
+        if (TypeConstant.COMMENT_TYPE_COMMENT.equals(type)){
+            cumulativeCommentCount(userId);
+        }
+    }
+
+    public void cumulativeCommentCount(Long parentId){
+        Comment comment = new Comment();
+        comment.setId(parentId);
+        comment.setCommentCount(CumulativeConstant.CUMULATIVE_CUT);
+        cumulativeCommentCount(comment);
+    }
+
+    /**
+     *
+     * deleteCommentFromRedis by 从redis中删除评论
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/8/1 23:23
+     * @param id
+     * @param parentId
+     * @param type
+     * @return: Boolean
+     */
+    private Boolean deleteCommentFromRedis(Long id, Long parentId, Byte type,Long userId) {
+        Boolean delete = redisService.deleteCommentFromRedis(id,parentId,type,userId);
+        return delete;
     }
 
     /**
@@ -223,7 +299,7 @@ public class CommentService {
      * @return: void
      */
     public void cumulativeCommentCount(Comment comment){
-        cumulativeCache.cumulativeCommentCommentCount(comment.getId(),comment.getCommentCount());
+        cacheService.cumulativeCommentCommentCount(comment);
     }
 
     /**

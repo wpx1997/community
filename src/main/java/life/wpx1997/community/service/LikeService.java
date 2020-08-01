@@ -140,12 +140,12 @@ public class LikeService {
      *
      * @author: 不会飞的小鹏
      * @date: 2020/7/28 0:50
-     * @param likeQueryDTO
+     * @param communityLike
      * @return: List<CommunityLike>
      */
-    public List<Long> selectCommentLikeListByParentIdList(LikeQueryDTO likeQueryDTO) {
+    public List<Long> selectCommentLikeListByParentIdList(CommunityLike communityLike) {
 
-        List<CommunityLike> communityLikeList = communityLikeExpandMapper.selectCommentLikeListByParentIdList(likeQueryDTO);
+        List<CommunityLike> communityLikeList = communityLikeExpandMapper.selectCommentLikeListByUserId(communityLike);
         List<Long> parentIdList = communityLikeList.stream().map(CommunityLike::getParentId).collect(Collectors.toList());
 
         return parentIdList;

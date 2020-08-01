@@ -94,7 +94,7 @@
                                 <span class="glyphicon glyphicon-comment" th:data-id="${questionComment.id}" onclick="collapseComments(this)"></span>
                                 <span th:text="${questionComment.commentCount}"></span>
                             </span>
-                            <span class="glyphicon glyphicon-trash like-count" th:id="${questionComment.id}" th:if="${session.user != null && session.user.id == questionComment.getCommentator()}" onclick="deleteComment(this)"></span>
+                            <span class="glyphicon glyphicon-trash like-count" th:id="${questionComment.id}" th:if="${session.user != null && session.user.id == questionComment.getCommentator()}" onclick="deleteQuestionComment(this)"></span>
                             <span class="pull-right" th:text="${#dates.format(questionComment.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
                         </div>
                         <!--    二级评论    -->
@@ -109,7 +109,7 @@
                                         <div class="media-heading comment-body" th:id="${'comment-view-' + commentComment.id}" th:text="${commentComment.content}"></div>
                                         <div class="comment-menu">
                                             <span th:id="${commentComment.id}" th:like="${commentComment.isLike == true ? '1' : '2'}" th:class="${commentComment.isLike == null ? 'glyphicon glyphicon-thumbs-up like-count' : 'glyphicon glyphicon-thumbs-up like-count active'}" th:text="${commentComment.likeCount}" onclick="commentLike(this)"></span>
-                                            <span class="like-count" th:id="${commentComment.id}" style="font-size: 13px" th:if="${session.user != null && session.user.id == commentComment.commentator}" onclick="deleteComment(this)">删除</span>
+                                            <span class="like-count" th:parent="${questionComment.id}" th:id="${commentComment.id}" style="font-size: 13px" th:if="${session.user != null && session.user.id == commentComment.commentator}" onclick="deleteCommentComment(this)">删除</span>
                                             <span class="pull-right" th:text="${#dates.format(commentComment.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
                                         </div>
                                     </div>

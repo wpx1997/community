@@ -39,10 +39,6 @@
     select
     <include refid="Parent_Id_List" />
     from community_like
-    where parent_id in
-    <foreach collection="parentIdList" index="index" item="item" separator="," open="(" close=")">
-      #{item}
-    </foreach>
-    and user_id = #{userId} and type = 2 and is_delete = 0
+    where user_id = #{userId} and type = 2 and is_delete = 0
   </select>
 </mapper>

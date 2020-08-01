@@ -4,6 +4,9 @@ import life.wpx1997.community.exception.CustomizeErrorCode;
 import life.wpx1997.community.exception.CustomizeException;
 import lombok.Data;
 
+/**
+ * @author 不会飞的小鹏
+ */
 @Data
 public class ResultDTO<T> {
     private Integer code;

@@ -22,15 +22,6 @@ public enum CommentTypeEnum {
 
     private Byte type;
 
-    public static boolean isExist(Byte type) {
-        for (CommentTypeEnum commentTypeEnum : CommentTypeEnum.values()){
-            if (commentTypeEnum.getType().equals(type)){
-                return true;
-            }
-        }
-        return false;
-    }
-
     public Byte getType() {
         return type;
     }

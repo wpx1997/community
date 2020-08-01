@@ -40,7 +40,7 @@ public class QuestionController {
         }
 
         // 根据页面传递的id查询问题的内容
-        QuestionMessageDTO thisQuestion = questionService.selectQuestionByQuestionId(id,userId);
+        QuestionMessageDTO thisQuestion = questionService.selectQuestion(id,userId);
 
         if (thisQuestion == null){
 
