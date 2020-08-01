@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author 小case
@@ -188,22 +189,6 @@ public class CommentService {
 
     /**
      *
-     * selectCommentUpdateModelById by 查询问题作者
-     *
-     * @author: 不会飞的小鹏
-     * @date: 2020/7/23 11:37
-     * @param id
-     * @return: Boolean
-     */
-    public Comment selectCommentUpdateModelById(Long id) {
-
-        Comment comment = commentExpandMapper.selectCommentUpdateModelById(id);
-
-        return comment;
-    }
-
-    /**
-     *
      * deleteCommentById by 将评论状态变更为删除状态
      *
      * @author: 不会飞的小鹏
@@ -227,6 +212,7 @@ public class CommentService {
         }else {
             if (delete){
                 setQuestionWithCommentCount(question,commentDTO.getType(),commentDTO.getParentId());
+                updateQuestionDeleteCommentInRedis(commentDTO.getId(),question.getId());
                 return true;
             }else {
                 Comment comment = selectCommentUpdateModelById(commentDTO.getId());
@@ -245,6 +231,35 @@ public class CommentService {
             }
         }
 
+    }
+
+    /**
+     *
+     * updateQuestionDeleteCommentInRedis by 在redis中将评论所在的问题进行修改
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/8/2 1:27
+     * @param commentId
+     * @param questionId
+     * @return: void
+     */
+    private void updateQuestionDeleteCommentInRedis(Long commentId, Long questionId) {
+        QuestionMessageDTO questionMessageDTO = questionService.selectQuestionMessageByRedis(questionId);
+        if (questionMessageDTO != null){
+            List<CommentMessageDTO> questionCommentList = questionMessageDTO.getQuestionCommentList();
+            if (questionCommentList != null){
+                Optional<CommentMessageDTO> comment = questionCommentList.stream().filter(commentMessageDTO -> commentMessageDTO.getId().equals(commentId)).findAny();
+                if (comment.isPresent()){
+                    CommentMessageDTO commentMessageDTO = comment.get();
+                    if (commentMessageDTO.getType().equals(TypeConstant.COMMENT_TYPE_QUESTION)){
+                        commentMessageDTO.setContent("该评论已删除");
+                    }else {
+                        questionCommentList.remove(commentMessageDTO);
+                    }
+                }
+            }
+            questionService.addQuestionToRedis(questionMessageDTO);
+        }
     }
 
     /**
@@ -300,6 +315,22 @@ public class CommentService {
      */
     public void cumulativeCommentCount(Comment comment){
         cacheService.cumulativeCommentCommentCount(comment);
+    }
+
+    /**
+     *
+     * selectCommentUpdateModelById by 查询问题作者
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/7/23 11:37
+     * @param id
+     * @return: Boolean
+     */
+    public Comment selectCommentUpdateModelById(Long id) {
+
+        Comment comment = commentExpandMapper.selectCommentUpdateModelById(id);
+
+        return comment;
     }
 
     /**
