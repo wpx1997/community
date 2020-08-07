@@ -44,6 +44,40 @@ public class QuestionService {
 
     /**
      *
+     * updateHotQuestionToRedis by 将热榜问题信息更新到redis中
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/8/7 13:04
+     * @param idList
+     * @return: void
+     */
+    public void updateHotQuestionToRedis(List<Long> idList) {
+        idList.stream().forEach(id -> {
+            QuestionMessageDTO questionMessageDTO = selectQuestionByRedis(id);
+            addQuestionToRedis(questionMessageDTO);
+        });
+    }
+
+    /**
+     *
+     * updateHotTagToRedis by 将热榜标签信息更新到redis
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/8/7 13:36
+     * @param hotTagDTOList
+     * @return: void
+     */
+    public void updateHotTagToRedis(List<HotTagDTO> hotTagDTOList) {
+        Integer page = 1;
+        List<String> tagList = hotTagDTOList.stream().map(HotTagDTO::getName).collect(Collectors.toList());
+        tagList.stream().forEach(tag -> {
+            PaginationDTO<QuestionShowDTO> paginationDTO = selectQuestionListByTag(tag, page);
+            redisService.addPaginationByTagWithPage(paginationDTO,tag,page);
+        });
+    }
+
+    /**
+     *
      * selectIndexQuestionList by
      *
      * @author: 不会飞的小鹏
@@ -152,26 +186,30 @@ public class QuestionService {
      */
     public PaginationDTO<QuestionShowDTO> selectQuestionListByTag(String tag, Integer page) {
 
-        PaginationDTO<QuestionShowDTO> paginationDTO = new PaginationDTO();
+        PaginationDTO<QuestionShowDTO> paginationDTO = redisService.getPaginationByTagWithPage(tag,page);
+        if (paginationDTO == null){
+            paginationDTO = new PaginationDTO();
+            String regexpTag = Arrays.stream(tag.split("，")).collect(Collectors.joining("|"));
+            QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+            questionQueryDTO.setSearch(regexpTag);
+            Integer totalCount = questionExpandMapper.countByTag(questionQueryDTO);
 
-        String regexpTag = Arrays.stream(tag.split("，")).collect(Collectors.joining("|"));
-        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
-        questionQueryDTO.setSearch(regexpTag);
-        Integer totalCount = questionExpandMapper.countByTag(questionQueryDTO);
+            // 没有符合条件的问题
+            if (totalCount == 0){
+                return paginationDTO;
+            }
 
-        // 没有符合条件的问题
-        if (totalCount == 0){
-            return paginationDTO;
+            Integer offset = paginationDTO.setPagination(totalCount,page);
+
+            questionQueryDTO.setOffset(offset);
+
+            List<Question> questionList = questionExpandMapper.selectByTagWithPage(questionQueryDTO);
+
+            List<QuestionShowDTO> questionShowDTOList = questionSetCreatorName(questionList);
+            paginationDTO.setData(questionShowDTOList);
+
+            redisService.addPaginationByTagWithPage(paginationDTO,tag,page);
         }
-
-        Integer offset = paginationDTO.setPagination(totalCount,page);
-
-        questionQueryDTO.setOffset(offset);
-
-        List<Question> questionList = questionExpandMapper.selectByTagWithPage(questionQueryDTO);
-
-        List<QuestionShowDTO> questionShowDTOList = questionSetCreatorName(questionList);
-        paginationDTO.setData(questionShowDTOList);
 
         return paginationDTO;
     }
@@ -186,9 +224,11 @@ public class QuestionService {
      */
     public List<QuestionShowDTO> questionSetCreatorName(List<Question> questionList) {
 
-        // 获取去重的评论人
+        // 获取去重的评论人id
         Set<Long> creatorSet = questionList.stream().map(Question::getCreator).collect(Collectors.toSet());
+        // 从数据库中获取去重的评论人信息
         List<User> userList = userService.selectUserMessageListByCreatorSet(creatorSet);
+        // 将评论人信息转化为map
         Map<Long, User> userMap = userList.stream().collect(Collectors.toMap(user -> user.getId(), user -> user));
         List<QuestionShowDTO> questionShowDTOList = questionList.stream().map(question -> {
             QuestionShowDTO questionShowDTO = new QuestionShowDTO();
@@ -476,7 +516,7 @@ public class QuestionService {
         List<Long> commentIdList = questionCommentList.stream().map(Comment::getId).collect(Collectors.toList());
 
         // 获取此问题评论的回复（二级评论）
-        List<Comment> commentCommentList = commentService.selectCommentListByCommentIdList(commentIdList,CommentTypeEnum.COMMENT.getType());
+        List<Comment> commentCommentList = commentService.selectCommentListByCommentIdList(commentIdList,TypeConstant.COMMENT_TYPE_COMMENT);
 
         // 合并一级评论和二级
         questionCommentList.addAll(commentCommentList);
@@ -675,15 +715,12 @@ public class QuestionService {
     public Boolean checkOneself(Long id, Long userId) {
 
         Question question = questionExpandMapper.selectQuestionCreatorModelById(id);
-
         if (question == null){
             return null;
         }
-
         if (userId.equals(question.getCreator())){
             return true;
         }
-
         return false;
     }
 

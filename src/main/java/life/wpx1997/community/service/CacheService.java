@@ -1,13 +1,18 @@
 package life.wpx1997.community.service;
 
 import life.wpx1997.community.cache.CumulativeCache;
+import life.wpx1997.community.cache.HotQuestionCache;
+import life.wpx1997.community.cache.HotTagCache;
 import life.wpx1997.community.dto.CommentCumulativeDTO;
+import life.wpx1997.community.dto.HotTagDTO;
 import life.wpx1997.community.dto.QuestionCumulativeDTO;
+import life.wpx1997.community.dto.QuestionShowDTO;
 import life.wpx1997.community.model.Comment;
 import life.wpx1997.community.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,6 +25,40 @@ public class CacheService {
 
     @Autowired
     private CumulativeCache cumulativeCache;
+
+    @Autowired
+    private HotQuestionCache hotQuestionCache;
+
+    @Autowired
+    private HotTagCache hotTagCache;
+
+    /**
+     *
+     * getHotQuestion by 获取问题热榜
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/8/7 12:45
+     * @param
+     * @return: List<QuestionShowDTO>
+     */
+    public List<QuestionShowDTO> getHotQuestion(){
+        List<QuestionShowDTO> hotQuestionList = hotQuestionCache.getHotQuestionList();
+        return hotQuestionList;
+    }
+
+    /**
+     *
+     * getHotTag by 获取标签热榜
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/8/7 12:49
+     * @param
+     * @return: List<HotTagDTO>
+     */
+    public List<HotTagDTO> getHotTag(){
+        List<HotTagDTO> hotTagDTOList = hotTagCache.getHotTagDTOList();
+        return hotTagDTOList;
+    }
 
     /**
      *

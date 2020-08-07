@@ -1,13 +1,11 @@
 package life.wpx1997.community.controller;
 
-import life.wpx1997.community.cache.HotQuestionCache;
-import life.wpx1997.community.cache.HotTagCache;
 import life.wpx1997.community.dto.HotTagDTO;
 import life.wpx1997.community.dto.MessageTagDTO;
 import life.wpx1997.community.dto.PaginationDTO;
 import life.wpx1997.community.dto.QuestionShowDTO;
-import life.wpx1997.community.mapper.QuestionMapper;
 import life.wpx1997.community.model.User;
+import life.wpx1997.community.service.CacheService;
 import life.wpx1997.community.service.QuestionService;
 import life.wpx1997.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 /**
@@ -35,10 +32,7 @@ public class UserMessageController {
     private UserService userService;
 
     @Autowired
-    private HotQuestionCache hotQuestionCache;
-
-    @Autowired
-    private HotTagCache hotTagCache;
+    private CacheService cacheService;
 
     @GetMapping("/message/user/{id}")
     public String userMessage(@PathVariable(name = "id")Long id,
@@ -75,13 +69,13 @@ public class UserMessageController {
         PaginationDTO<QuestionShowDTO> paginationDTO = questionService.selectQuestionListByUserIdWithPage(id, page);
         if (paginationDTO == null){
             model.addAttribute("tips","该作者未有创作");
-            List<QuestionShowDTO> hotQuestionList = hotQuestionCache.getHotQuestionList();
+            List<QuestionShowDTO> hotQuestionList = cacheService.getHotQuestion();
             model.addAttribute("hotQuestionList",hotQuestionList);
         }else {
             model.addAttribute("tips",null);
             model.addAttribute("searchPagination",paginationDTO);
         }
-        List<HotTagDTO> hotTagList = hotTagCache.getHotTagDTOList();
+        List<HotTagDTO> hotTagList = cacheService.getHotTag();
         model.addAttribute("hotTagList",hotTagList);
         model.addAttribute("message","questions");
         model.addAttribute("id",id);

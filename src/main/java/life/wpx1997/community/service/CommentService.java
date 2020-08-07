@@ -210,21 +210,28 @@ public class CommentService {
         if (delete == null){
             return null;
         }else {
+            // 尝试从缓存中成功删除评论
             if (delete){
+                // 对该评论的所在问题和父评论的回复数进行更新
                 setQuestionWithCommentCount(question,commentDTO.getType(),commentDTO.getParentId());
+                // 尝试从redis中对本评论所在问题进行更新
                 updateQuestionDeleteCommentInRedis(commentDTO.getId(),question.getId());
                 return true;
-            }else {
+            }else { // 缓存中不存在该评论，尝试从数据库中删除
                 Comment comment = selectCommentUpdateModelById(commentDTO.getId());
+                // 数据库中已不存在该评论，
                 if (comment == null){
                     return false;
-                }else {
+                }else { //数据库中存在，尝试删除
                     if (userId.equals(comment.getCommentator())){
                         comment.setIsDelete(TypeConstant.IS_DELETE_YES);
                         commentMapper.updateByPrimaryKeySelective(comment);
+                        // 对该评论的所在问题和父评论的回复数进行更新
                         setQuestionWithCommentCount(question,commentDTO.getType(),commentDTO.getParentId());
+                        // 尝试从redis中对本评论所在问题进行更新
+                        updateQuestionDeleteCommentInRedis(commentDTO.getId(),question.getId());
                         return true;
-                    }else {
+                    }else { // 非评论作者本人
                         return null;
                     }
                 }
@@ -244,16 +251,22 @@ public class CommentService {
      * @return: void
      */
     private void updateQuestionDeleteCommentInRedis(Long commentId, Long questionId) {
+
+        // 从redis中获取评论所在问题
         QuestionMessageDTO questionMessageDTO = questionService.selectQuestionMessageByRedis(questionId);
+        // redis中存在该问题
         if (questionMessageDTO != null){
             List<CommentMessageDTO> questionCommentList = questionMessageDTO.getQuestionCommentList();
+            // 该问题下评论列表不为空
             if (questionCommentList != null){
                 Optional<CommentMessageDTO> comment = questionCommentList.stream().filter(commentMessageDTO -> commentMessageDTO.getId().equals(commentId)).findAny();
+                // 目标评论存在
                 if (comment.isPresent()){
                     CommentMessageDTO commentMessageDTO = comment.get();
+                    // 一级评论
                     if (commentMessageDTO.getType().equals(TypeConstant.COMMENT_TYPE_QUESTION)){
                         commentMessageDTO.setContent("该评论已删除");
-                    }else {
+                    }else { // 二级评论
                         questionCommentList.remove(commentMessageDTO);
                     }
                 }
@@ -274,13 +287,28 @@ public class CommentService {
      * @return: void
      */
     public void setQuestionWithCommentCount(Question question,Byte type,Long userId){
+
+        // 评论的问题回复数进行修改
         question.setCommentCount(CumulativeConstant.CUMULATIVE_CUT);
         questionService.cumulativeCommentCount(question);
+
+        // 当前评论为二级评论
         if (TypeConstant.COMMENT_TYPE_COMMENT.equals(type)){
+            // 评论的上级评论回复数进行修改
             cumulativeCommentCount(userId);
         }
+
     }
 
+    /**
+     *
+     * cumulativeCommentCount by 对二级评论的父评论的评论数进行修改
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/8/2 1:41
+     * @param parentId
+     * @return: void
+     */
     public void cumulativeCommentCount(Long parentId){
         Comment comment = new Comment();
         comment.setId(parentId);

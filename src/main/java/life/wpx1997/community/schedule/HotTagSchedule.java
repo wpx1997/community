@@ -2,6 +2,7 @@ package life.wpx1997.community.schedule;
 
 import com.sun.xml.internal.fastinfoset.util.StringArray;
 import life.wpx1997.community.cache.HotTagCache;
+import life.wpx1997.community.dto.HotTagDTO;
 import life.wpx1997.community.model.Question;
 import life.wpx1997.community.model.QuestionExample;
 import life.wpx1997.community.service.QuestionService;
@@ -34,8 +35,8 @@ public class HotTagSchedule {
         log.info("hotTagSchedule start {}", new Date());
         List<Question> questionList = questionService.selectAllQuestionTagList();
 
-        Map<String,Long> priorities = new HashMap<>();
-        questionList.stream().forEach(question -> {
+        Map<String,Long> priorities = new HashMap<>(128);
+        questionList.stream().forEach(question ->
             Arrays.stream(question.getTag().split("，")).forEach(tag -> {
                 Long exponent = (question.getCommentCount() * 20) + (question.getLikeCount() * 10) + question.getViewCount();
                 Long priority = priorities.get(tag);
@@ -44,10 +45,11 @@ public class HotTagSchedule {
                 }else {
                     priorities.put(tag,priority + exponent);
                 }
-            });
-        });
+            }));
 
-        hotTagCache.updateTagList(priorities);
+        List<HotTagDTO> hotTagDTOList = hotTagCache.updateTagList(priorities);
+        questionService.updateHotTagToRedis(hotTagDTOList);
+
         log.info("hotTagSchedule stop {}", new Date());
     }
 

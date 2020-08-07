@@ -34,6 +34,37 @@ public class RedisService {
 
     /**
      *
+     * addPaginationByTagWithPage by 新增标签相关问题列表
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/8/7 13:44
+     * @param paginationDTO
+     * @param tag
+     * @param page
+     * @return: void
+     */
+    public void addPaginationByTagWithPage(PaginationDTO<QuestionShowDTO> paginationDTO, String tag, Integer page) {
+        stringRedisTemplate.opsForValue().set("paginationByTag=" + tag + "page=" + page,JSON.toJSONString(paginationDTO),2,TimeUnit.HOURS);
+    }
+
+    /**
+     *
+     * getPaginationByTagWithPage by 根据标签和页码获取相关问题列表
+     *
+     * @author: 不会飞的小鹏
+     * @date: 2020/8/7 13:47
+     * @param tag
+     * @param page
+     * @return: PaginationDTO<QuestionShowDTO>
+     */
+    public PaginationDTO<QuestionShowDTO> getPaginationByTagWithPage(String tag, Integer page) {
+        String paginationString = stringRedisTemplate.opsForValue().get("paginationByTag=" + tag + "page=" + page);
+        PaginationDTO<QuestionShowDTO> paginationDTO = JSONArray.parseObject(paginationString,PaginationDTO.class);
+        return paginationDTO;
+    }
+
+    /**
+     *
      * addQuestionListByIndexPage by 将分页处理的问题列表存入redis
      *
      * @author: 不会飞的小鹏

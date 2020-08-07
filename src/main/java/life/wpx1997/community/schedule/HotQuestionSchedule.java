@@ -31,15 +31,20 @@ public class HotQuestionSchedule {
     public void hotQuestionSchedule(){
 
         log.info("hotQuestionSchedule start {}", new Date());
+        // 从数据中获取所有问题（有待改进）
         List<Question> questionList = questionService.selectAllQuestionShowModelList();
+        // 根据权重获取热度最高的十条问题
         List<Question> hotQuestionList = questionList.stream()
                 .sorted(Comparator.comparingLong((Question question) -> {
                     Long exponent =  (question.getCommentCount() * 20) + (question.getLikeCount() * 10) + question.getViewCount();
                     return exponent;
-                }).reversed())
-                .limit(10).collect(Collectors.toList());
+                }).reversed()).limit(10).collect(Collectors.toList());
 
         List<QuestionShowDTO> questionShowDTOList = questionService.questionSetCreatorName(hotQuestionList);
+        // 获取热榜问题id
+        List<Long> idList = hotQuestionList.stream().map(Question::getId).collect(Collectors.toList());
+        // 将热榜问题更新到redis
+        questionService.updateHotQuestionToRedis(idList);
 
         hotQuestionCache.updateHotQuestionList(questionShowDTOList);
         log.info("hotQuestionSchedule stop {}", new Date());

@@ -5,14 +5,8 @@ import life.wpx1997.community.cache.HotTagCache;
 import life.wpx1997.community.dto.HotTagDTO;
 import life.wpx1997.community.dto.PaginationDTO;
 import life.wpx1997.community.dto.QuestionShowDTO;
-import life.wpx1997.community.dto.ResultDTO;
-import life.wpx1997.community.mapper.CommentMapper;
-import life.wpx1997.community.model.Comment;
-import life.wpx1997.community.model.CommentExample;
-import life.wpx1997.community.model.User;
-import life.wpx1997.community.service.CommentService;
+import life.wpx1997.community.service.CacheService;
 import life.wpx1997.community.service.QuestionService;
-import life.wpx1997.community.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,18 +27,12 @@ public class IndexController {
     private HotTagCache hotTagCache;
 
     @Autowired
-    private HotQuestionCache hotQuestionCache;
-
-    @Autowired
-    private CommentService commentService;
-
-    @Autowired
-    private CommentMapper commentMapper;
+    private CacheService cacheService;
 
     @GetMapping("/")
     public String index(Model model){
 
-        List<QuestionShowDTO> hotQuestionList = hotQuestionCache.getHotQuestionList();
+        List<QuestionShowDTO> hotQuestionList = cacheService.getHotQuestion();
         List<HotTagDTO> hotTagList = hotTagCache.getHotTagDTOList();
         model.addAttribute("hotQuestionList",hotQuestionList);
         model.addAttribute("hotTagList",hotTagList);
@@ -60,7 +48,7 @@ public class IndexController {
         PaginationDTO<QuestionShowDTO> paginationDTO = questionService.selectQuestionListBySearchWithPage(search,page);
         if (paginationDTO == null){
             model.addAttribute("tips","搜索内容不存在");
-            List<QuestionShowDTO> hotQuestionList = hotQuestionCache.getHotQuestionList();
+            List<QuestionShowDTO> hotQuestionList = cacheService.getHotQuestion();
             model.addAttribute("hotQuestionList",hotQuestionList);
         }else {
             model.addAttribute("tips",null);
